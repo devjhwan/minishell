@@ -6,19 +6,21 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:59:17 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:10:34 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:16:14 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TREE_H
 # define TREE_H
 
+# include <stdlib.h>
+
 typedef struct s_tree_node
 {
-	void			*content;
-	struct s_node	*left;
-	struct s_node	*right;
-	int				len;
+	void				*content;
+	struct s_tree_node	*left;
+	struct s_tree_node	*right;
+	int					len;
 }	t_tree_node;
 
 typedef struct s_tree

@@ -6,17 +6,19 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:28:01 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:13:13 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:16:19 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIST_H
 # define LIST_H
 
-typedef struct t_list_node
+# include <stdlib.h>
+
+typedef struct s_list_node
 {
-	void			*content;
-	struct s_node	*next;
+	void				*content;
+	struct s_list_node	*next;
 }	t_list_node;
 
 typedef struct s_list
