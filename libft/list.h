@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:28:01 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:03:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:13:13 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ typedef struct s_list
 {
 	t_list_node	*header;
 	t_list_node	*last;
-	int		size;
+	int			size;
 }	t_list;
 
-t_list	*list_init(void);
-void	list_clear(t_list *list, void (*del_func)(void *));
+t_list		*list_init(void);
+void		list_clear(t_list *list, void (*del_func)(void *));
 t_list_node	*list_append(t_list *list, void *content);
-void	*list_pop(t_list *list);
+void		*list_pop(t_list *list);
 
 #endif

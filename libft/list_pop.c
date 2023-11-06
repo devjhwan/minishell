@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:37:31 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:02:57 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/06 23:12:19 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*list_pop(t_list *list)
 {
 	t_list_node	*del_node;
-	void	*content;
+	void		*content;
 
 	if (list->size == 0)
 		return (NULL);
