@@ -6,18 +6,17 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 19:45:30 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:21:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <signal.h>
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <unistd.h>
+#include "libft.h"
 
 void	handler(int signum)
 {
@@ -40,7 +39,7 @@ int	main(void)
 		str = readline("prompt: ");
 		if (str == NULL)
 			break;
-		if (strcmp(str, "exit") == 0)
+		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
 		free(str);

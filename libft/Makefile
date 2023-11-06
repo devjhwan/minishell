@@ -6,44 +6,37 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/06 20:22:07 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/06 20:03:36 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=minishell
+NAME=libft.a
 
 SRCDIR=.
 OBJDIR=objs
-SRCS=main.c
+SRCS=ft_strncmp.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
-INCLUDE=-I. -I./libft
+INCLUDE=-I.
 CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
-LIBFT=libft/libft.a
 
 all: $(OBJDIR) $(NAME)
 
-$(NAME): libft $(OBJS) Makefile
-	$(CC) $(CFLAGS) $(EXTRAFLAGS) -o $@ $(OBJS) $(LIBFT) \
-	-lreadline $(shell echo $$LDFLAGS)
+$(NAME): $(OBJS) Makefile
+	ar -rcs $@ $(OBJS) 
 	echo "(MINISHELL)COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile 
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< \
-		$(shell echo $$CPPFLAGS)
+	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $<
 	echo "(MINISHELL)COMPILING $@"
 
 $(OBJDIR): Makefile
 	mkdir -p $@
 
-libft:
-	make -C libft
-
 clean:
-	make -C libft fclean
 	rm -rf $(OBJDIR)
 
 fclean: clean
@@ -53,5 +46,5 @@ re: fclean all
 
 -include $(DEPS)
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
 .SILENT:
