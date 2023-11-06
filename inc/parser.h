@@ -1,21 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:58:05 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef PARSER_H
+# define PARSER_H
 
-# include "list.h"
 # include <stdlib.h>
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+typedef struct s_token
+{
+	void	*content;
+}	t_token;
+
+typedef struct s_tree
+{
+	void	*content;
+}	t_tree;
+
+typedef struct s_command
+{
+	void	*content;
+}	t_command;
+
+t_token		*create_token(void *content);
+t_command	*create_command(void *content);
+
+void		free_token(void *token);
+void		free_command(void *command);
 
 #endif

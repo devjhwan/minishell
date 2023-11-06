@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:03:58 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:58:30 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "parser.h"
+#include <stdlib.h>
 
-# include "list.h"
-# include <stdlib.h>
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+t_tree	*expander(t_tree *parse_tree)
+{
+	if (parse_tree == NULL)
+		return (NULL);
+	return (parse_tree);
+}

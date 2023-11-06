@@ -3,13 +3,13 @@
 # Check if Homebrew is installed
 if ! command -v brew &> /dev/null; then
     # Create the directory if it doesn't exist
-    mkdir -p ~/goinfre/homebrew
+    mkdir -p ~/homebrew
 
     # Install Homebrew in the target directory
-    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/goinfre/homebrew
+    curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C ~/homebrew
 
     # Add Homebrew to the PATH
-    export PATH=~/goinfre/homebrew/bin:$PATH
+    export PATH=~/homebrew/bin:$PATH
 
     echo "Homebrew has been installed and added to the PATH."
 else
@@ -18,7 +18,7 @@ fi
 
 brew install readline
 
-export LDFLAGS="-L/goinfre/$USER/homebrew/opt/readline/lib"
-export CPPFLAGS="-I/goinfre/$USER/homebrew/opt/readline/include"
+export LDFLAGS="-L$HOME/homebrew/opt/readline/lib"
+export CPPFLAGS="-I$HOME/homebrew/opt/readline/include"
 
 echo "Readline has been installed."

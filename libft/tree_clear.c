@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   tree_clear.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 23:06:34 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 23:09:44 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "tree.h"
 
-# include "list.h"
-# include <stdlib.h>
+static void	free_node(t_tree_node *node, void (*del_func)(void *))
+{
+	if (node->left != NULL)
+		free_node(node->left, del_func);
+	if (node->right != NULL)
+		free_node(node->right, del_func);
+	if (del_func != NULL)
+		del_func(node->content);
+	free(node);
+}
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+void	tree_clear(t_tree *tree, void (*del_func)(void *))
+{
+	free_node(tree->root, del_func);
+	free(tree);
+}

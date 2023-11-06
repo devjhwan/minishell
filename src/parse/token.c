@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:56:24 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:56:50 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "parser.h"
+#include <stdlib.h>
 
-# include "list.h"
-# include <stdlib.h>
+t_token	*create_token(void *content)
+{
+	t_token	*new_token;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+	new_token = (t_token *)malloc(sizeof(t_token));
+	if (new_token == NULL)
+		return (NULL);
+	new_token->content = content;
+	return (new_token);
+}
 
-#endif
+void	free_token(void	*token)
+{
+	t_token	*del_token;
+
+	del_token = (t_token *)token;
+	free(del_token);
+}

@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   init_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:27:03 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:41:02 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "list.h"
+#include <stdlib.h>
 
-# include "list.h"
-# include <stdlib.h>
+t_list	*list_init(void)
+{
+	t_list	*list;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+	list = (t_list *)malloc(sizeof(t_list));
+	if (list == NULL)
+		return (NULL);
+	list->head = NULL;
+	list->last = NULL;
+	list->size = 0;
+	return (list);
+}

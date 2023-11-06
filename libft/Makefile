@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/06 20:03:36 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/06 22:44:25 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME=libft.a
 
 SRCDIR=.
 OBJDIR=objs
-SRCS=ft_strncmp.c
+SRCS=ft_strncmp.c list_init.c list_clear.c list_append.c list_pop.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 

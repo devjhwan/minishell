@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   list_pop.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:37:31 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 23:02:57 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "list.h"
 
-# include "list.h"
-# include <stdlib.h>
+void	*list_pop(t_list *list)
+{
+	t_list_node	*del_node;
+	void	*content;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+	if (list->size == 0)
+		return (NULL);
+	del_node = list->header;
+	list->header = list->header->next;
+	content = del_node->content;
+	free(del_node);
+	list->size--;
+	if (list->size == 0)
+	{
+		list->header == NULL;
+		list->last == NULL;
+	}
+	return (content);
+}

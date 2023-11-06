@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   tree.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:59:17 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 23:10:34 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#ifndef TREE_H
+# define TREE_H
 
-# include "list.h"
-# include <stdlib.h>
+typedef struct s_tree_node
+{
+	void			*content;
+	struct s_node	*left;
+	struct s_node	*right;
+	int				len;
+}	t_tree_node;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
+typedef struct s_tree
+{
+	t_tree_node	*root;
+	int			size;
+}	t_tree;
+
+t_tree	*tree_init(void);
+void	tree_clear(t_tree *tree, void (*del_func)(void *));
 
 #endif

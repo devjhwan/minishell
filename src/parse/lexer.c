@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:58:27 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "parser.h"
+#include "list.h"
 
-# include "list.h"
-# include <stdlib.h>
-
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+t_list	*lexer(char *line)
+{
+	t_list	*token_list;
+	
+	if (line == NULL)
+		return (NULL);
+	token_list = list_init();
+	if (token_list == NULL)
+		return (NULL);
+	(void)line;
+	return (token_list);
+}

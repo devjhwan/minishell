@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/06 21:19:56 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/06 21:56:06 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,13 @@ CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-LDFLAGS=-L/goinfre/${USER}/homebrew/opt/readline/lib
-CPPFLAGS=-I/goinfre/${USER}/homebrew/opt/readline/include
+LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
-all: $(OBJDIR) $(NAME)
+all: $(OBJDIR) libft $(NAME)
 
-$(NAME): libft $(OBJS) Makefile
-	$(CC) $(CFLAGS) $(EXTRAFLAGS) -o $@ $(OBJS) $(LIBFT) \
+$(NAME): $(OBJS) Makefile
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) \
 	-lreadline $(LDFLAGS)
 	echo "(MINISHELL)COMPILING $@"
 

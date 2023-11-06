@@ -1,21 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   tree_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 23:04:56 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 23:06:09 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "tree.h"
+#include <stdlib.h>
 
-# include "list.h"
-# include <stdlib.h>
+t_tree	*tree_init(void)
+{
+	t_tree	*tree;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+	tree = (t_tree)malloc(sizeof(t_tree));
+	if (tree == NULL)
+		return (NULL);
+	tree->root = NULL;
+	tree->size = 0;
+	return (tree);
+}

@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 22:28:38 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/06 22:58:42 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H
+#include "parser.h"
+#include "list.h"
 
-# include "list.h"
-# include <stdlib.h>
+t_list	*executor(t_tree *parse_tree)
+{
+	t_list	*command_list;
 
-int	ft_strncmp(const char *s1, const char *s2, size_t n);
-
-#endif
+	if (parse_tree == NULL)
+		return (NULL);
+	command_list = list_init();
+	if (command_list == NULL)
+		return (free_tree(parse_tree), NULL);
+	(void)parse_tree;
+	return (free_tree(parse_tree), command_list);
+}
