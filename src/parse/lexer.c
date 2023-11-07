@@ -6,21 +6,12 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:30:31 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:50:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
-
-static int	ismetacharacter(char ch)
-{
-	if (ch == '<' || ch == '>' || ch == '|' || ch == '(' || \
-		ch == ')' || ch == '$' || ch == '\'' || ch == '\"')
-		return (1);
-	else
-		return (0);
-}
 
 static t_token	*insert_blank(t_list *token_list, char *line, int *i)
 {
@@ -30,7 +21,7 @@ static t_token	*insert_blank(t_list *token_list, char *line, int *i)
 	j = *i;
 	while (ft_isspace(line[j]))
 		j++;
-	new_token = create_token(ft_substr(line, *i, j - *i));
+	new_token = create_token(BK, ft_substr(line, *i, j - *i));
 	if (new_token == NULL)
 		return (NULL);
 	*i = j;
@@ -46,12 +37,13 @@ static t_token	*insert_metacharacter(t_list *token_list, char *line, int *i)
 	if ((line[*i] == '<' && line[*i + 1] == '<') || \
 		(line[*i] == '>' && line[*i + 1] == '>'))
 	{
-		new_token = create_token(ft_substr(line, *i, 2));
+		new_token = create_token(RD, ft_substr(line, *i, 2));
 		(*i) += 2;
 	}
 	else
 	{
-		new_token = create_token(ft_substr(line, *i, 1));
+		new_token = create_token(ismetacharacter(line[*i]), \
+									ft_substr(line, *i, 1));
 		(*i) += 1;
 	}
 	if (new_token == NULL)
@@ -70,7 +62,7 @@ static t_token	*insert_word(t_list *token_list, char *line, int *i)
 	while (!ft_isspace(line[j]) && !ismetacharacter(line[j]) && \
 			line[j] != '\0')
 		j++;
-	new_token = create_token(ft_substr(line, *i, j - *i));
+	new_token = create_token(WD, ft_substr(line, *i, j - *i));
 	if (new_token == NULL)
 		return (NULL);
 	*i = j;

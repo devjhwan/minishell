@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:22:32 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:51:27 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,20 @@
 # include "tree.h"
 # include <stdlib.h>
 
+/*TOKEN TYPES*/
+# define UNKNOWN 0
+# define RD 1
+# define PIPE 2
+# define PRTS 3
+# define E_VAR 4
+# define SQ 5
+# define DQ 6
+# define BK 7
+# define WD 8
+
 typedef struct s_token
 {
+	char	type;
 	char	*content;
 }	t_token;
 
@@ -27,7 +39,7 @@ typedef struct s_command
 	void	*content;
 }	t_command;
 
-t_token		*create_token(char *content);
+t_token		*create_token(char type, char *content);
 t_command	*create_command(void *content);
 
 void		free_token(void *token);
@@ -38,6 +50,8 @@ t_list		*lexer(char *line);
 t_tree		*parser(t_list	*token_list);
 t_tree		*expander(t_tree *parse_tree);
 t_list		*executor(t_tree *expander_tree);
+
+int			ismetacharacter(char ch);
 
 /*debug*/
 void		print_lexer(t_list *token_list);

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:23:20 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:33:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	handler(int signum)
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
+	t_list	*command_list;
 
 	(void)argc;
 	(void)argv;
@@ -46,7 +47,10 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
-		parse_input(str);
+		command_list = parse_input(str);
+		if (command_list == NULL)
+			exit(1);
+		list_clear(command_list, free_command);
 		free(str);
 	}
 	return (0);

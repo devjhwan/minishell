@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_lexer.c                                      :+:      :+:    :+:   */
+/*   ismetacharacter.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 15:21:12 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:51:21 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/07 19:46:03 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/07 19:52:25 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include <stdio.h>
 
-void	print_lexer(t_list *token_list)
+int	ismetacharacter(char ch)
 {
-	t_list_node	*node;
-	t_token		*token;
-	int			count;
-
-	node = token_list->header;
-	count = 1;
-	while (node != NULL)
-	{
-		token = (t_token *)node->content;
-		printf("[%d] %d \'%s\'\n", count++, token->type, token->content);
-		node = node->next;
-	}
+	if (ch == '<' || ch == '>')
+		return (RD);
+	else if (ch == '|')
+		return (PIPE);
+	else if (ch == '(' || ch == ')')
+		return (PRTS);
+	else if (ch == '$')
+		return (E_VAR);
+	else if (ch == '\'')
+		return (SQ);
+	else if (ch == '\"')
+		return (DQ);
+	else
+		return (0);
 }
