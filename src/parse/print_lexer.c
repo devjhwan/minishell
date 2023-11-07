@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:21:12 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:51:21 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:40:04 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_lexer(t_list *token_list)
 	while (node != NULL)
 	{
 		token = (t_token *)node->content;
-		printf("[%d] %d \'%s\'\n", count++, token->type, token->content);
+		printf("[%d] %d {%s}\n", count++, token->type, token->content);
 		node = node->next;
 	}
 }

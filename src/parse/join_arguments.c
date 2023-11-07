@@ -6,14 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:05:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 21:36:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:41:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 
-static t_token *copy_token(char type, char *content)
+static t_token	*copy_token(char type, char *content)
 {
 	t_token	*new_token;
 	char	*str;
@@ -30,7 +30,7 @@ static t_token *copy_token(char type, char *content)
 static char	*join_content(char *new_content, char *cur_content)
 {
 	char	*str;
-	
+
 	str = ft_strjoin(new_content, cur_content);
 	free(new_content);
 	if (str == NULL)
@@ -80,9 +80,10 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 		else if (cur_token->type == DQ)
 			new_token = join_quote_argument(&cur_node, DQ);
 		else if (cur_token->type == WD)
-			new_token = copy_token(ARG, (void*)cur_token->content);
+			new_token = copy_token(ARG, (void *)cur_token->content);
 		else
-			new_token = copy_token(cur_token->type, (void*)cur_token->content);
+			new_token = copy_token(cur_token->type, \
+									(void *)cur_token->content);
 		if (new_token == NULL)
 			return (NULL);
 		if (list_append(new_token_list, new_token) == NULL)
