@@ -6,14 +6,13 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:32 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:21:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 20:05:09 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include <stdlib.h>
 
-t_tree	*parser(t_list	*token_list)
+t_tree	*parser(t_list *token_list)
 {
 	t_tree	*parse_tree;
 

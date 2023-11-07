@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:50:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:30:25 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,9 @@ t_list	*lexer(char *line)
 		if (ret == NULL)
 			return (list_clear(token_list, free_token), NULL);
 	}
+	token_list = join_arguments(token_list);
+	if (token_list == NULL)
+		return (NULL);
 	return (token_list);
 }
 

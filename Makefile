@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/07 19:50:00 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/07 21:17:28 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ PARSE_DIR=parse
 OBJDIR=objs
 MAIN_SRC=main.c
 PARSE_SRC=parse_input.c token.c command.c lexer.c parser.c executor.c \
-		  expander.c print_lexer.c ismetacharacter.c
+		  expander.c print_lexer.c ismetacharacter.c join_arguments.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)

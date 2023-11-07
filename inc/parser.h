@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:51:27 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 21:25:58 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define DQ 6
 # define BK 7
 # define WD 8
+# define ARG 9
 
 typedef struct s_token
 {
@@ -47,11 +48,12 @@ void		free_command(void *command);
 
 t_list		*parse_input(char *line);
 t_list		*lexer(char *line);
-t_tree		*parser(t_list	*token_list);
+t_tree		*parser(t_list *token_list);
 t_tree		*expander(t_tree *parse_tree);
 t_list		*executor(t_tree *expander_tree);
 
 int			ismetacharacter(char ch);
+t_list		*join_arguments(t_list *token_list);
 
 /*debug*/
 void		print_lexer(t_list *token_list);
