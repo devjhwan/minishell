@@ -3,4 +3,4 @@ minishell
 /objs
 *.o
 *.d
-.txt
+*.txt
