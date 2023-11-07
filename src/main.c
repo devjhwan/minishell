@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 18:12:01 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:23:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 
+	(void)argc;
+	(void)argv;
+	(void)envp;
 	signal(SIGINT, handler);
 	while (1)
 	{
@@ -43,7 +46,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
-		lexer(str);
+		parse_input(str);
 		free(str);
 	}
 	return (0);

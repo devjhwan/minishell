@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 15:51:38 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 19:30:31 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,18 @@ static int	ismetacharacter(char ch)
 		return (0);
 }
 
-static t_token	*insert_blank(t_list *token_list)
+static t_token	*insert_blank(t_list *token_list, char *line, int *i)
 {
 	t_token	*new_token;
+	int		j;
 
-	new_token = create_token(ft_strdup(" "));
+	j = *i;
+	while (ft_isspace(line[j]))
+		j++;
+	new_token = create_token(ft_substr(line, *i, j - *i));
 	if (new_token == NULL)
 		return (NULL);
+	*i = j;
 	if (list_append(token_list, (void *)new_token) == NULL)
 		return (free_token((void *)new_token), NULL);
 	return (new_token);
@@ -38,7 +43,7 @@ static t_token	*insert_metacharacter(t_list *token_list, char *line, int *i)
 {
 	t_token	*new_token;
 
-	if ((line[*i] == '<' && line[*i + 1] == '<') ||
+	if ((line[*i] == '<' && line[*i + 1] == '<') || \
 		(line[*i] == '>' && line[*i + 1] == '>'))
 	{
 		new_token = create_token(ft_substr(line, *i, 2));
@@ -80,8 +85,6 @@ t_list	*lexer(char *line)
 	t_list	*token_list;
 	int		i;
 
-	if (line == NULL)
-		return (NULL);
 	token_list = list_init();
 	if (token_list == NULL)
 		return (NULL);
@@ -97,8 +100,6 @@ t_list	*lexer(char *line)
 		if (ret == NULL)
 			return (list_clear(token_list, free_token), NULL);
 	}
-	print_lexer(token_list);
-	list_clear(token_list, free_token);
 	return (token_list);
 }
 
