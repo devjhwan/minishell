@@ -6,14 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:56:24 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:13:00 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:27:14 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include <stdlib.h>
 
-t_token	*create_token(void *content)
+t_token	*create_token(char *content)
 {
 	t_token	*new_token;
 
@@ -29,5 +29,6 @@ void	free_token(void	*token)
 	t_token	*del_token;
 
 	del_token = (t_token *)token;
+	free(del_token->content);
 	free(del_token);
 }

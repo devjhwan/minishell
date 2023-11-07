@@ -6,22 +6,110 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:12:51 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:51:38 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-#include "list.h"
+#include "libft.h"
+
+static int	ismetacharacter(char ch)
+{
+	if (ch == '<' || ch == '>' || ch == '|' || ch == '(' || \
+		ch == ')' || ch == '$' || ch == '\'' || ch == '\"')
+		return (1);
+	else
+		return (0);
+}
+
+static t_token	*insert_blank(t_list *token_list)
+{
+	t_token	*new_token;
+
+	new_token = create_token(ft_strdup(" "));
+	if (new_token == NULL)
+		return (NULL);
+	if (list_append(token_list, (void *)new_token) == NULL)
+		return (free_token((void *)new_token), NULL);
+	return (new_token);
+}
+
+static t_token	*insert_metacharacter(t_list *token_list, char *line, int *i)
+{
+	t_token	*new_token;
+
+	if ((line[*i] == '<' && line[*i + 1] == '<') ||
+		(line[*i] == '>' && line[*i + 1] == '>'))
+	{
+		new_token = create_token(ft_substr(line, *i, 2));
+		(*i) += 2;
+	}
+	else
+	{
+		new_token = create_token(ft_substr(line, *i, 1));
+		(*i) += 1;
+	}
+	if (new_token == NULL)
+		return (NULL);
+	if (list_append(token_list, (void *)new_token) == NULL)
+		return (free_token((void *)new_token), NULL);
+	return (new_token);
+}
+
+static t_token	*insert_word(t_list *token_list, char *line, int *i)
+{
+	t_token	*new_token;
+	int		j;
+
+	j = *i;
+	while (!ft_isspace(line[j]) && !ismetacharacter(line[j]) && \
+			line[j] != '\0')
+		j++;
+	new_token = create_token(ft_substr(line, *i, j - *i));
+	if (new_token == NULL)
+		return (NULL);
+	*i = j;
+	if (list_append(token_list, (void *)new_token) == NULL)
+		return (free_token((void *)new_token), NULL);
+	return (new_token);
+}
 
 t_list	*lexer(char *line)
 {
+	t_token	*ret;
 	t_list	*token_list;
+	int		i;
 
 	if (line == NULL)
 		return (NULL);
 	token_list = list_init();
 	if (token_list == NULL)
 		return (NULL);
-	(void)line;
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (ft_isspace(line[i]))
+			ret = insert_blank(token_list, line, &i);
+		else if (ismetacharacter(line[i]))
+			ret = insert_metacharacter(token_list, line, &i);
+		else
+			ret = insert_word(token_list, line, &i);
+		if (ret == NULL)
+			return (list_clear(token_list, free_token), NULL);
+	}
+	print_lexer(token_list);
+	list_clear(token_list, free_token);
 	return (token_list);
 }
+
+/*
+metacharacters: <, >, <<, >>, |, (, ), ', ", $, ' ', \t, \n
+	redirection: <, >, <<, >>
+	control_operator: |, (, )
+	env_var: $
+	single_quote: '
+	double_quote: "
+	blank: ' ', \t, \n
+
+word: sequence of characters
+*/

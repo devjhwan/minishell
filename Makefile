@@ -6,19 +6,23 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/06 21:56:06 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/07 15:37:03 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=minishell
 
-SRCDIR=.
+SRCDIR=./src
+PARSE_DIR=parse
 OBJDIR=objs
-SRCS=main.c
+MAIN_SRC=main.c
+PARSE_SRC=token.c command.c lexer.c parser.c executor.c \
+		  print_lexer.c
+SRCS=$(MAIN_SRC) $(PARSE_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
-INCLUDE=-I. -I./libft
+INCLUDE=-I./inc -I./libft
 CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
@@ -29,13 +33,15 @@ CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 all: $(OBJDIR) libft $(NAME)
 
 $(NAME): $(OBJS) Makefile
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) \
-	-lreadline $(LDFLAGS)
+	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) -lreadline $(LDFLAGS)
 	echo "(MINISHELL)COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< \
-		$(CPPFLAGS)
+	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	echo "(MINISHELL)COMPILING $@"
+
+$(OBJDIR)/%.o: $(SRCDIR)/$(PARSE_DIR)/%.c Makefile
+	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL)COMPILING $@"
 
 $(OBJDIR): Makefile

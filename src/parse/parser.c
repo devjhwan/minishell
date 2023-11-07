@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:32 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:12:55 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:32:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,27 @@ t_tree	*parser(t_list	*token_list)
 	(void)token_list;
 	return (list_clear(token_list, free_token), parse_tree);
 }
+
+/*
+metacharacters: <, >, <<, >>, |, (, ), ', ", $, ' ', \t, \n
+	redirection: <, >, <<, >>
+	control_operator: |, (, )
+	env_var: $
+	single_quote: '
+	double_quote: "
+	blank: ' ', \t, \n
+
+word: sequence of characters
+
+arg: word , 'word' , "word" , 'word{blank}' , "word{blank}" , 'word{blank}arg' ,
+	 "word{blank}arg" , $arg , '$arg' , "$arg"
+"gdfgfgfgfggf'
+<  : < arg
+>  : > arg
+<< : << arg
+>> : >> arg
+(, ) : (), (arg)
+| : arg | arg, () | arg, arg | (), () | ()
+
+'', "", () must be in pairs. Check pair.
+*/

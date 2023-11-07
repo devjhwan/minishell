@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 22:03:58 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 15:32:28 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/03 13:29:31 by junghwle          #+#    #+#             */
+/*   Updated: 2023/05/11 20:10:52 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
+#include "libft.h"
 
-/*Used for bonus part*/
-
-t_tree	*expander(t_tree *parse_tree)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	if (parse_tree == NULL)
-		return (NULL);
-	return (parse_tree);
+	size_t	size;
+	size_t	i;
+
+	size = ft_strlen(src);
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (i < dstsize - 1 && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (size);
 }

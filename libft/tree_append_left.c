@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   tree_append_left.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 22:03:58 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 15:32:28 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/07 13:24:56 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/07 13:32:37 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
+#include "tree.h"
 
-/*Used for bonus part*/
-
-t_tree	*expander(t_tree *parse_tree)
+t_tree_node	*tree_append_left(t_tree_node *cur_node, void *content)
 {
-	if (parse_tree == NULL)
+	t_tree_node	*new_node;
+
+	new_node = tree_new_node(content);
+	if (new_node == NULL)
 		return (NULL);
-	return (parse_tree);
+	if (cur_node->left != NULL)
+		new_node->left = cur_node->left;
+	cur_node->left = new_node;
+	return (new_node);
 }

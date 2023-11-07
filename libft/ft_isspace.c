@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 22:03:58 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 15:32:28 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/07 14:14:41 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/07 14:15:27 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
-#include <stdlib.h>
-
-/*Used for bonus part*/
-
-t_tree	*expander(t_tree *parse_tree)
+int	ft_isspace(char ch)
 {
-	if (parse_tree == NULL)
-		return (NULL);
-	return (parse_tree);
+	if (ch == ' ' || ch == '\t' || ch == '\n')
+		return (1);
+	else
+		return (0);
 }

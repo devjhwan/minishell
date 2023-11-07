@@ -6,10 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 21:35:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:37:44 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "libft.h"
 #include <signal.h>
 #include <stdio.h>
@@ -42,6 +43,7 @@ int	main(void)
 		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
+		lexer(str);
 		free(str);
 	}
 	return (0);
