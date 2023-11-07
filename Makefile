@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/07 15:37:03 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/07 16:35:25 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,4 +62,5 @@ re: fclean all
 -include $(DEPS)
 
 .PHONY: all clean fclean re libft
+#cambio en el main
 .SILENT:
