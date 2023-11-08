@@ -1,67 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_arguments.c                                   :+:      :+:    :+:   */
+/*   join_redirections.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 20:05:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 21:41:11 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/08 01:31:16 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/08 03:30:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+#include <stdio.h>
 
-static t_token	*copy_token(char type, char *content)
+static char	*get_merged_content(char token_type, char *new_content, \
+													char *cur_content)
 {
-	t_token	*new_token;
-	char	*str;
-
-	str = ft_strdup(content);
-	if (str == NULL)
-		return (NULL);
-	new_token = create_token(type, str);
-	if (new_token == NULL)
-		return (free(str), NULL);
-	return (new_token);
+	if (token_type == BK)
+		new_content = join_content(new_content, " ");
+	else
+		new_content = join_content(new_content, cur_content);
+	return (new_content);
 }
 
-static char	*join_content(char *new_content, char *cur_content)
-{
-	char	*str;
-
-	str = ft_strjoin(new_content, cur_content);
-	free(new_content);
-	if (str == NULL)
-		return (NULL);
-	return (str);
-}
-
-static t_token	*join_quote_argument(t_list_node **node, char quote_type)
+static t_token	*merge_redirection(t_list_node **node)
 {
 	t_token	*new_token;
 	t_token	*cur_token;
 	char	*new_content;
 
-	new_content = ft_strdup("");
+	cur_token = (t_token *)(*node)->content;
+	new_content = ft_strdup((char *)cur_token->content);
 	if (new_content == NULL)
 		return (NULL);
 	*node = (*node)->next;
 	if (*node != NULL)
 		cur_token = (t_token *)(*node)->content;
-	while (*node != NULL && cur_token->type != quote_type)
+	while (*node != NULL && (cur_token->type == BK || cur_token->type == ARG))
 	{
-		new_content = join_content(new_content, (char *)cur_token->content);
+		new_content = get_merged_content(cur_token->type, new_content, \
+											(char *)cur_token->content);
 		if (new_content == NULL)
 			return (NULL);
+		if (cur_token->type == ARG)
+			break ;
 		*node = (*node)->next;
 		if (*node != NULL)
 			cur_token = (t_token *)(*node)->content;
 	}
-	new_token = create_token(ARG, new_content);
-	if (new_token == NULL)
-		return (free(new_content), NULL);
+	new_token = create_token(RD, new_content);
 	return (new_token);
 }
 
@@ -75,33 +63,30 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 	while (cur_node != NULL)
 	{
 		cur_token = (t_token *)cur_node->content;
-		if (cur_token->type == SQ)
-			new_token = join_quote_argument(&cur_node, SQ);
-		else if (cur_token->type == DQ)
-			new_token = join_quote_argument(&cur_node, DQ);
-		else if (cur_token->type == WD)
-			new_token = copy_token(ARG, (void *)cur_token->content);
+		if (cur_token->type == RD)
+			new_token = merge_redirection(&cur_node);
 		else
-			new_token = copy_token(cur_token->type, \
-									(void *)cur_token->content);
+			new_token = create_token(cur_token->type, \
+							(void *)ft_strdup((char *)cur_token->content));
 		if (new_token == NULL)
 			return (NULL);
 		if (list_append(new_token_list, new_token) == NULL)
 			return (free_token((void *)new_token), NULL);
-		cur_node = cur_node->next;
+		if (cur_node != NULL)
+			cur_node = cur_node->next;
 	}
 	return (new_token_list);
 }
 
-t_list	*join_arguments(t_list *token_list)
+t_list	*join_redirections(t_list *token_list)
 {
-	t_list	*new_token_list;
+	t_list		*new_token_list;
 
+	if (token_list->size == 0)
+		return (token_list);
 	new_token_list = list_init();
 	if (new_token_list == NULL)
 		return (list_clear(token_list, free_token), NULL);
-	if (token_list->size == 0)
-		return (list_clear(token_list, free_token), new_token_list);
 	if (loop_on_token_list(token_list, new_token_list) == NULL)
 		return (list_clear(new_token_list, free_token), \
 				list_clear(token_list, free_token), NULL);

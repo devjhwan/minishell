@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:32 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 20:05:09 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:50:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ t_tree	*parser(t_list *token_list)
 {
 	t_tree	*parse_tree;
 
+	token_list = join_tokens(token_list);
+	if (token_list == NULL)
+		return (NULL);
+	print_lexer(token_list);
 	parse_tree = tree_init();
 	if (parse_tree == NULL)
 		return (free_token(token_list), NULL);
@@ -35,12 +39,8 @@ metacharacters: <, >, <<, >>, |, (, ), ', ", $, ' ', \t, \n
 word: sequence of characters
 
 arg: word , 'word' , "word" , 'word{blank}' , "word{blank}" , 'word{blank}arg' ,
-	 "word{blank}arg" , $arg , '$arg' , "$arg"
-"gdfgfgfgfggf'
-<  : < arg
->  : > arg
-<< : << arg
->> : >> arg
+	 "word{blank}arg" , $arg , '$arg' , "$arg", $"arg", $'arg', 
+	 < arg, > arg, << arg, >> arg
 (, ) : (), (arg)
 | : arg | arg, () | arg, arg | (), () | ()
 

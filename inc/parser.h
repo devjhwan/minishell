@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 21:25:58 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/08 03:12:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,11 @@ t_tree		*expander(t_tree *parse_tree);
 t_list		*executor(t_tree *expander_tree);
 
 int			ismetacharacter(char ch);
+char		*join_content(char *new_content, char *cur_content);
+t_list		*join_tokens(t_list *token_list);
 t_list		*join_arguments(t_list *token_list);
+t_list		*join_env_var_arguments(t_list *token_list);
+t_list		*join_redirections(t_list *token_list);
 
 /*debug*/
 void		print_lexer(t_list *token_list);
