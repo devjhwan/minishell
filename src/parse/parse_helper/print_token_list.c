@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_new_node.c                                    :+:      :+:    :+:   */
+/*   print_token_list.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:29:55 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:30:04 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/07 15:21:12 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/08 17:28:14 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "parser.h"
+#include <stdio.h>
 
-t_tree_node	*tree_new_node(void *content)
+void	print_token_list(t_list *token_list)
 {
-	t_tree_node	*new_node;
+	t_list_node	*node;
+	t_token		*token;
+	int			count;
 
-	new_node = (t_tree_node *)malloc(sizeof(t_tree_node));
-	if (new_node == NULL)
-		return (NULL);
-	new_node->content = content;
-	new_node->left = NULL;
-	new_node->right = NULL;
-	return (new_node);
+	node = token_list->header;
+	count = 1;
+	while (node != NULL)
+	{
+		token = (t_token *)node->content;
+		printf("[%d] %d {%s}\n", count++, token->type, token->content);
+		node = node->next;
+	}
 }

@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/08 03:49:13 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/08 17:27:51 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ OBJDIR=objs
 MAIN_SRC=main.c
 PARSE_SRC=parse_input.c token.c command.c lexer.c parser.c executor.c \
 		  expander.c
-JOIN_TOKENS_SRC=join_content.c join_tokens.c join_arguments.c \
-		   join_env_var_arguments.c join_redirections.c
-PARSE_HELPER_SRC=print_lexer.c ismetacharacter.c
+JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \
+				join_redirections.c
+PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)

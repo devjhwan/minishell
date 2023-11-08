@@ -6,17 +6,17 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:11:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 02:01:52 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/08 17:28:22 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_list	*parse_input(char *line)
+t_list	*parse_input(char *line, char **envp)
 {
 	t_list	*lexer_list;
-	t_tree	*parser_tree;
-	t_tree	*expander_tree;
+	t_list	*parser_list;
+	t_list	*expander_list;
 	t_list	*executor_list;
 
 	if (line == NULL)
@@ -24,13 +24,14 @@ t_list	*parse_input(char *line)
 	lexer_list = lexer(line);
 	if (lexer_list == NULL)
 		return (NULL);
-	parser_tree = parser(lexer_list);
-	if (parser_tree == NULL)
+	parser_list = parser(lexer_list);
+	if (parser_list == NULL)
 		return (NULL);
-	expander_tree = expander(parser_tree);
-	if (expander_tree == NULL)
+	expander_list = expander(parser_list, envp);
+	if (expander_list == NULL)
 		return (NULL);
-	executor_list = executor(expander_tree);
+	print_token_list(expander_list);
+	executor_list = executor(expander_list);
 	if (executor_list == NULL)
 		return (NULL);
 	return (executor_list);

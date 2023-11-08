@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/07 21:16:16 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/08 17:24:46 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,10 +15,9 @@ NAME=libft.a
 SRCDIR=.
 OBJDIR=objs
 SRCS=ft_strncmp.c ft_strlen.c ft_strlcpy.c ft_strdup.c ft_substr.c \
-	 ft_isspace.c ft_strlcat.c ft_strjoin.c \
-	 list_init.c list_clear.c list_append.c list_pop.c \
-	 tree_init.c tree_clear.c tree_new_node.c tree_append_left.c \
-	 tree_append_right.c
+	 ft_isspace.c ft_strlcat.c ft_strjoin.c ft_strchr.c ft_isalnum.c \
+	 ft_isalpha.c ft_isdigit.c ft_split.c\
+	 list_init.c list_clear.c list_append.c list_pop.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 

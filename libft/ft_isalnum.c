@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_tokens.c                                      :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 01:51:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 03:43:03 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/02 19:28:37 by junghwle          #+#    #+#             */
+/*   Updated: 2023/06/02 12:45:10 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "libft.h"
 
-t_list	*join_tokens(t_list *token_list)
+int	ft_isalnum(int c)
 {
-	token_list = join_arguments(token_list);
-	if (token_list == NULL)
-		return (NULL);
-	token_list = join_env_var_arguments(token_list);
-	if (token_list == NULL)
-		return (NULL);
-	token_list = join_redirections(token_list);
-	if (token_list == NULL)
-		return (NULL);
-	return (token_list);
+	return (ft_isalpha(c) || ft_isdigit(c));
 }

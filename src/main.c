@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:33:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:41:32 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
-		command_list = parse_input(str);
+		command_list = parse_input(str, envp);
 		if (command_list == NULL)
 			exit(1);
 		list_clear(command_list, free_command);

@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_append_left.c                                 :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:24:56 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:29:58 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/02 20:40:43 by junghwle          #+#    #+#             */
+/*   Updated: 2023/05/02 21:11:48 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
-
-t_tree_node	*tree_append_left(t_tree_node *cur_node, void *content)
+int	ft_isdigit(int c)
 {
-	t_tree_node	*new_node;
-
-	new_node = tree_new_node(content);
-	if (new_node == NULL)
-		return (NULL);
-	if (cur_node->left != NULL)
-		new_node->left = cur_node->left;
-	cur_node->left = new_node;
-	return (new_node);
+	return (c >= '0' && c <= '9');
 }

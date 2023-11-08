@@ -6,12 +6,23 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:05:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 03:53:01 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:16:03 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
+static char	*append_quote_to_argument(char *new_content, char quote_type)
+{
+	if (quote_type == SQ)
+		new_content = join_content(new_content, "\'");
+	else
+		new_content = join_content(new_content, "\"");
+	if (new_content == NULL)
+		return (NULL);
+	return (new_content);
+}
 
 static t_token	*merge_quote_argument(t_list_node **node, char quote_type)
 {
@@ -35,8 +46,7 @@ static t_token	*merge_quote_argument(t_list_node **node, char quote_type)
 		if (*node != NULL)
 			cur_token = (t_token *)(*node)->content;
 	}
-	if (cur_token->type == quote_type)
-		new_content = join_content(new_content, (char *)cur_token->content);
+	new_content = append_quote_to_argument(new_content, quote_type);
 	new_token = create_token(ARG, new_content);
 	return (new_token);
 }
@@ -73,7 +83,8 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 			return (NULL);
 		if (list_append(new_token_list, new_token) == NULL)
 			return (free_token((void *)new_token), NULL);
-		cur_node = cur_node->next;
+		if (cur_node != NULL)
+			cur_node = cur_node->next;
 	}
 	return (new_token_list);
 }

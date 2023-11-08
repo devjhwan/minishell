@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_append_right.c                                :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/07 13:24:56 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/07 19:30:01 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/02 18:44:59 by junghwle          #+#    #+#             */
+/*   Updated: 2023/06/02 12:44:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
-
-t_tree_node	*tree_append_right(t_tree_node *cur_node, void *content)
+int	ft_isalpha(int c)
 {
-	t_tree_node	*new_node;
-
-	new_node = tree_new_node(content);
-	if (new_node == NULL)
-		return (NULL);
-	if (cur_node->right != NULL)
-		new_node->left = cur_node->right;
-	cur_node->right = new_node;
-	return (new_node);
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }

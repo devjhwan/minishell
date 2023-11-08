@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tree_init.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/06 23:04:56 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/06 23:15:37 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/03 16:51:57 by junghwle          #+#    #+#             */
+/*   Updated: 2023/05/22 17:09:54 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tree.h"
+#include "libft.h"
 
-t_tree	*tree_init(void)
+char	*ft_strchr(const char *s, int c)
 {
-	t_tree	*tree;
+	size_t	slen;
+	size_t	i;
 
-	tree = (t_tree *)malloc(sizeof(t_tree));
-	if (tree == NULL)
-		return (NULL);
-	tree->root = NULL;
-	tree->size = 0;
-	return (tree);
+	i = 0;
+	slen = ft_strlen(s);
+	while (i <= slen)
+	{
+		if (s[i] == (char)c)
+			return (&((char *)s)[i]);
+		i++;
+	}
+	return (NULL);
 }
