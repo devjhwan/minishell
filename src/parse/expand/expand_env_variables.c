@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 18:36:10 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:48:02 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*substract_env_var(char *argument, int start)
 }
 
 static char	*get_expanded_env_var(char *substr, char **envp, \
-									int last_exit_code)
+									int exit_code)
 {
 	char	*env_value;
 
@@ -42,12 +42,12 @@ static char	*get_expanded_env_var(char *substr, char **envp, \
 		ft_strlcpy(env_value + 1, env_value + 2, ft_strlen(env_value) - 1);
 	}
 	else
-		env_value = search_env_value(substr + 1, envp, last_exit_code);
+		env_value = search_env_value(substr + 1, envp, exit_code);
 	return (env_value);
 }
 
 static char	*replace_env_variables(char *argument, char **envp, \
-										int last_exit_code)
+										int exit_code)
 {
 	int		i;
 	int		len;
@@ -63,7 +63,7 @@ static char	*replace_env_variables(char *argument, char **envp, \
 			substr = substract_env_var(argument, i);
 			if (substr == NULL)
 				return (free(argument), NULL);
-			env_value = get_expanded_env_var(substr, envp, last_exit_code);
+			env_value = get_expanded_env_var(substr, envp, exit_code);
 			if (env_value == NULL)
 				return (free(argument), free(substr), NULL);
 			argument = replace_substr(argument, substr, env_value);
@@ -84,7 +84,7 @@ int	check_quote(char *argument)
 }
 
 t_list	*expand_env_variables(t_list *parse_list, char **envp, \
-								int last_exit_code)
+								int exit_code)
 {
 	t_list_node	*cur_node;
 	t_token		*cur_token;
@@ -100,7 +100,7 @@ t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 			ft_strncmp(argument, "<<", 2) != 0)
 		{
 			new_argument = replace_env_variables(ft_strdup(argument), envp, \
-													last_exit_code);
+													exit_code);
 			if (new_argument == NULL)
 				return (list_clear(parse_list, free_token), NULL);
 			free(argument);

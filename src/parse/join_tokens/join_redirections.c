@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 01:31:16 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 17:28:49 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:07:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 			return (NULL);
 		if (list_append(new_token_list, new_token) == NULL)
 			return (free_token((void *)new_token), NULL);
-		if (cur_node != NULL)
+		if (cur_node != NULL && ((t_token *)cur_node->content)->type != RD)
 			cur_node = cur_node->next;
 	}
 	return (new_token_list);

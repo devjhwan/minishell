@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 18:28:48 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 19:17:14 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ t_command	*create_command(t_list *redirection, t_list *command);
 void		free_token(void *token);
 void		free_command(void *command);
 
-t_list		*parse_input(char *line, char **envp, int last_exit_code);
+t_list		*parse_input(char *line, char **envp, int *exit_code);
 t_list		*lexer(char *line);
-t_list		*parser(t_list *token_list);
-t_list		*expander(t_list *parse_list, char **envp, int last_exit_code);
+t_list		*check_token_error(t_list *token_list, int *exit_code);
+t_list		*parser(t_list *token_list, int *exit_code);
+t_list		*expander(t_list *parse_list, char **envp, int exit_code);
 t_list		*executor(t_list *expander_list);
 
 char		*join_content(char *new_content, char *cur_content);
@@ -59,9 +60,9 @@ t_list		*join_env_var_arguments(t_list *token_list);
 t_list		*join_redirections(t_list *token_list);
 
 t_list		*expand_env_variables(t_list *parse_list, char **envp, \
-									int last_exit_code);
+									int exit_code);
 t_list		*remove_quotes(t_list *parse_list);
-char		*search_env_value(char *substr, char **envp, int last_exit_code);
+char		*search_env_value(char *substr, char **envp, int exit_code);
 
 int			ismetacharacter(char ch);
 char		*append_substr(char	*dest, char	*src, \
