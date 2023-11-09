@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 16:41:32 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:34:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,21 @@ void	handler(int signum)
 	}
 }
 
+static void	init_minishell(int *exit_code)
+{
+	signal(SIGINT, handler);
+	*exit_code = 0;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	char	*str;
 	t_list	*command_list;
+	int		exit_code;
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	signal(SIGINT, handler);
+	init_minishell(&exit_code);
 	while (1)
 	{
 		str = readline("prompt: ");
@@ -47,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_strncmp(str, "exit", 5) == 0)
 			return (free(str), 0);
 		add_history(str);
-		command_list = parse_input(str, envp);
+		command_list = parse_input(str, envp, exit_code);
 		if (command_list == NULL)
 			exit(1);
 		list_clear(command_list, free_command);

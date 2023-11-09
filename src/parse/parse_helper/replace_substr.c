@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 03:14:17 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 04:09:30 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:37:25 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,18 @@ char	*replace_substr(char *str, char *substr, char *replace_str)
 	len = tmp - str;
 	new_str = ft_substr(str, 0, len);
 	if (new_str == NULL)
-		return (free(str), NULL);
+		return (free(str), free(substr), free(replace_str), NULL);
 	if (strjoin_inplace(&new_str, replace_str) == NULL)
-		return (free(str), free(new_str), NULL);
+		return (free(str), free(substr), free(replace_str), \
+				free(new_str), NULL);
 	tmp += ft_strlen(substr);
 	tmp2 = ft_substr(str, tmp - str, ft_strlen(tmp));
 	if (tmp2 == NULL)
-		return (free(str), free(new_str), NULL);
+		return (free(str), free(substr), free(replace_str), \
+				free(new_str), NULL);
 	if (strjoin_inplace(&new_str, tmp2) == NULL)
-		return (free(str), free(new_str), free(tmp2), NULL);
+		return (free(str), free(substr), free(replace_str), \
+				free(new_str), free(tmp2), NULL);
 	free(tmp2);
-	return (free(str), new_str);
+	return (free(str), free(substr), free(replace_str), new_str);
 }

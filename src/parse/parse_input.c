@@ -6,13 +6,13 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:11:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 17:28:22 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:34:13 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_list	*parse_input(char *line, char **envp)
+t_list	*parse_input(char *line, char **envp, int last_exit_code)
 {
 	t_list	*lexer_list;
 	t_list	*parser_list;
@@ -27,7 +27,7 @@ t_list	*parse_input(char *line, char **envp)
 	parser_list = parser(lexer_list);
 	if (parser_list == NULL)
 		return (NULL);
-	expander_list = expander(parser_list, envp);
+	expander_list = expander(parser_list, envp, last_exit_code);
 	if (expander_list == NULL)
 		return (NULL);
 	print_token_list(expander_list);

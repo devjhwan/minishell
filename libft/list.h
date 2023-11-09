@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:28:01 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 03:49:46 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:01:21 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ t_list		*list_init(void);
 void		list_clear(t_list *list, void (*del_func)(void *));
 t_list_node	*list_append(t_list *list, void *content);
 void		*list_pop(t_list *list);
+void		*list_poplast(t_list *list);
 
 #endif

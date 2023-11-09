@@ -6,19 +6,21 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 04:11:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 04:20:41 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 18:33:39 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*search_env_value(char *substr, char **envp)
+char	*search_env_value(char *substr, char **envp, int last_exit_code)
 {
 	char	*env_value;
 	int		i;
 	int		j;
 	int		len;
 
+	if (substr[0] == '?')
+		return (ft_strjoin(ft_itoa(last_exit_code), &substr[1]));
 	env_value = NULL;
 	i = 0;
 	len = ft_strlen(substr);
