@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:08:57 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 03:20:59 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 04:48:18 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static t_token	*merge_env_var_argument(t_list_node **node)
 	t_token	*new_token;
 	t_token	*cur_token;
 	char	*new_content;
+	char	*tmp;
 
 	cur_token = (t_token *)(*node)->content;
 	new_content = ft_strdup((char *)cur_token->content);
@@ -27,7 +28,10 @@ static t_token	*merge_env_var_argument(t_list_node **node)
 		cur_token = (t_token *)(*node)->next->content;
 	if (cur_token->type == ARG)
 	{
-		new_content = join_content(new_content, (char *)cur_token->content);
+		tmp = (char *)cur_token->content;
+		if (tmp[0] == '\'' || tmp[0] == '\"')
+			new_content[0] = '\0';
+		new_content = join_content(new_content, tmp);
 		if (new_content == NULL)
 			return (NULL);
 		*node = (*node)->next;

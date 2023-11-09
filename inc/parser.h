@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 17:28:05 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 04:44:03 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "list.h"
 # include <stdlib.h>
+# include <stdio.h>
 
 /*TOKEN TYPES*/
 # define UNKNOWN 0
@@ -56,9 +57,14 @@ t_list		*join_arguments(t_list *token_list);
 t_list		*join_env_var_arguments(t_list *token_list);
 t_list		*join_redirections(t_list *token_list);
 
+t_list		*expand_env_variables(t_list *parse_list, char **envp);
+t_list		*remove_quotes(t_list *parse_list);
+char		*search_env_value(char *substr, char **envp);
+
 int			ismetacharacter(char ch);
 char		*append_substr(char	*dest, char	*src, \
 							unsigned int start, size_t len);
+char		*replace_substr(char *str, char *substr, char *replace_str);
 
 /*debug*/
 void		print_token_list(t_list *token_list);
