@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/09 04:44:06 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/09 17:00:32 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ PARSE_SRC=parse_input.c token.c command.c lexer.c parser.c executor.c \
 JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \
 				join_redirections.c
 PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
-				 replace_substr.c
+				 replace_substr.c isquote.c
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC)

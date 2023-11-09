@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:08:57 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 04:48:18 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:05:45 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_token	*merge_env_var_argument(t_list_node **node)
 	if (cur_token->type == ARG)
 	{
 		tmp = (char *)cur_token->content;
-		if (tmp[0] == '\'' || tmp[0] == '\"')
+		if (isquote(tmp[0]))
 			new_content[0] = '\0';
 		new_content = join_content(new_content, tmp);
 		if (new_content == NULL)

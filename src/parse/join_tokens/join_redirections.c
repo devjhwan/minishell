@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 01:31:16 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 03:30:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:21:07 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,24 @@
 static char	*get_merged_content(char token_type, char *new_content, \
 													char *cur_content)
 {
+	char	*tmp_content;
+
 	if (token_type == BK)
 		new_content = join_content(new_content, " ");
 	else
-		new_content = join_content(new_content, cur_content);
+	{
+		if (isquote(cur_content[0]))
+		{
+			tmp_content = ft_strdup(cur_content);
+			if (tmp_content == NULL)
+				return (free(new_content), NULL);
+			ft_strlcpy(tmp_content, tmp_content + 1, \
+										ft_strlen(tmp_content) - 1);
+			new_content = join_content(new_content, tmp_content);
+		}
+		else
+			new_content = join_content(new_content, cur_content);
+	}
 	return (new_content);
 }
 

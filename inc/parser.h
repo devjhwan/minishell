@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 04:44:03 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:00:13 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int			ismetacharacter(char ch);
 char		*append_substr(char	*dest, char	*src, \
 							unsigned int start, size_t len);
 char		*replace_substr(char *str, char *substr, char *replace_str);
+int			isquote(char ch);
 
 /*debug*/
 void		print_token_list(t_list *token_list);
