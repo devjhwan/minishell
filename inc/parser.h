@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:01:49 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:26:04 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "list.h"
 # include <stdlib.h>
-# include <stdio.h>
 
 /*TOKEN TYPES*/
 # define UNKNOWN 0
@@ -34,17 +33,8 @@ typedef struct s_token
 	char	*content;
 }	t_token;
 
-typedef struct s_command
-{
-	t_list	*redirection;
-	t_list	*command;
-}	t_command;
-
 t_token		*create_token(char type, char *content);
-t_command	*create_command(t_list *redirection, t_list *command);
-
 void		free_token(void *token);
-void		free_command(void *command);
 
 t_list		*parse_input(char *line, char **envp, int *exit_code);
 t_list		*lexer(char *line);

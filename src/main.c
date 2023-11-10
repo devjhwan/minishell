@@ -6,10 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 22:53:58 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 02:29:05 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minishell.h"
 #include "parser.h"
 #include "libft.h"
 #include <signal.h>
@@ -54,10 +55,9 @@ int	main(int argc, char **argv, char **envp)
 			return (free(str), 0);
 		add_history(str);
 		command_list = parse_input(str, envp, &exit_code);
+		print_command_list(command_list);
 		if (command_list != NULL)
-		{
 			list_clear(command_list, free_command);
-		}
 		free(str);
 	}
 	return (0);

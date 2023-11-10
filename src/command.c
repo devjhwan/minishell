@@ -6,22 +6,26 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:57:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 17:56:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:58:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "minishell.h"
 #include <stdlib.h>
 
-t_command	*create_command(t_list *redirection, t_list *command)
+t_command	*create_command(void)
 {
 	t_command	*new_command;
 
 	new_command = (t_command *)malloc(sizeof(t_command));
 	if (new_command == NULL)
 		return (NULL);
-	new_command->redirection = redirection;
-	new_command->command = command;
+	new_command->redirection = list_init();
+	if (new_command->redirection == NULL)
+		return (free(new_command), NULL);
+	new_command->command = list_init();
+	if (new_command->command == NULL)
+		return (free(new_command),free(new_command->redirection) , NULL);
 	return (new_command);
 }
 
