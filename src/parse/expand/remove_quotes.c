@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:37:10 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:10:16 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 03:29:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	remove_rd_quote(char *argument)
 	int	i;
 
 	i = 0;
-	while (argument[i] == '<' || argument[i] == '>')
+	while (argument[i] == '<' || argument[i] == '>' || argument[i] == ' ')
 		i++;
 	if (isquote(argument[i]))
 		ft_strlcpy(&argument[i], &argument[i + 1], ft_strlen(&argument[i]) - 1);
