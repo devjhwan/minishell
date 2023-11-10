@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 01:26:04 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 02:45:08 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "list.h"
 # include <stdlib.h>
+# include <stdio.h>
 
 /*TOKEN TYPES*/
 # define UNKNOWN 0

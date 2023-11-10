@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:57:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 01:58:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 03:15:05 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_command	*create_command(void)
 		return (free(new_command), NULL);
 	new_command->command = list_init();
 	if (new_command->command == NULL)
-		return (free(new_command),free(new_command->redirection) , NULL);
+		return (free(new_command), free(new_command->redirection), NULL);
 	return (new_command);
 }
 

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:54:52 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 03:02:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,20 @@ static char	*replace_env_variables(char *argument, char **envp, \
 	return (argument);
 }
 
+int	check_quote(char *argument)
+{
+	char	*squote;
+	char	*dquote;
+
+	squote = ft_strchr(argument, '\'');
+	dquote = ft_strchr(argument, '\"');
+	if ((dquote == NULL && squote != NULL) || \
+		(dquote != NULL && squote != NULL && squote < dquote))
+		return (1);
+	else
+		return (0);
+}
+
 t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 								int exit_code)
 {
@@ -89,9 +103,10 @@ t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 	{
 		cur_token = (t_token *)cur_node->content;
 		argument = (char *)cur_token->content;
-		if (ft_strchr(argument, '$') != NULL && argument[0] != '\'' && \
+		if (ft_strchr(argument, '$') != NULL && !check_quote(argument) && \
 			ft_strncmp(argument, "<<", 2) != 0)
 		{
+			printf("%s\n", argument);
 			new_argument = replace_env_variables(ft_strdup(argument), envp, \
 													exit_code);
 			if (new_argument == NULL)
