@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:02:20 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:09:52 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 		if (ft_strchr(argument, '$') != NULL && !check_quote(argument) && \
 			ft_strncmp(argument, "<<", 2) != 0)
 		{
-			printf("%s\n", argument);
 			new_argument = replace_env_variables(ft_strdup(argument), envp, \
 													exit_code);
 			if (new_argument == NULL)

@@ -6,13 +6,12 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 01:31:16 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:28:45 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:16 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 static char	*get_merged_content(char token_type, char *new_content, \
 													char *cur_content)

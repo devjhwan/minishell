@@ -6,13 +6,12 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 03:33:42 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:57:46 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:09:50 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
-#include <stdio.h>
 
 char	**get_command_arguments(t_command *command)
 {

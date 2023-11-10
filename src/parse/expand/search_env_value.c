@@ -6,12 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 04:11:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:27:14 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:12 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 char	*search_env_value(char *substr, char **envp, int exit_code)
 {

@@ -6,14 +6,13 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 02:38:21 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:07 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include <stdio.h>
 
 static char	*append_content(t_list *list, char *content)
 {

@@ -6,12 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 03:14:17 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 18:37:25 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:30 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
 
 static char	*strjoin_inplace(char **str1, char *str2)
 {
