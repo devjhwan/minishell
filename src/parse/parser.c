@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:32 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 19:17:51 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:27:22 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_list	*remove_blanks(t_list *token_list)
 	return (list_clear(token_list, free_token), new_token_list);
 }
 
-t_list	*parser(t_list *token_list, int *exit_code)
+t_list	*parser(t_list *token_list, char **envp, int *exit_code)
 {
 	t_list	*parse_list;
 
@@ -57,7 +57,7 @@ t_list	*parser(t_list *token_list, int *exit_code)
 	token_list = remove_blanks(token_list);
 	if (token_list == NULL)
 		return (NULL);
-	token_list = check_token_error(token_list, exit_code);
+	token_list = check_token_error(token_list, envp, exit_code);
 	if (token_list == NULL)
 		return (NULL);
 	parse_list = token_list;

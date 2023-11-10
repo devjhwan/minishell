@@ -6,11 +6,12 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 04:11:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 18:48:02 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:27:14 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*search_env_value(char *substr, char **envp, int exit_code)
 {
@@ -26,7 +27,7 @@ char	*search_env_value(char *substr, char **envp, int exit_code)
 	len = ft_strlen(substr);
 	while (envp[i] != NULL)
 	{
-		if (ft_strncmp(substr, envp[i], len) == 0)
+		if (ft_strncmp(substr, envp[i], len) == 0 && envp[i][len] == '=')
 		{
 			j = 0;
 			while (envp[i][j] != '\0' && envp[i][j] != '=')

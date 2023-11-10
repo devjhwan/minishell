@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 18:48:02 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:54:52 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_expanded_env_var(char *substr, char **envp, \
 	env_value = NULL;
 	if (ft_strncmp(substr, "$", 2) == 0)
 		return (ft_strdup("$"));
-	if (substr[1] == '\'' || substr[1] == '\"')
+	if (isquote(substr[1]))
 	{
 		env_value = ft_strdup(substr);
 		if (env_value == NULL)
@@ -76,13 +76,6 @@ static char	*replace_env_variables(char *argument, char **envp, \
 	return (argument);
 }
 
-int	check_quote(char *argument)
-{
-	if (argument[0] == '\'')
-		return (0);
-	return (1);
-}
-
 t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 								int exit_code)
 {
@@ -96,14 +89,14 @@ t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 	{
 		cur_token = (t_token *)cur_node->content;
 		argument = (char *)cur_token->content;
-		if (ft_strchr(argument, '$') != NULL && check_quote(argument) && \
+		if (ft_strchr(argument, '$') != NULL && argument[0] != '\'' && \
 			ft_strncmp(argument, "<<", 2) != 0)
 		{
 			new_argument = replace_env_variables(ft_strdup(argument), envp, \
 													exit_code);
 			if (new_argument == NULL)
 				return (list_clear(parse_list, free_token), NULL);
-			free(argument);
+			free(cur_token->content);
 			cur_token->content = (void *)new_argument;
 		}
 		cur_node = cur_node->next;

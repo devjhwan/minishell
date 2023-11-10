@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:11:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 19:18:06 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:55:09 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_list	*parse_input(char *line, char **envp, int *exit_code)
 	lexer_list = lexer(line);
 	if (lexer_list == NULL)
 		return (NULL);
-	parser_list = parser(lexer_list, exit_code);
+	parser_list = parser(lexer_list, envp, exit_code);
 	if (parser_list == NULL)
 		return (NULL);
 	expander_list = expander(parser_list, envp, *exit_code);

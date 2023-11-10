@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 19:17:14 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:01:49 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ void		free_command(void *command);
 
 t_list		*parse_input(char *line, char **envp, int *exit_code);
 t_list		*lexer(char *line);
-t_list		*check_token_error(t_list *token_list, int *exit_code);
-t_list		*parser(t_list *token_list, int *exit_code);
+t_list		*parser(t_list *token_list, char **envp, int *exit_code);
 t_list		*expander(t_list *parse_list, char **envp, int exit_code);
 t_list		*executor(t_list *expander_list);
 
@@ -58,6 +57,13 @@ t_list		*join_tokens(t_list *token_list);
 t_list		*join_arguments(t_list *token_list);
 t_list		*join_env_var_arguments(t_list *token_list);
 t_list		*join_redirections(t_list *token_list);
+
+t_list		*check_token_error(t_list *token_list, char **envp, \
+														int *exit_code);
+int			check_redirection(t_list_node *cur_node, char **envp, \
+														int *exit_code);
+int			check_pipe(t_list *token_list, t_list_node *cur_node, \
+													int *exit_code);
 
 t_list		*expand_env_variables(t_list *parse_list, char **envp, \
 									int exit_code);
