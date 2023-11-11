@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/10 03:48:17 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/11 23:30:58 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,16 +21,17 @@ TOKEN_CHECKER_DIR=$(PARSE_DIR)/token_checker
 HELPER_DIR=helper
 ERR_MSG_DIR=err_msg
 OBJDIR=objs
-MAIN_SRC=main.c command.c redirection.c command_argument.c
-PARSE_SRC=parse_input.c token.c lexer.c parser.c executor.c \
-		  expander.c
+MAIN_SRC=main.c command.c redirection.c command_argument.c terminal_setting.c \
+		 signal_handler.c minishell.c
+PARSE_SRC=parse_input.c token.c lexer.c parser.c expander.c \
+		  command_builder.c
 JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \
 				join_redirections.c
 PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 				 replace_substr.c isquote.c
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
-HELPER_SRC=print_command_list.c
+HELPER_SRC=print_command_list.c test_get_command.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \

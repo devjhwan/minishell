@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:57:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:22:14 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:56:39 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_command	*create_command(void)
 	new_command->command = list_init();
 	if (new_command->command == NULL)
 		return (free(new_command), free(new_command->redirection), NULL);
+	new_command->next = NULL;
 	return (new_command);
 }
 
@@ -36,6 +37,7 @@ void	free_command(void *command)
 	del_command = (t_command *)command;
 	list_clear(del_command->redirection, free);
 	list_clear(del_command->command, free);
+	del_command->next = NULL;
 	free(del_command);
 }
 /*

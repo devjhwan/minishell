@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   executor.c                                         :+:      :+:    :+:   */
+/*   command_builder.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 04:10:07 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:59:00 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static char	*append_content(t_list *list, char *content)
 	return (str);
 }
 
-static t_command	*get_new_command(t_command *new_command, t_list_node **node)
+static t_command	*get_new_command(t_command *new_command, \
+					t_list_node **node, t_list *command_list)
 {
 	t_token		*cur_token;
 
@@ -49,10 +50,12 @@ static t_command	*get_new_command(t_command *new_command, t_list_node **node)
 		if (*node != NULL)
 			cur_token = (t_token *)(*node)->content;
 	}
+	if (command_list->last != NULL && new_command != NULL)
+		((t_command *)command_list->last->content)->next = new_command;
 	return (new_command);
 }
 
-t_list	*executor(t_list *expander_list)
+t_list	*command_builder(t_list *expander_list)
 {
 	t_list		*command_list;
 	t_list_node	*cur_node;
@@ -68,7 +71,7 @@ t_list	*executor(t_list *expander_list)
 		if (new_command == NULL)
 			return (list_clear(expander_list, free_token), \
 					list_clear(command_list, free_command), NULL);
-		if (get_new_command(new_command, &cur_node) == NULL)
+		if (get_new_command(new_command, &cur_node, command_list) == NULL)
 			return (list_clear(expander_list, free_token), \
 					list_clear(command_list, free_command), NULL);
 		if (list_append(command_list, new_command) == NULL)

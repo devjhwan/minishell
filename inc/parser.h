@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 04:10:33 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/11 22:59:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_list		*parse_input(char *line, char **envp, int *exit_code);
 t_list		*lexer(char *line);
 t_list		*parser(t_list *token_list, char **envp, int *exit_code);
 t_list		*expander(t_list *parse_list, char **envp, int exit_code);
-t_list		*executor(t_list *expander_list);
+t_list		*command_builder(t_list *expander_list);
 
 char		*join_content(char *new_content, char *cur_content);
 t_list		*join_tokens(t_list *token_list);
