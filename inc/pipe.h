@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 16:45:38 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:28:44 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,11 @@ void	open_outfile(t_fdp *fdp);
 int		executor(t_minishell *shell);
 int		child(char **envp, t_fdp *fdp, char **args);
 void	mult_pipes(t_fdp *fdp, t_minishell *shell);
+void	close_fds(t_fdp *fdp);
+
+void	start_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
+void	middle_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
+void	final_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);
@@ -69,7 +74,6 @@ char	*setpath(char **path, const char *argv);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		*check_files(char **argv, int argc, int hd, int *io);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
-void	ft_close_fds(t_fdp *fdp);
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv);
 char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i);
 int		dup_and_close(int fd_to, int fd_from);

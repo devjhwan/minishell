@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 15:10:49 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:11:08 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,11 @@ char	**findpath(char **env)
 
 void	ft_close_fds(t_fdp *fdp)
 {
-	close (fdp->fd[0]);
-	close (fdp->fd[1]);
-	close (fdp->io[0]);
-	close (fdp->io[1]);
+	close (fdp->fd_file[0]);
+	close (fdp->fd_file[1]);
+	close (fdp->fd_pipe[0]);
+	close (fdp->fd_pipe[1]);
 	free(fdp->pid);
-	free(fdp->io);
 }
 
 int	ft_error(int err, int ext, char *cmd)

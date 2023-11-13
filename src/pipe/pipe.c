@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 16:17:24 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:18:37 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	executor(t_minishell *shell)
 
 int	child(char **envp, t_fdp *fdp, char **args)
 {
-	ft_close_fds(fdp);
+	close_fds(fdp);
 	execve (args[0], &args[1], envp);
 	exit (1);
 	return (0);
