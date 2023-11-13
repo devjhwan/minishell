@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/11 22:59:00 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:20:30 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static t_command	*get_new_command(t_command *new_command, \
 	return (new_command);
 }
 
-t_list	*command_builder(t_list *expander_list)
+static t_list	*create_command_list(t_lis *expander_list)
 {
 	t_list		*command_list;
 	t_list_node	*cur_node;
@@ -63,23 +63,36 @@ t_list	*command_builder(t_list *expander_list)
 
 	command_list = list_init();
 	if (command_list == NULL)
-		return (list_clear(expander_list, free_token), NULL);
+		return (NULL);
 	cur_node = expander_list->header;
 	while (cur_node != NULL)
 	{
 		new_command = create_command();
 		if (new_command == NULL)
-			return (list_clear(expander_list, free_token), \
-					list_clear(command_list, free_command), NULL);
+			return (list_clear(command_list, free_command), NULL);
 		if (get_new_command(new_command, &cur_node, command_list) == NULL)
-			return (list_clear(expander_list, free_token), \
-					list_clear(command_list, free_command), NULL);
+			return (list_clear(command_list, free_command), NULL);
 		if (list_append(command_list, new_command) == NULL)
-			return (list_clear(expander_list, free_token), \
-					list_clear(command_list, free_command), \
+			return (list_clear(command_list, free_command), \
 					free_command(new_command), NULL);
 		if (cur_node != NULL)
 			cur_node = cur_node->next;
 	}
-	return (list_clear(expander_list, free_token), command_list);
+	return (command_list);
+}
+
+t_cmnd	*command_builder(t_list *expander_list)
+{
+	t_list		*command_list;
+	t_cmnd		*cmnd_list;
+
+	command_list = create_command_list(expander_list);
+	list_clear(expander_list, free_token);
+	if (command_list == NULL)
+		return (NULL);
+	cmnd_list = translate_command_list(command_list);
+	list_clear(command_list, free_token);
+	if (cmnd_list == NULL)
+		return (NULL);
+	return (cmnd_list);
 }
