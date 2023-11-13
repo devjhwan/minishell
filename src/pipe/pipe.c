@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 17:18:37 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 17:34:24 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ int	executor(t_minishell *shell)
 	return (0);
 }
 
+void	mult_pipes(t_fdp *fdp, t_minishell *shell)
+{
+	t_cmnd	*cmnd_list;
+
+	cmnd_list = shell->cmnd_list;
+	while (cmnd_list)
+	{
+		redirect(cmnd_list->redir, fdp);
+		if (!fdp->i)
+			first_cmnd(fdp, cmnd_list, shell);
+		else if (fdp->cmnd_cnt >= 3)
+			middle_cmnd(fdp, cmnd_list, shell);
+		else
+			final_cmnd(fdp, cmnd_list, shell);
+		cmnd_list = cmnd_list->next;
+		fdp->i++;
+	}
+}
 
 int	child(char **envp, t_fdp *fdp, char **args)
 {
@@ -40,34 +58,6 @@ int	child(char **envp, t_fdp *fdp, char **args)
 	exit (1);
 	return (0);
 }
-
-void	mult_pipes(t_fdp *fdp, t_minishell *shell)
-{
-	t_cmnd	*cmnd_list;
-
-	cmnd_list = shell->cmnd_list;
-	while (cmnd_list)
-	{
-		// si no es el primero, queremos leer del read end de la pipe
-		// dup2(pipe[0], STDIN_FILENO)
-		// si no es here_doc y es el primero, queremos leer del fd del INF
-		// dup2(io[0], STDIN)
-		// si no es el ultimo, queremos escribir a la pipe
-		// dup2(pipe[1], STDOUT)
-		// si es el ultimo, queremos escribir al OUTF
-		// dup2(io[1], STDOUT)
-		redirect(cmnd_list->redir, fdp);
-		if (!fdp->i)
-			first_cmnd(fdp, cmnd_list, shell);
-		else if (fdp->cmnd_cnt >= 3)
-			middle_cmnd();
-		else
-			final_cmnd();
-		cmnd_list = cmnd_list->next;
-		fdp->i++;
-	}
-}
-
 /* char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
 {
 	char	**cmds;
