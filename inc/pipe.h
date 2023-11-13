@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 16:16:48 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:45:38 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_close_fds(t_fdp *fdp);
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv);
 char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i);
-int		ft_dup_close(int fd_to, int fd_from);
+int		dup_and_close(int fd_to, int fd_from);
 void	ft_init_argv(char **argv, t_fdp *fdp);
 void	ft_freep(char **willy);
 
