@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/13 14:55:07 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:35:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ char	*ft_strchr(const char *s, int c);
 char	**ft_split(char const *s, char *set);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_itoa(int nb);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 #endif

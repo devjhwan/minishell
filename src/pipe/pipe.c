@@ -6,63 +6,69 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 13:13:15 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 16:17:24 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
 
-int	executor(t_cmnd *cmnd_list)
+int	executor(t_minishell *shell)
 {
 	t_fdp	fdp;
 
-	init_data(&fdp, cmnd_list);
-	if (fdp.cmnd_cnt == 1)
+	if (shell->cmnd_list != NULL && shell->cmnd_list->next == NULL)
 	{
-		redirect(cmnd_list->redir, fdp);
-		child();
+		ft_bzero((void *)&fdp, sizeof(t_fdp));
+		init_data(&fdp, shell->cmnd_list);
+		// check_builtin
+		return (0);
 	}
-	ft_mult_pipes();
+	else
+	{
+		ft_bzero((void *)&fdp, sizeof(t_fdp));
+		init_data(&fdp, shell->cmnd_list);
+		ft_mult_pipes();
+	}
+	return (0);
 }
 
 
 int	child(char **envp, t_fdp *fdp, char **args)
 {
-	char	**arg;
-
-	arg = ft_split(args, ' ');
 	ft_close_fds(fdp);
-	execve (args, arg, envp);
+	execve (args[0], &args[1], envp);
 	exit (1);
 	return (0);
 }
 
-int	ft_mult_pipes(t_fdp *fdp, t_cmnd *cmnd_list, char **envp, int ret)
+void	mult_pipes(t_fdp *fdp, t_minishell *shell)
 {
+	t_cmnd	*cmnd_list;
+
+	cmnd_list = shell->cmnd_list;
 	while (cmnd_list)
 	{
+		// si no es el primero, queremos leer del read end de la pipe
+		// dup2(pipe[0], STDIN_FILENO)
+		// si no es here_doc y es el primero, queremos leer del fd del INF
+		// dup2(io[0], STDIN)
+		// si no es el ultimo, queremos escribir a la pipe
+		// dup2(pipe[1], STDOUT)
+		// si es el ultimo, queremos escribir al OUTF
+		// dup2(io[1], STDOUT)
 		redirect(cmnd_list->redir, fdp);
-		//si no es el primero, queremos leer del read end de la pipe
-		if (fdp->i > 0)
-			ret = ft_dup_close(fdp->fd_pipe[0], STDIN_FILENO);
+		if (!fdp->i)
+			first_cmnd(fdp, cmnd_list, shell);
+		else if (fdp->cmnd_cnt >= 3)
+			middle_cmnd();
 		else
-			ret = ft_dup_close(fdp->fd_file[0], STDIN_FILENO);
-		if (pipe(fdp->fd_pipe) == -1)
-			return (ft_error(ERR_PERR, 1, NULL));
-		if (fdp->i + 1 != fdp->cnt)
-			ret = ft_dup_close(fdp->fd_pipe[1], STDOUT_FILENO);
-		else
-			ret = ft_dup_close(fdp->fd_file[1], STDOUT_FILENO);
-		fdp->pid[fdp->i] = fork();
-		if (fdp->pid[fdp->i] == 0)
-			child(envp, fdp, cmnd_list->args);
+			final_cmnd();
 		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
-	return (ret);
 }
 
-char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
+/* char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
 {
 	char	**cmds;
 	char	**arg;
@@ -85,7 +91,7 @@ char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
 	}
 	ft_freep(path);
 	return (cmds);
-}
+} */
 
 /*while (cmds[i])
 	{
@@ -101,3 +107,17 @@ char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
 */
 /*printf(" fd pipe [0] es %d\n fd pipe [1] es %d\n fd infile es %d\n 
 fd outfile es %d\n", fd[0],fd[1], io[0], io[1]);*/
+/* 
+if (fdp->i > 0)
+			ret = ft_dup_close(fdp->fd_pipe[0], STDIN_FILENO);
+		else
+			ret = ft_dup_close(fdp->fd_file[0], STDIN_FILENO);
+		if (pipe(fdp->fd_pipe) == -1)
+			return (ft_error(ERR_PERR, 1, NULL));
+		if (fdp->i + 1 != fdp->cmnd_cnt)
+			ret = ft_dup_close(fdp->fd_pipe[1], STDOUT_FILENO);
+		else
+			ret = ft_dup_close(fdp->fd_file[1], STDOUT_FILENO);
+		fdp->pid[fdp->i] = fork();
+		if (fdp->pid[fdp->i] == 0)
+			child(envp, fdp, cmnd_list->args); */

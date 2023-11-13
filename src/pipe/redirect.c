@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 14:00:33 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/13 15:27:44 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ void	open_outfile(t_fdp *fdp)
 			return (-1);
 		else if (fdp->tmp_out->type == OUT_APPEND)
 			fdp->fd_file[OUTF]
-				= open(fdp->tmp_out->file, O_WRONLY | O_APPEND);
+				= open(fdp->tmp_out->file, O_WRONLY | O_APPEND, 0644);
 		else if (fdp->tmp_out->type == OUT)
 			fdp->fd_file[OUTF]
-				= open(fdp->tmp_out->file, O_WRONLY | O_TRUNC);
+				= open(fdp->tmp_out->file, O_WRONLY | O_TRUNC, 0644);
 	}
 	else
 		fdp->fd_file[OUTF]
-			= open(fdp->tmp_out->file, O_RDWR | O_CREAT, 00644);
+			= open(fdp->tmp_out->file, O_WRONLY | O_CREAT, 0644);
 }
 
 int	here_doc(t_io *redir)

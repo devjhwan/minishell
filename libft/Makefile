@@ -6,7 +6,7 @@
 #    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/13 14:56:51 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/13 16:35:12 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS=ft_strncmp.c ft_strlen.c ft_strlcpy.c ft_strdup.c ft_substr.c \
 	 ft_isspace.c ft_strlcat.c ft_strjoin.c ft_strchr.c ft_isalnum.c \
 	 ft_isalpha.c ft_isdigit.c ft_split.c  ft_strnstr.c ft_itoa.c ft_calloc.c \
 	 ft_putstr_fd.c get_next_line.c get_next_line_utils.c \
-	 list_init.c list_clear.c list_append.c list_pop.c
+	 list_init.c list_clear.c list_append.c list_pop.c ft_memcpy.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
