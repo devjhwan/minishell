@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
+#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/11 23:30:58 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/13 14:51:59 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ PARSE_HELPER_DIR=$(PARSE_DIR)/parse_helper
 EXPAND_DIR=$(PARSE_DIR)/expand
 TOKEN_CHECKER_DIR=$(PARSE_DIR)/token_checker
 HELPER_DIR=helper
+PIPE_DIR=pipe
 ERR_MSG_DIR=err_msg
 OBJDIR=objs
 MAIN_SRC=main.c command.c redirection.c command_argument.c terminal_setting.c \
@@ -32,10 +33,12 @@ PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
 HELPER_SRC=print_command_list.c test_get_command.c
+PIPE_SRC=pipe.c utils_pipe.c utils2_pipe.c redirect.c tester.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
-	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(HELPER_SRC) $(ERR_MSG_SRC)
+	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(HELPER_SRC) $(PIPE_SRC) \
+	 $(ERR_MSG_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
@@ -59,7 +62,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(LIBFT) Makefile
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(PARSE_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
-	echo "(MINISHELL) COMPILING $@"
+	echo "(MINISHELL)COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(JOIN_TOKENS_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
@@ -78,6 +81,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/$(TOKEN_CHECKER_DIR)/%.c $(LIBFT) Makefile
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(HELPER_DIR)/%.c $(LIBFT) Makefile
+	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	echo "(MINISHELL) COMPILING $@"
+
+$(OBJDIR)/%.o: $(SRCDIR)/$(PIPE_DIR)/%.c Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 

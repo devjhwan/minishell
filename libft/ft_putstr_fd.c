@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/03 15:57:26 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/13 14:53:51 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/11/13 13:51:06 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/11/13 13:51:07 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dest, const char *src, size_t size)
+void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	dlen;
-	size_t	slen;
-	size_t	i;
+	int	i;
 
 	i = 0;
-	dlen = 0;
-	slen = 0;
-	while (dest[dlen] != '\0' && dlen < size)
-		dlen++;
-	while (src[slen] != '\0')
-		slen++;
-	while (src[i] != '\0' && i < size - dlen - 1 && dlen < size)
+	if (s)
 	{
-		dest[dlen + i] = src[i];
-		i++;
+		while (s[i] != '\0')
+		{
+			write(fd, &s[i], 1);
+			i++;
+		}
 	}
-	if (i > 0)
-		dest[dlen + i] = '\0';
-	return (dlen + slen);
 }
