@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 16:16:48 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:16:55 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_fdp
 	int		dup_stdout;
 }			t_fdp;
 
-
 /*### NEW PIPE ###*/
 int		here_doc(t_io *redir);
 int		redirect(t_io *redir, t_fdp *fdp);
@@ -59,7 +58,6 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);
-
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);

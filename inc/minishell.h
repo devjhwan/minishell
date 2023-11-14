@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/13 17:26:32 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/13 23:55:47 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ typedef struct s_in_out
 	t_type			type;
 	char			*file;
 	struct s_in_out	*next;
-}					t_io;
+}	t_io;
 
 typedef struct s_cmnd
 {
 	char			**args;
 	t_io			*redir;
 	struct s_cmnd	*next;
-}					t_cmnd;
+}	t_cmnd;
 
 typedef struct s_minishell
 {
@@ -59,9 +59,6 @@ void			rollback_terminal_setting(void);
 void			set_default_minishell_signal(void);
 void			set_execution_signal(void);
 
-void			print_command_list(t_list *command_list);
-
-/*DEBUG*/
-void			test_get_command(t_list *command_list);
+void			free_cmnd_list(t_cmnd **cmnd_list);
 
 #endif

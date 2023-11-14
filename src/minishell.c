@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/11 23:39:44 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/13 23:57:15 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ static char	**copy_export(char **envp)
 
 void	free_minishell(t_minishell shell)
 {
-	if (shell.command_list != NULL)
-		list_clear(shell.command_list, free_command);
+	if (shell.cmnd_list != NULL)
+		free_cmnd_list(&shell.cmnd_list);
 	free_envp(shell._envp);
 	free_envp(shell._export);
 	free(shell.home);
@@ -95,7 +95,7 @@ t_minishell	*init_minishell(int argc, char **argv, char **envp, \
 	(void)argc;
 	(void)argv;
 	set_default_minishell_signal();
-	shell->command_list = NULL;
+	shell->cmnd_list = NULL;
 	shell->_envp = copy_envp(envp);
 	shell->_export = copy_export(envp);
 	shell->home = search_env_value("HOME", envp, 0);

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:25:51 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:41:10 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:14:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,24 @@ static int	check_redirection_argument(char	*argument)
 		return (1);
 }
 
-static int	check_env_var_argument(char	*argument, char	**envp, int *exit_code)
+static int	check_env_var_argument(char	*argument, t_minishell *shell)
 {
 	char	*tmp;
 	char	*substr;
 	int		len;
-	int		i;
 
 	tmp = ft_strchr(argument, '$');
 	len = 1;
 	while (tmp[len] != '\0' && (ft_isalnum(tmp[len]) || \
 			tmp[len] == '_' || tmp[len] == '?'))
 		len++;
-	substr = ft_substr(tmp, 0, len);
+	substr = ft_substr(tmp, 1, len);
 	if (substr == NULL)
 		return (-1);
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		if (ft_strncmp(&substr[1], envp[i], len - 1) == 0 && \
-				envp[i][len - 1] == '=')
-			return (free(substr), 0);
-		i++;
-	}
-	*exit_code = 2;
+	tmp = search_env_value(substr, shell->_envp, shell);
+	if (tmp[0] != '\0')
+		return (free(substr), free(tmp), 0);
+	shell->exit_code = 2;
 	ft_perror(AMBIGUOUS_REDIRECT, substr);
 	return (free(substr), 1);
 }
@@ -78,7 +72,7 @@ static void	unexpected_token_error(t_list_node *cur_node, int *exit_code)
 	}
 }
 
-int	check_redirection(t_list_node *cur_node, char **envp, int *exit_code)
+int	check_redirection(t_list_node *cur_node, t_minishell *shell)
 {
 	char	*argument;
 
@@ -86,7 +80,7 @@ int	check_redirection(t_list_node *cur_node, char **envp, int *exit_code)
 	if (check_redirection_argument(argument) == 0)
 		return (0);
 	if (ft_strchr(argument, '$') != NULL)
-		return (check_env_var_argument(argument, envp, exit_code));
-	unexpected_token_error(cur_node, exit_code);
+		return (check_env_var_argument(argument, shell));
+	unexpected_token_error(cur_node, &shell->exit_code);
 	return (1);
 }

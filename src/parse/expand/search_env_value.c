@@ -6,21 +6,35 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 04:11:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 04:10:12 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:10:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "parser.h"
 #include "libft.h"
 
-char	*search_env_value(char *substr, char **envp, int exit_code)
+static char	*spetial_env(char *substr, t_minishell *shell)
+{
+	char	*tmp;
+	char	*ret;
+
+	if (substr[0] == '?')
+	{
+		tmp = ft_itoa(shell->exit_code);
+		ret = ft_strjoin(tmp, &substr[1]);
+		free(tmp);
+		return (ret);
+	}
+	return (ft_strdup(""));
+}
+
+char	*search_env_value(char *substr, char **envp, t_minishell *shell)
 {
 	char	*env_value;
 	int		i;
 	int		j;
 	int		len;
 
-	if (substr[0] == '?')
-		return (ft_strjoin(ft_itoa(exit_code), &substr[1]));
 	env_value = NULL;
 	i = 0;
 	len = ft_strlen(substr);
@@ -37,6 +51,6 @@ char	*search_env_value(char *substr, char **envp, int exit_code)
 		i++;
 	}
 	if (env_value == NULL)
-		env_value = ft_strdup("");
+		env_value = spetial_env(substr, shell);
 	return (env_value);
 }
