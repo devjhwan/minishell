@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 15:35:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:42:58 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "list.h"
 # include <stdlib.h>
+# include <stdio.h>
 
 typedef enum s_redir_type
 {

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 15:28:17 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:49:57 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,35 +75,6 @@ static char	**init_export(char **envp)
 	}
 	return (_export);
 }
-
-/* static char	**init_export(char **envp)
-{
-	char	**_export;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	while (envp[i] != NULL)
-		i++;
-	_export = (char **)malloc(sizeof(char *) * (i + 1));
-	if (_export == NULL)
-		return (NULL);
-	i = 0;
-	while (envp[i] != NULL)
-	{
-		_export[i] = ft_strdup(envp[i]);
-		if (_export[i] == NULL)
-			return (free_envp(_export), NULL);
-		tmp = _export[i];
-		_export[i] = ft_strjoin("declare -x ", envp[i]);
-		free(tmp);
-		if (_export[i] == NULL)
-			return (free_envp(_export), NULL);
-		i++;
-	}
-	_export[i] = NULL;
-	return (_export);
-} */
 
 void	free_minishell(t_minishell shell)
 {

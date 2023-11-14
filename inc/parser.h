@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 14:38:28 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:42:55 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ int				check_pipe(t_list *token_list, t_list_node *cur_node, \
 
 t_list			*expand_env_variables(t_list *parse_list, t_minishell *shell);
 t_list			*remove_quotes(t_list *parse_list);
+t_list			*merge_consecutive_arguments(t_list *parse_list);
+t_list			*remove_blanks(t_list *parse_list);
 char			*search_env_value(char *substr, char **envp, \
 										t_minishell *shell);
 

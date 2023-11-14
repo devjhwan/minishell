@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/14 15:22:11 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/14 18:58:41 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,13 +30,14 @@ JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \
 				join_redirections.c
 PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 				 replace_substr.c isquote.c
-EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c
+EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
+		   merge_consecutive_arguments.c remove_blanks.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
 PIPE_SRC=pipe.c utils_pipe.c utils2_pipe.c redirect.c tester.c first_command.c \
 		 middle_command.c final_command.c
 PIPE_SRC=pipe.c utils_pipe.c utils2_pipe.c redirect.c tester.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
-			print_ambiguous_redirect_err.c
+			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
 BUILTINS_SRC=env.c export.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
