@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 19:05:45 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 21:33:31 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,7 @@ void			free_cmnd_list(t_cmnd **cmnd_list);
 /*-----BUILTINS-----*/
 void			env(t_minishell *shell);
 char			**_export(t_minishell *shell, char **args);
+
+char			**realloc_char2p(char **arr, int new_size);
 
 #endif

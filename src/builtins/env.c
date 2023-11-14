@@ -6,12 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:37:15 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 14:45:26 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:27:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <stdio.h>
 
 void	env(t_minishell *shell)
 {

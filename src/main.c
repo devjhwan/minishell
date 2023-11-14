@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 19:08:18 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 22:05:10 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,8 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
-		executor(&shell);
-		print_cmnd_list(shell.cmnd_list);
 		_export(&shell, shell.cmnd_list->args);
+		env(&shell);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}
