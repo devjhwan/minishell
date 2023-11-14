@@ -12,6 +12,19 @@
 
 #include "pipe.h"
 
+static	int	ft_list_size(t_cmnd *cmnd_list)
+{
+	int	i;
+
+	i = 0;
+	while (cmnd_list)
+	{
+		cmnd_list = cmnd_list->next;
+		i++;
+	}
+	return (i);
+}
+
 int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
 {
 	fdp->cmnd_cnt = ft_lst_size(cmnd_list);
@@ -24,7 +37,7 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
 	return (0);
 }
 
-int	ft_dup_close(int fd_to, int fd_from)
+int	dup_close(int fd_to, int fd_from)
 {
 	if (dup2(fd_to, fd_from) == -1)
 		return (-1);
