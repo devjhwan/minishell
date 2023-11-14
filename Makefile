@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
+#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/14 14:07:03 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/14 15:22:11 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ EXPAND_DIR=$(PARSE_DIR)/expand
 TOKEN_CHECKER_DIR=$(PARSE_DIR)/token_checker
 PIPE_DIR=pipe
 ERR_MSG_DIR=err_msg
+BUILTINS_DIR=builtins
 OBJDIR=objs
 MAIN_SRC=main.c terminal_setting.c signal_handler.c minishell.c \
 		 clear_command_list.c
@@ -31,15 +32,15 @@ PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 				 replace_substr.c isquote.c
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
-HELPER_SRC=print_command_list.c test_get_command.c
 PIPE_SRC=pipe.c utils_pipe.c utils2_pipe.c redirect.c tester.c first_command.c \
 		 middle_command.c final_command.c
 PIPE_SRC=pipe.c utils_pipe.c utils2_pipe.c redirect.c tester.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c
+BUILTINS_SRC=env.c export.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
-	 $(HELPER_SRC) $(PIPE_SRC) $(ERR_MSG_SRC)
+	 $(PIPE_SRC) $(ERR_MSG_SRC) $(BUILTINS_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
@@ -86,6 +87,10 @@ $(OBJDIR)/%.o: $(SRCDIR)/$(PIPE_DIR)/%.c Makefile
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(ERR_MSG_DIR)/%.c $(LIBFT) Makefile
+	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	echo "(MINISHELL) COMPILING $@"
+
+$(OBJDIR)/%.o: $(SRCDIR)/$(BUILTINS_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 01:13:45 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:38:28 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "minishell.h"
 # include "list.h"
 # include <stdlib.h>
-# include <stdio.h>
 
 /*TOKEN TYPES*/
 # define UNKNOWN 0

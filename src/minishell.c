@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/13 23:57:15 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:28:17 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	free_envp(char **envp)
 	free(envp);
 }
 
-static char	**copy_envp(char **envp)
+static char	**init_envp(char **envp)
 {
 	char	**_envp;
 	int		i;
@@ -49,34 +49,61 @@ static char	**copy_envp(char **envp)
 	return (_envp);
 }
 
-static char	**copy_export(char **envp)
+static char	**init_export(char **envp)
 {
-	char	**_envp;
+	char	**_export;
+	char	*tmp;
+	int		i;
+
+	_export = init_envp(envp);
+	if (_export == NULL)
+		return (NULL);
+	i = 0;
+	while (_export[i] != NULL)
+	{
+		tmp = (char *)ft_calloc((ft_strlen(_export[i]) + 14), sizeof(char));
+		if (tmp == NULL)
+			return (free_envp(_export), NULL);
+		ft_strlcpy(tmp, "declare -x ", 12);
+		ft_strlcpy(&tmp[11], _export[i], \
+					(int)(ft_strchr(_export[i], '=') - _export[i] + 2));
+		tmp[ft_strlen(tmp)] = '"';
+		ft_strlcat(tmp, ft_strchr(_export[i], '=') + 1, ft_strlen(_export[i]) + 14);
+		tmp[ft_strlen(_export[i]) + 12] = '"';
+		free(_export[i]);
+		_export[i++] = tmp;
+	}
+	return (_export);
+}
+
+/* static char	**init_export(char **envp)
+{
+	char	**_export;
 	char	*tmp;
 	int		i;
 
 	i = 0;
 	while (envp[i] != NULL)
 		i++;
-	_envp = (char **)malloc(sizeof(char *) * (i + 1));
-	if (_envp == NULL)
+	_export = (char **)malloc(sizeof(char *) * (i + 1));
+	if (_export == NULL)
 		return (NULL);
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		_envp[i] = ft_strdup(envp[i]);
-		if (_envp[i] == NULL)
-			return (free_envp(_envp), NULL);
-		tmp = _envp[i];
-		_envp[i] = ft_strjoin("", envp[i]);
+		_export[i] = ft_strdup(envp[i]);
+		if (_export[i] == NULL)
+			return (free_envp(_export), NULL);
+		tmp = _export[i];
+		_export[i] = ft_strjoin("declare -x ", envp[i]);
 		free(tmp);
-		if (_envp[i] == NULL)
-			return (free_envp(_envp), NULL);
+		if (_export[i] == NULL)
+			return (free_envp(_export), NULL);
 		i++;
 	}
-	_envp[i] = NULL;
-	return (_envp);
-}
+	_export[i] = NULL;
+	return (_export);
+} */
 
 void	free_minishell(t_minishell shell)
 {
@@ -96,8 +123,8 @@ t_minishell	*init_minishell(int argc, char **argv, char **envp, \
 	(void)argv;
 	set_default_minishell_signal();
 	shell->cmnd_list = NULL;
-	shell->_envp = copy_envp(envp);
-	shell->_export = copy_export(envp);
+	shell->_envp = init_envp(envp);
+	shell->_export = init_export(envp);
 	shell->home = search_env_value("HOME", envp, 0);
 	shell->pwd = ft_strdup("");
 	shell->oldpwd = ft_strdup("");
