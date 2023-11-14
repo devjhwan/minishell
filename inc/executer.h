@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 18:48:49 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:15:56 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);
+void	restore_io(t_fdp *fdp);
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);
