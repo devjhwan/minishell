@@ -6,19 +6,19 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 15:27:44 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:02:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
 
-int	redirect(t_io *redir, t_fdp *fdp)
+int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
 	if (redir->type)
 	{
 		while (redir)
 		{
-			get_redir(redir, fdp);
+			get_redir(redir, fdp, shell->cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);
@@ -38,12 +38,12 @@ void	manage_files(t_fdp	*fdp)
 		open_outfile(fdp);
 }
 
-void	get_redir(t_io *redir, t_fdp *fdp)
+void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 {
 	if (redir->type == IN)
 		fdp->tmp_in = redir;
-	if (redir->type == HERE_DOC)
-		here_doc(redir);
+	else if (redir->type == HERE_DOC)
+		fdp->tmp_in = here_doc(redir, args[0]);
 	if (redir->type == OUT
 		|| redir->type == OUT_APPEND)
 	{
@@ -71,17 +71,16 @@ void	open_outfile(t_fdp *fdp)
 			= open(fdp->tmp_out->file, O_WRONLY | O_CREAT, 0644);
 }
 
-int	here_doc(t_io *redir)
+t_io	*here_doc(t_io *redir, char *limiter)
 {
 	char	*line;
 	int		fd;
 
-	fd = open("/tmp/here_doc_pipex", O_CREAT | O_TRUNC | O_WRONLY, 0644);
+	fd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 		return (-1);
-	dup2(fd, STDOUT_FILENO);
 	line = get_next_line(0);
-	while (ft_strncmp(line, argv[2], ft_strlen(argv[2])))
+	while (ft_strncmp(line, limiter, ft_strlen(limiter)))
 	{
 		ft_putstr_fd(line, fd);
 		free(line);
@@ -89,6 +88,8 @@ int	here_doc(t_io *redir)
 	}
 	free(line);
 	close (fd);
-	fd = open("/tmp/here_doc_pipex", O_RDONLY, 0644);
-	return (fd);
+	//fd = open("/tmp/here_doc", O_RDONLY, 0644);
+	redir->file = "/tmp/here_doc";
+	return (redir);
 }
+

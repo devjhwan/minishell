@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 17:28:44 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:04:22 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ typedef struct s_fdp
 
 
 /*### NEW PIPE ###*/
-int		here_doc(t_io *redir);
-int		redirect(t_io *redir, t_fdp *fdp);
+int		redirect(t_io *redir, t_fdp *fdp, t_minishell *shell);
+t_io	*here_doc(t_io *redir, char *limiter);
 void	manage_files(t_fdp	*fdp);
-void	get_redir(t_io *redir, t_fdp *fdp);
+void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
 
 int		executor(t_minishell *shell);

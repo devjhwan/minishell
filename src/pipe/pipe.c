@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 17:34:24 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 13:48:34 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell)
 	cmnd_list = shell->cmnd_list;
 	while (cmnd_list)
 	{
-		redirect(cmnd_list->redir, fdp);
+		redirect(cmnd_list->redir, fdp, shell);
 		if (!fdp->i)
 			first_cmnd(fdp, cmnd_list, shell);
 		else if (fdp->cmnd_cnt >= 3)
