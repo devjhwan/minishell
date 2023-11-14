@@ -6,14 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 18:56:01 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 02:44:39 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:07:24 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "err_msg.h"
 
-t_list	*check_token_error(t_list *token_list, char **envp, int *exit_code)
+t_list	*check_token_error(t_list *token_list, t_minishell *shell)
 {
 	t_list_node	*cur_node;
 	t_token		*cur_token;
@@ -27,9 +27,9 @@ t_list	*check_token_error(t_list *token_list, char **envp, int *exit_code)
 	{
 		cur_token = (t_token *)cur_node->content;
 		if (cur_token->type == RD)
-			ret = check_redirection(cur_node, envp, exit_code);
+			ret = check_redirection(cur_node, shell);
 		else if (cur_token->type == PIPE)
-			ret = check_pipe(token_list, cur_node, exit_code);
+			ret = check_pipe(token_list, cur_node, &shell->exit_code);
 		if (ret < 0 || ret == 1)
 			return (list_clear(token_list, free_token), NULL);
 		cur_node = cur_node->next;

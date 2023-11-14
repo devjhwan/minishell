@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 04:09:52 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 01:14:07 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static char	*substract_env_var(char *argument, int start)
 	return (substr);
 }
 
-static char	*get_expanded_env_var(char *substr, char **envp, \
-									int exit_code)
+static char	*get_expanded_env_var(char *substr, t_minishell *shell)
 {
 	char	*env_value;
 
@@ -42,12 +41,11 @@ static char	*get_expanded_env_var(char *substr, char **envp, \
 		ft_strlcpy(env_value + 1, env_value + 2, ft_strlen(env_value) - 1);
 	}
 	else
-		env_value = search_env_value(substr + 1, envp, exit_code);
+		env_value = search_env_value(substr + 1, shell->_envp, shell);
 	return (env_value);
 }
 
-static char	*replace_env_variables(char *argument, char **envp, \
-										int exit_code)
+static char	*replace_env_variables(char *argument, t_minishell *shell)
 {
 	int		i;
 	int		len;
@@ -63,7 +61,7 @@ static char	*replace_env_variables(char *argument, char **envp, \
 			substr = substract_env_var(argument, i);
 			if (substr == NULL)
 				return (free(argument), NULL);
-			env_value = get_expanded_env_var(substr, envp, exit_code);
+			env_value = get_expanded_env_var(substr, shell);
 			if (env_value == NULL)
 				return (free(argument), free(substr), NULL);
 			argument = replace_substr(argument, substr, env_value);
@@ -90,8 +88,7 @@ int	check_quote(char *argument)
 		return (0);
 }
 
-t_list	*expand_env_variables(t_list *parse_list, char **envp, \
-								int exit_code)
+t_list	*expand_env_variables(t_list *parse_list, t_minishell *shell)
 {
 	t_list_node	*cur_node;
 	t_token		*cur_token;
@@ -106,8 +103,7 @@ t_list	*expand_env_variables(t_list *parse_list, char **envp, \
 		if (ft_strchr(argument, '$') != NULL && !check_quote(argument) && \
 			ft_strncmp(argument, "<<", 2) != 0)
 		{
-			new_argument = replace_env_variables(ft_strdup(argument), envp, \
-													exit_code);
+			new_argument = replace_env_variables(ft_strdup(argument), shell);
 			if (new_argument == NULL)
 				return (list_clear(parse_list, free_token), NULL);
 			free(cur_token->content);

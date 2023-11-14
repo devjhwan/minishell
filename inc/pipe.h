@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 14:04:22 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:06:32 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_fdp
 	int		dup_stdout;
 }			t_fdp;
 
-
 /*### NEW PIPE ###*/
 int		redirect(t_io *redir, t_fdp *fdp, t_minishell *shell);
 t_io	*here_doc(t_io *redir, char *limiter);
@@ -64,7 +63,6 @@ void	final_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);
-
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);
