@@ -6,11 +6,11 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 14:08:18 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:50:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "executer.h"
 
 int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
@@ -22,8 +22,8 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 			redir = redir->next;
 		}
 		manage_files(fdp);
-		return (0);
 	}
+	return (0);
 }
 
 void	manage_files(t_fdp	*fdp)
@@ -31,7 +31,7 @@ void	manage_files(t_fdp	*fdp)
 	if (fdp->tmp_in->type)
 	{
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
-			return (-1);
+			ft_error(0, 0, NULL);
 		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}
 	if (fdp->tmp_out->type)
@@ -58,7 +58,7 @@ void	open_outfile(t_fdp *fdp)
 	if (access(fdp->tmp_out->file, F_OK) == 0)
 	{
 		if (access(fdp->tmp_out->file, W_OK) != 0)
-			return (-1);
+			ft_error(0, 0, NULL);
 		else if (fdp->tmp_out->type == OUT_APPEND)
 			fdp->fd_file[OUTF]
 				= open(fdp->tmp_out->file, O_WRONLY | O_APPEND, 0644);
@@ -78,7 +78,7 @@ t_io	*here_doc(t_io *redir, char *limiter)
 
 	fd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
-		return (-1);
+		ft_error(0, 0, NULL);
 	line = get_next_line(0);
 	while (ft_strncmp(line, limiter, ft_strlen(limiter)))
 	{

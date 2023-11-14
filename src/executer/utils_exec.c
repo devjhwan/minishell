@@ -1,67 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_pipe.c                                       :+:      :+:    :+:   */
+/*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 14:08:26 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:54:38 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "executer.h"
 
-char	*setpath(char **path, const char *argv)
+void	restore_io(t_fdp *fdp)
 {
-	int		i;
-	char	*tmp;
-	char	*tmp2;
-
-	i = 0;
-	while (path[i])
-	{
-		tmp2 = ft_strjoin(path[i], "/");
-		if (!tmp2)
-			return (NULL);
-		tmp = ft_strjoin(tmp2, argv);
-		if (!tmp)
-			return (free(tmp2), NULL);
-		free(tmp2);
-		if (access(tmp, X_OK) == 0)
-		{
-			return (tmp);
-		}
-		i++;
-		free (tmp);
-	}
-	return (NULL);
+	dup2(fdp->dup_stdin, STDIN_FILENO);
+	dup2(fdp->dup_stdout, STDOUT_FILENO);
 }
 
-char	**findpath(char **env)
-{
-	int		i;
-	char	**path;
-
-	path = NULL;
-	i = 0;
-	while (env[i] && env[i][0] != '\0')
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			env[i] += 5;
-			path = ft_split(env[i], ':');
-			if (!path)
-				return (NULL);
-			return (path);
-		}
-		else
-			i++;
-	}
-	return (NULL);
-}
-
-void	ft_close_fds(t_fdp *fdp)
+void	close_fds(t_fdp *fdp)
 {
 	close (fdp->fd_file[0]);
 	close (fdp->fd_file[1]);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 01:06:16 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:47:54 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
-#include "pipe.h"
+#include "executer.h"
 #include <signal.h>
 #include <stdio.h>
 #include <readline/readline.h>
@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
+		executor(&shell);
 		print_cmnd_list(shell.cmnd_list);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;

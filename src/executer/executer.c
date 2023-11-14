@@ -1,38 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.c                                             :+:      :+:    :+:   */
+/*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 14:07:37 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:52:11 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "executer.h"
 
 int	executor(t_minishell *shell)
 {
 	t_fdp	fdp;
+	char	**cmnds;
 
+	cmnds = NULL;
 	if (shell->cmnd_list != NULL && shell->cmnd_list->next == NULL)
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		init_data(&fdp, shell->cmnd_list);
 		// check_builtin
+		//else
+		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
+		child(shell->_envp, &fdp, shell->cmnd_list->args, cmnds[0]);
 		return (0);
 	}
 	else
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		init_data(&fdp, shell->cmnd_list);
-		ft_mult_pipes();
+		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
+		mult_pipes(&fdp, shell, cmnds);
 	}
+	restore_io(&fdp);
+	ft_free_array(cmnds, ft_arraylen(cmnds));
 	return (0);
 }
 
-void	mult_pipes(t_fdp *fdp, t_minishell *shell)
+void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 {
 	t_cmnd	*cmnd_list;
 
@@ -41,47 +49,24 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell)
 	{
 		redirect(cmnd_list->redir, fdp, shell);
 		if (!fdp->i)
-			first_cmnd(fdp, cmnd_list, shell);
+			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		else if (fdp->cmnd_cnt >= 3)
-			middle_cmnd(fdp, cmnd_list, shell);
+			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		else
-			final_cmnd(fdp, cmnd_list, shell);
+			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
 }
 
-int	child(char **envp, t_fdp *fdp, char **args)
+int	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 {
 	close_fds(fdp);
-	execve (args[0], &args[1], envp);
+	execve (cmnd, args, envp);
 	exit (1);
 	return (0);
 }
-/* char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i)
-{
-	char	**cmds;
-	char	**arg;
-	char	**path;
 
-	path = findpath(envp);
-	cmds = malloc(sizeof(char *) * (fdp->cnt + 1));
-	if (!cmds)
-		return (NULL);
-	cmds[fdp->cnt] = NULL;
-	ft_init_argv(argv, fdp);
-	while (i < fdp->cnt)
-	{
-		arg = ft_split(fdp->argv[i], ' ');
-		cmds[i] = setpath(path, arg[0]);
-		if (!arg || !path)
-			return (NULL);
-		ft_freep(arg);
-		i++;
-	}
-	ft_freep(path);
-	return (cmds);
-} */
 
 /*while (cmds[i])
 	{

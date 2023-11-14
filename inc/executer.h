@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 14:06:32 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:48:49 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_H
-# define PIPE_H
+#ifndef EXECUTER_H
+# define EXECUTER_H
 
 # include <stdio.h>
 # include <sys/wait.h>
@@ -39,6 +39,7 @@ typedef struct s_fdp
 	t_io	*tmp_out;
 	int		*pid;
 	char	*lim;
+	char	**argv;
 	int		i;
 	int		cmnd_cnt;
 	int		dup_stdin;
@@ -53,13 +54,13 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
 
 int		executor(t_minishell *shell);
-int		child(char **envp, t_fdp *fdp, char **args);
-void	mult_pipes(t_fdp *fdp, t_minishell *shell);
+int		child(char **envp, t_fdp *fdp, char **args, char *cmnd);
+void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
 void	close_fds(t_fdp *fdp);
 
-void	start_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
-void	middle_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
-void	final_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell);
+void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
+void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
+void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);

@@ -6,13 +6,13 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:10:36 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 17:24:34 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:49:43 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "executer.h"
 
-void	final_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell)
+void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 {
 	if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
 		dup_and_close(fdp->fd_file[INF], STDOUT_FILENO);
@@ -22,4 +22,7 @@ void	final_cmnd(t_fdp *fdp, t_cmnd *cmnd_list, t_minishell *shell)
 		dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO);
 	else
 		dup_and_close(fdp->dup_stdout, STDOUT_FILENO);
+	fdp->pid[fdp->i] = fork();
+	if (fdp->pid[fdp->i] == 0)
+		child(shell->_envp, fdp, list->args, cmnd);
 }

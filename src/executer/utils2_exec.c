@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2_pipe.c                                      :+:      :+:    :+:   */
+/*   utils2_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 01:15:12 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:01:32 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe.h"
+#include "executer.h"
 
 static	int	ft_list_size(t_cmnd *cmnd_list)
 {
@@ -27,17 +27,18 @@ static	int	ft_list_size(t_cmnd *cmnd_list)
 
 int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
 {
-	fdp->cmnd_cnt = ft_lst_size(cmnd_list);
+	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	fdp->dup_stdin = dup(STDIN_FILENO);
 	fdp->dup_stdout = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
 	if (!fdp->pid)
 		return (1);
 	fdp->lim = NULL;
+	fdp->argv = NULL;
 	return (0);
 }
 
-int	dup_close(int fd_to, int fd_from)
+int	dup_and_close(int fd_to, int fd_from)
 {
 	if (dup2(fd_to, fd_from) == -1)
 		return (-1);
