@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_perror.c                                        :+:      :+:    :+:   */
+/*   print_export_invalid_identifier.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:59:01 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/14 18:57:03 by junghwle          #+#    #+#             */
+/*   Updated: 2023/11/14 18:59:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "err_msg.h"
-#include <stdarg.h>
 
-void	ft_perror(int errtype, ...)
+void	print_export_invalid_identifier(char *argument)
 {
-	va_list	ap;
-
-	va_start(ap, errtype);
-	if (errtype == UNEXPECTED_TOKEN)
-		print_unexpected_token_err(va_arg(ap, char *));
-	else if (errtype == AMBIGUOUS_REDIRECT)
-		print_ambiguous_redirect_err(va_arg(ap, char *));
-	else if (errtype == EXPORT_INVALID_IDENTIFIER)
-		print_export_invalid_identifier(va_arg(ap, char *));
-	else
-		print_unknown_err();
-	(void)errtype;
+	write(STDERR_FILENO, "minishell: export: '", 20);
+	write(STDERR_FILENO, argument, ft_strlen(argument));
+	write(STDERR_FILENO, "': not a valid identifier\n", 26);
 }

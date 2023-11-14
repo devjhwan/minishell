@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 18:52:11 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:09:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,31 +68,31 @@ int	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 }
 
 
-/*while (cmds[i])
-	{
-		si no es el primero, queremos leer del read end de la pipe
-		dup2(pipe[0], STDIN_FILENO)
-		si no es here_doc y es el primero, queremos leer del fd del INF
-		dup2(io[0], STDIN)
-		si no es el ultimo, queremos escribir a la pipe
-		dup2(pipe[1], STDOUT)
-		si es el ultimo, queremos escribir al OUTF
-		dup2(io[1], STDOUT)
-	}
-*/
-/*printf(" fd pipe [0] es %d\n fd pipe [1] es %d\n fd infile es %d\n 
-fd outfile es %d\n", fd[0],fd[1], io[0], io[1]);*/
-/* 
-if (fdp->i > 0)
-			ret = ft_dup_close(fdp->fd_pipe[0], STDIN_FILENO);
-		else
-			ret = ft_dup_close(fdp->fd_file[0], STDIN_FILENO);
-		if (pipe(fdp->fd_pipe) == -1)
-			return (ft_error(ERR_PERR, 1, NULL));
-		if (fdp->i + 1 != fdp->cmnd_cnt)
-			ret = ft_dup_close(fdp->fd_pipe[1], STDOUT_FILENO);
-		else
-			ret = ft_dup_close(fdp->fd_file[1], STDOUT_FILENO);
-		fdp->pid[fdp->i] = fork();
-		if (fdp->pid[fdp->i] == 0)
-			child(envp, fdp, cmnd_list->args); */
+// /*while (cmds[i])
+// 	{
+// 		si no es el primero, queremos leer del read end de la pipe
+// 		dup2(pipe[0], STDIN_FILENO)
+// 		si no es here_doc y es el primero, queremos leer del fd del INF
+// 		dup2(io[0], STDIN)
+// 		si no es el ultimo, queremos escribir a la pipe
+// 		dup2(pipe[1], STDOUT)
+// 		si es el ultimo, queremos escribir al OUTF
+// 		dup2(io[1], STDOUT)
+// 	}
+// */
+// /*printf(" fd pipe [0] es %d\n fd pipe [1] es %d\n fd infile es %d\n 
+// fd outfile es %d\n", fd[0],fd[1], io[0], io[1]);*/
+// /* 
+// if (fdp->i > 0)
+// 			ret = ft_dup_close(fdp->fd_pipe[0], STDIN_FILENO);
+// 		else
+// 			ret = ft_dup_close(fdp->fd_file[0], STDIN_FILENO);
+// 		if (pipe(fdp->fd_pipe) == -1)
+// 			return (ft_error(ERR_PERR, 1, NULL));
+// 		if (fdp->i + 1 != fdp->cmnd_cnt)
+// 			ret = ft_dup_close(fdp->fd_pipe[1], STDOUT_FILENO);
+// 		else
+// 			ret = ft_dup_close(fdp->fd_file[1], STDOUT_FILENO);
+// 		fdp->pid[fdp->i] = fork();
+// 		if (fdp->pid[fdp->i] == 0)
+// 			child(envp, fdp, cmnd_list->args); */

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:38:47 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:05:45 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,9 @@ void			set_default_minishell_signal(void);
 void			set_execution_signal(void);
 
 void			free_cmnd_list(t_cmnd **cmnd_list);
+
+/*-----BUILTINS-----*/
+void			env(t_minishell *shell);
+char			**_export(t_minishell *shell, char **args);
 
 #endif

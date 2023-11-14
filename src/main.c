@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:47:54 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:08:18 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		executor(&shell);
 		print_cmnd_list(shell.cmnd_list);
+		_export(&shell, shell.cmnd_list->args);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}
