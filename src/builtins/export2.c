@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:41:52 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 21:59:00 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/15 18:13:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static char	**append_argument(char **arr, char *arg)
 	len = 0;
 	while (arr[len] != NULL)
 		len++;
-	new_arr = (char **)malloc(sizeof(char *) * (len + 1));
+	new_arr = (char **)malloc(sizeof(char *) * (len + 2));
 	if (new_arr == NULL)
 		return (NULL);
 	i = 0;
