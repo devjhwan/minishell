@@ -45,6 +45,7 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 
 void	manage_files(t_fdp	*fdp)
 {
+	//fallo aqui -> get redir ha ido mal?
 	if (fdp->tmp_in->type)
 	{
 		printf("entro2\n");
