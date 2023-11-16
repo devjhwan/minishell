@@ -16,13 +16,13 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
 	if (redir && redir->type)
 	{
-		printf("entro\n");
-		while (redir)
+		while (redir != NULL)
 		{
 			get_redir(redir, fdp, shell->cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);
+		printf("entro\n");
 		printf("salgo\n");
 	}
 	return (0);
@@ -34,26 +34,29 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 		fdp->tmp_in = redir;
 	else if (redir->type == HERE_DOC)
 		fdp->tmp_in = here_doc(redir, args[0]);
-	if (redir->type == OUT
+	if (redir->type == OUT \
 		|| redir->type == OUT_APPEND)
 	{
 		fdp->tmp_out = redir;
 		open_outfile(fdp);
 		close(fdp->fd_file[OUTF]);
 	}
+	//printf("temp out type = %i\n", fdp->tmp_out->type);
+	//printf("temp out adress = %p\n", fdp->tmp_out);
+	//printf("temp in adress = %p\n", fdp->tmp_in);
+	//printf("temp in type = %i\n", fdp->tmp_in->type);
 }
 
 void	manage_files(t_fdp	*fdp)
 {
 	//fallo aqui -> get redir ha ido mal?
-	if (fdp->tmp_in->type)
+	if (fdp->tmp_in && fdp->tmp_in->type)
 	{
-		printf("entro2\n");
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
 			ft_error(0, 0, NULL);
 		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}
-	if (fdp->tmp_out->type)
+	if (fdp->tmp_in && fdp->tmp_out->type)
 		open_outfile(fdp);
 }
 
