@@ -35,6 +35,8 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
 		return (1);
 	fdp->lim = NULL;
 	fdp->argv = NULL;
+	fdp->fd_pipe[0] = 0;
+	fdp->fd_pipe[1] = 0;
 	return (0);
 }
 

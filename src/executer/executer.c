@@ -12,37 +12,49 @@
 
 #include "executer.h"
 
-int	executer(t_minishell *shell)
+/* static void testprinter(t_minishell *shell, t_fdp *fdp)
 {
-	t_fdp	fdp;
-	char	**cmnds;
-	//int i = -1;
+	static int i = -1;
 
-	cmnds = NULL;
-	/* printf("cmnd list size = %d\n", fdp.cmnd_cnt);
+	printf("cmnd list size = %d\n", fdp->cmnd_cnt);
 	while (shell->cmnd_list->args[++i])
 		printf("arg %d  = %s\n", i, shell->cmnd_list->args[i]);
     printf("redir type = %i\n", shell->cmnd_list->redir->type);
 	printf("redir adress = %p\n", shell->cmnd_list->redir);
 	printf("redir adress = %s\n", shell->cmnd_list->redir->file);
-	printf("redir adress = %s\n", shell->cmnd_list->args[0]); */
-/* 	exit(1);
-	if (shell->cmnd_list != NULL && shell->cmnd_list->next == NULL)
-	{
-		ft_bzero((void *)&fdp, sizeof(t_fdp));
-		init_data(&fdp, shell->cmnd_list);
-		// check_builtin
-		//else
-		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
-		child(shell->_envp, &fdp, shell->cmnd_list->args, cmnds[0]);
-		return (0);
-	}
-	else  */
+	printf("redir adress = %s\n", shell->cmnd_list->args[0]);
+} */
+
+
+#include <fcntl.h>
+static void printfds(void)
+{
+
+    int max_fd = 256;  // You can adjust this based on your needs
+
+    printf("Open File Descriptors:\n");
+
+    for (int fd = 0; fd < max_fd; ++fd) {
+        int flags = fcntl(fd, F_GETFD);
+        if (flags != -1) {
+            printf("File Descriptor %d is open.\n", fd);
+        }
+    }
+}
+int	executer(t_minishell *shell)
+{
+	t_fdp	fdp;
+	char	**cmnds;
+
+	cmnds = NULL;
+	printfds();
 	if (shell->cmnd_list != NULL)// && shell->cmnd_list->next == NULL)
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		init_data(&fdp, shell->cmnd_list);
 		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
+/* 		if (fdp.cmnd_cnt == 1 && check_builtin(shell->cmnd_list))
+			manage_builtins(shell); */
 		mult_pipes(&fdp, shell, cmnds);
 	}
 	restore_io(&fdp);
@@ -58,12 +70,16 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 	while (cmnd_list)
 	{
 		redirect(cmnd_list->redir, fdp, shell);
+		printf("i esta en %d, cmnd cnt es %d\n", fdp->i, fdp->cmnd_cnt);
 		if (!fdp->i)
 			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		else if (fdp->cmnd_cnt >= 3)
 			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
-		else
+		else if (fdp->i == fdp->cmnd_cnt - 1)
+		{
+			printf("\nentro en final\n");
 			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+		}
 		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
