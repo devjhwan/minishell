@@ -19,16 +19,13 @@ int	executer(t_minishell *shell)
 	//int i = -1;
 
 	cmnds = NULL;
-	ft_bzero((void *)&fdp, sizeof(t_fdp));
-	init_data(&fdp, shell->cmnd_list);
-	printf("cmnd list size = %d\n", fdp.cmnd_cnt);
-	//while (shell->cmnd_list->args[++i])
-	//	printf("arg %d  = %s\n", i, shell->cmnd_list->args[i]);
+	/* printf("cmnd list size = %d\n", fdp.cmnd_cnt);
+	while (shell->cmnd_list->args[++i])
+		printf("arg %d  = %s\n", i, shell->cmnd_list->args[i]);
     printf("redir type = %i\n", shell->cmnd_list->redir->type);
 	printf("redir adress = %p\n", shell->cmnd_list->redir);
 	printf("redir adress = %s\n", shell->cmnd_list->redir->file);
-	printf("redir adress = %s\n", shell->cmnd_list->args[0]);
-	exit(1);
+	printf("redir adress = %s\n", shell->cmnd_list->args[0]); */
 /* 	exit(1);
 	if (shell->cmnd_list != NULL && shell->cmnd_list->next == NULL)
 	{
@@ -46,7 +43,6 @@ int	executer(t_minishell *shell)
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		init_data(&fdp, shell->cmnd_list);
 		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
-		printf("llego\n");
 		mult_pipes(&fdp, shell, cmnds);
 	}
 	restore_io(&fdp);
@@ -61,14 +57,14 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 	cmnd_list = shell->cmnd_list;
 	while (cmnd_list)
 	{
-		redirect(shell->cmnd_list->redir, fdp, shell);
+		redirect(cmnd_list->redir, fdp, shell);
 		if (!fdp->i)
-			first_cmnd(fdp, shell->cmnd_list, shell, cmnds[fdp->i]);
+			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		else if (fdp->cmnd_cnt >= 3)
-			middle_cmnd(fdp, shell->cmnd_list, shell, cmnds[fdp->i]);
+			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		else
-			final_cmnd(fdp, shell->cmnd_list, shell, cmnds[fdp->i]);
-		shell->cmnd_list = shell->cmnd_list->next;
+			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
 }

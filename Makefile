@@ -46,7 +46,7 @@ DEPS=$(OBJS:.o=.d)
 
 INCLUDE=-I./inc -I./libft
 CC=cc
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=-Wall -Werror -Wextra -fsanitize="address,undefined" -g
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
 LDFLAGS=-L/opt/homebrew/lib

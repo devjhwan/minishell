@@ -61,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
+		executer(&shell);
 		print_cmnd_list(shell.cmnd_list);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;

@@ -22,8 +22,6 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 			redir = redir->next;
 		}
 		manage_files(fdp);
-		printf("entro\n");
-		printf("salgo\n");
 	}
 	return (0);
 }
