@@ -65,6 +65,7 @@ void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
 void	ft_free_array(char **arr, int i);
 void	restore_io(t_fdp *fdp);
+int		check_builtin(t_cmnd *cmnd_list);
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);

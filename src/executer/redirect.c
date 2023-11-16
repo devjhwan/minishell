@@ -14,28 +14,18 @@
 
 int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
-	if (redir->type)
+	if (redir && redir->type)
 	{
+		printf("entro\n");
 		while (redir)
 		{
 			get_redir(redir, fdp, shell->cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);
+		printf("salgo\n");
 	}
 	return (0);
-}
-
-void	manage_files(t_fdp	*fdp)
-{
-	if (fdp->tmp_in->type)
-	{
-		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
-			ft_error(0, 0, NULL);
-		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
-	}
-	if (fdp->tmp_out->type)
-		open_outfile(fdp);
 }
 
 void	get_redir(t_io *redir, t_fdp *fdp, char **args)
@@ -51,6 +41,19 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 		open_outfile(fdp);
 		close(fdp->fd_file[OUTF]);
 	}
+}
+
+void	manage_files(t_fdp	*fdp)
+{
+	if (fdp->tmp_in->type)
+	{
+		printf("entro2\n");
+		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
+			ft_error(0, 0, NULL);
+		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
+	}
+	if (fdp->tmp_out->type)
+		open_outfile(fdp);
 }
 
 void	open_outfile(t_fdp *fdp)
