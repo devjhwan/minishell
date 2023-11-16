@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
+#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/14 16:39:13 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/15 18:11:32 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,11 +32,11 @@ all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS) Makefile
 	ar -rcs $@ $(OBJS) 
-	echo "(MINISHELL)COMPILING $@"
+	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile 
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $<
-	echo "(MINISHELL)COMPILING $@"
+	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR): Makefile
 	mkdir -p $@

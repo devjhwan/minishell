@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
+#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/14 19:07:59 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/15 18:11:02 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c first_cmnd.c \
 		 middle_cmnd.c final_cmnd.c pathfinder.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
-BUILTINS_SRC=env.c export.c
+BUILTINS_SRC=env.c export.c export2.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
 	 $(EXECUTER_SRC) $(ERR_MSG_SRC) $(BUILTINS_SRC)
@@ -64,7 +64,7 @@ $(OBJDIR)/%.o: $(SRCDIR)/%.c $(LIBFT) Makefile
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(PARSE_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
-	echo "(MINISHELL)COMPILING $@"
+	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(JOIN_TOKENS_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
