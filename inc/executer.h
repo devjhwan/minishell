@@ -53,7 +53,7 @@ void	manage_files(t_fdp	*fdp);
 void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
 
-int		executor(t_minishell *shell);
+int		executer(t_minishell *shell);
 int		child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
 void	close_fds(t_fdp *fdp);

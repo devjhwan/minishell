@@ -12,7 +12,7 @@
 
 #include "executer.h"
 
-int	executor(t_minishell *shell)
+int	executer(t_minishell *shell)
 {
 	t_fdp	fdp;
 	char	**cmnds;
