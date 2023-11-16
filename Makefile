@@ -49,8 +49,10 @@ CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
-CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
+LDFLAGS=-L/opt/homebrew/lib
+CPPFLAGS=-I/opt/homebrew/include
+#LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+#CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
 all: $(OBJDIR) libft $(NAME)
 
