@@ -54,7 +54,7 @@ void	manage_files(t_fdp	*fdp)
 			ft_error(0, 0, NULL);
 		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}
-	if (fdp->tmp_in && fdp->tmp_out->type)
+	if (fdp->tmp_out && fdp->tmp_out->type)
 		open_outfile(fdp);
 }
 

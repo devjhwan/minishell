@@ -54,10 +54,11 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
 
 int		executer(t_minishell *shell);
-int		child(char **envp, t_fdp *fdp, char **args, char *cmnd);
+void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
 void	close_fds(t_fdp *fdp);
 
+void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);

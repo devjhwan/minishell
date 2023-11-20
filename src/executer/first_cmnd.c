@@ -14,6 +14,8 @@
 
 void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 {
+	if (fdp->cmnd_cnt == 1)
+		only_cmnd(fdp, list, shell, cmnd);
 	if (fdp->cmnd_cnt > 1)
 	{
 		if (pipe(fdp->fd_pipe) == -1)
@@ -34,3 +36,21 @@ void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 		child(shell->_envp, fdp, list->args, cmnd);
 }
 
+void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
+{
+	if (fdp->tmp_in)
+		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
+			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
+	if (fdp->tmp_out)
+	{
+		if (fdp->tmp_out->type == OUT || fdp->tmp_out->type == OUT_APPEND)
+			dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO);
+	}
+	if (check_builtin(list) == 0)
+	{
+		fdp->pid[fdp->i] = fork();
+		if (fdp->pid[fdp->i] == 0)
+			child(shell->_envp, fdp, list->args, cmnd);
+	}
+	//else manage builtin
+}
