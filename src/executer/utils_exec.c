@@ -12,6 +12,27 @@
 
 #include "executer.h"
 
+int	check_builtin(t_cmnd *cmnd_list)
+{
+	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
+	{
+		if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
+			return (1);
+	}
+	return (0);
+}
 void	restore_io(t_fdp *fdp)
 {
 	dup2(fdp->dup_stdin, STDIN_FILENO);

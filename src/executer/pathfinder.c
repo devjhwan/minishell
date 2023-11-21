@@ -63,7 +63,7 @@ char	*setpath(char **path, const char *argv)
 	char	*tmp2;
 
 	i = 0;
-	while (path[i])
+	while (path && path[i])
 	{
 		tmp2 = ft_strjoin(path[i], "/");
 		if (!tmp2)

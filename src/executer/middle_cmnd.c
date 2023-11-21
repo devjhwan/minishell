@@ -14,19 +14,23 @@
 
 void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 {
-	if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
-		dup_and_close(fdp->fd_file[INF], STDOUT_FILENO);
-	else
-		dup_and_close(fdp->fd_pipe[0], STDIN_FILENO);
-	if (fdp->tmp_in->type == OUT || fdp->tmp_in->type == OUT_APPEND)
-		dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO);
 	if (pipe(fdp->fd_pipe) == -1)
 		ft_error(0, 0, NULL);
-	else
+	if (fdp->tmp_in)
 	{
-		dup_and_close(fdp->fd_pipe[1], STDOUT_FILENO);
-		fdp->pid[fdp->i] = fork();
-		if (fdp->pid[fdp->i] == 0)
-			child(shell->_envp, fdp, list->args, cmnd);
+		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
+			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
 	}
+	else
+		dup_and_close(fdp->fd_pipe[0], STDIN_FILENO);
+	if (fdp->tmp_out)
+	{
+		if (fdp->tmp_out->type == OUT || fdp->tmp_out->type == OUT_APPEND)
+			dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO);
+	}
+	else
+		dup_and_close(fdp->fd_pipe[1], STDOUT_FILENO);
+	fdp->pid[fdp->i] = fork();
+	if (fdp->pid[fdp->i] == 0)
+		child(shell->_envp, fdp, list->args, cmnd);
 }

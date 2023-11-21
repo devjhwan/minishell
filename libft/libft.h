@@ -47,5 +47,7 @@ char	**ft_split(char const *s, char *set);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_itoa(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
+int	    ft_strcmp_case(const char *s1, const char *s2, int flag);
+int	    ft_tolower(int c);
 
 #endif
