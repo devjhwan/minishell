@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 00:44:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/21 12:40:32 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	**get_command_arguments(t_list_node *cur_node, int count, int i)
 	{
 		if (((t_token *)cur_node->content)->type == ARG)
 			args[i++] = ft_strdup(((t_token *)cur_node->content)->content);
-		if (args[i - 1] == NULL)
+		if (i >= 1 && args[i - 1] == NULL)
 			return (free_arguments(args), NULL);
 		cur_node = cur_node->next;
 	}
