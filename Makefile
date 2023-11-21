@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/15 18:11:02 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/21 12:43:01 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ DEPS=$(OBJS:.o=.d)
 
 INCLUDE=-I./inc -I./libft
 CC=cc
+#DEBUG=-fsanitize=address -g
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
@@ -55,43 +56,43 @@ CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 all: $(OBJDIR) libft $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) Makefile
-	$(CC) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) -lreadline $(LDFLAGS)
+	$(CC) $(DEBUG) $(CFLAGS) -o $@ $(OBJS) $(LIBFT) -lreadline $(LDFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(PARSE_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(JOIN_TOKENS_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(PARSE_HELPER_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(EXPAND_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(TOKEN_CHECKER_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(EXECUTER_DIR)/%.c Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(ERR_MSG_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(BUILTINS_DIR)/%.c $(LIBFT) Makefile
-	$(CC) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
+	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR): Makefile
