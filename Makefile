@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/21 12:45:26 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/21 14:26:31 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c first_cmnd.c \
 		 middle_cmnd.c final_cmnd.c pathfinder.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
-BUILTINS_SRC=env.c export.c export2.c
+BUILTINS_SRC=env.c export.c export2.c cd.c pwd.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
 	 $(EXECUTER_SRC) $(ERR_MSG_SRC) $(BUILTINS_SRC)
@@ -50,10 +50,10 @@ CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-LDFLAGS=-L/opt/homebrew/lib
-CPPFLAGS=-I/opt/homebrew/include
-#LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
-#CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
+#LDFLAGS=-L/opt/homebrew/lib
+#CPPFLAGS=-I/opt/homebrew/include
+LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
 all: $(OBJDIR) libft $(NAME)
 

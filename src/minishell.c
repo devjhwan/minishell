@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 21:38:07 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:42:08 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	free_minishell(t_minishell shell)
 	free_envp(shell._envp);
 	free_envp(shell._export);
 	free(shell.home);
-	free(shell.pwd);
 	free(shell.oldpwd);
 }
 
@@ -97,11 +96,10 @@ t_minishell	*init_minishell(int argc, char **argv, char **envp, \
 	shell->_envp = init_envp(envp);
 	shell->_export = init_export(envp);
 	shell->home = search_env_value("HOME", envp, 0);
-	shell->pwd = ft_strdup("");
-	shell->oldpwd = ft_strdup("");
+	shell->oldpwd = NULL;
 	shell->exit_code = 0;
 	if (shell->_envp == NULL || shell->_export == NULL || \
-		shell->home == NULL || shell->pwd == NULL || shell->oldpwd == NULL)
+		shell->home == NULL)
 		return (free_minishell(*shell), NULL);
 	return (shell);
 }

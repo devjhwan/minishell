@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 21:33:31 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:21:50 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_minishell
 	char	**_envp;
 	char	**_export;
 	char	*home;
-	char	*pwd;
 	char	*oldpwd;
 	int		exit_code;
 }	t_minishell;
@@ -65,6 +64,8 @@ void			free_cmnd_list(t_cmnd **cmnd_list);
 /*-----BUILTINS-----*/
 void			env(t_minishell *shell);
 char			**_export(t_minishell *shell, char **args);
+int	 			cd(t_minishell *shell, char *path);
+void			pwd(void);
 
 char			**realloc_char2p(char **arr, int new_size);
 
