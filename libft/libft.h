@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 21:28:27 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:56:49 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**ft_split(char const *s, char *set);
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_itoa(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
-int	    ft_strcmp_case(const char *s1, const char *s2, int flag);
-int	    ft_tolower(int c);
+int		ft_strcmp_case(const char *s1, const char *s2, int flag);
+int		ft_tolower(int c);
 
 #endif

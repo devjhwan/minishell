@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 20:05:35 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:59:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 		ft_error(0, 0, NULL);
 }
 
-
 /* static void testprinter(t_minishell *shell, t_fdp *fdp)
 {
 	static int i = -1;
@@ -84,7 +83,6 @@ void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 	printf("pipes fds:\nRead end: %d\n Write end: %d\n", fdp->fd_pipe[0], fdp->fd_pipe[1]);
 	printf("cmnds en [i] es %s\n", cmnds[fdp->i]);
 } */
-
 
 /* #include <fcntl.h>
 static void printfds(void)

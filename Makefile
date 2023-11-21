@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
+#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/15 18:11:02 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/21 10:32:34 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,10 +49,10 @@ CC=cc
 CFLAGS=-Wall -Werror -Wextra -fsanitize="address,undefined" -g
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-LDFLAGS=-L/opt/homebrew/lib
-CPPFLAGS=-I/opt/homebrew/include
-#LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
-#CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
+#LDFLAGS=-L/opt/homebrew/lib
+#CPPFLAGS=-I/opt/homebrew/include
+LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
 all: $(OBJDIR) libft $(NAME)
 

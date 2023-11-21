@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 19:16:59 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:49:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,29 @@ int	check_builtin(t_cmnd *cmnd_list)
 	}
 	return (0);
 }
+
+void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
+{
+	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
+	{
+		if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
+			env(shell);
+/* 		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
+			return (cd(shell));
+		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
+			return (pwd(shell));
+		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
+			return (echo(shell));
+		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
+			return (export(shell));
+		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
+			return (unset(shell));
+		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
+			return (exit(shell)); */
+	}
+	return (-1);
+}
+
 void	restore_io(t_fdp *fdp)
 {
 	dup2(fdp->dup_stdin, STDIN_FILENO);
@@ -65,32 +88,3 @@ int	ft_error(int err, int ext, char *cmd)
 		perror("bash: ");
 	return (ext);
 }
-
-/* 
-int	*check_files(char **argv, int argc, int hd, int *io)
-{
-	io = malloc (sizeof(int) * 2);
-	if (!io)
-		io = NULL;
-	if (hd)
-		io[0] = here_doc(argv);
-	else if (!hd)
-	{
-		if (access(argv[1], F_OK | R_OK) != 0)
-			io[0] = -1;
-		else
-			io[0] = open(argv[1], O_RDONLY);
-	}
-	if (access(argv[argc - 1], F_OK) == 0)
-	{
-		if (access(argv[argc - 1], W_OK) != 0)
-			io[1] = -1;
-		else if (hd)
-			io[1] = open(argv[argc - 1], O_WRONLY | O_APPEND);
-		else
-			io[1] = open(argv[argc - 1], O_WRONLY | O_TRUNC);
-	}
-	else
-		io[1] = open(argv[argc - 1], O_RDWR | O_CREAT, 00644);
-	return (io);
-} */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:41:52 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/15 18:13:51 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/21 10:37:19 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	var_position(char **arr, char *var_name, int offset)
 			return (i);
 		i++;
 	}
-	return (-1);	
+	return (-1);
 }
 
 void	*append_to_export(char **_export, char *var_name, \

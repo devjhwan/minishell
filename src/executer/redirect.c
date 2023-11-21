@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 19:13:01 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 11:57:49 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,3 @@ t_io	*here_doc(t_io *redir, char *limiter)
 	redir->file = "/tmp/here_doc";
 	return (redir);
 }
-
