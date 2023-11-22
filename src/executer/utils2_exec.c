@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 18:59:42 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:42:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ static	int	ft_list_size(t_cmnd *cmnd_list)
 	return (i);
 }
 
-int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
+int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 {
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	fdp->dup_stdin = dup(STDIN_FILENO);
 	fdp->dup_stdout = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
+	fdp->paths = ft_init_cmd(fdp, cmnd_list->args, _envp, 0);
 	if (!fdp->pid)
 		return (1);
 	fdp->lim = NULL;
-	fdp->argv = NULL;
 	fdp->fd_pipe[0] = 0;
 	fdp->fd_pipe[1] = 0;
 	fdp->stat = 0;

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 14:32:36 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:51:01 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <fcntl.h>
 # include <string.h>
 # include <unistd.h>
+# include <readline/readline.h>
 # include "libft.h"
 # include "minishell.h"
 
@@ -39,7 +40,7 @@ typedef struct s_fdp
 	t_io	*tmp_out;
 	int		*pid;
 	char	*lim;
-	char	**argv;
+	char	**paths;
 	int		i;
 	int		cmnd_cnt;
 	int		dup_stdin;
@@ -64,7 +65,8 @@ void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 
-int		init_data(t_fdp *fdp, t_cmnd *cmnd_list);
+int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
+char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i);
 void	ft_free_array(char **arr, int i);
 void	restore_io(t_fdp *fdp);
 int		check_builtin(t_cmnd *cmnd_list);
@@ -82,7 +84,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 int		*check_files(char **argv, int argc, int hd, int *io);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv);
-char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i);
 int		dup_and_close(int fd_to, int fd_from);
 void	ft_init_argv(char **argv, t_fdp *fdp);
 void	ft_freep(char **willy);

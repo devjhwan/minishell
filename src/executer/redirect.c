@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 19:08:45 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:28:51 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 
 void	manage_files(t_fdp	*fdp)
 {
-	//fallo aqui -> get redir ha ido mal?
 	if (fdp->tmp_in && fdp->tmp_in->type)
 	{
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
@@ -85,16 +84,35 @@ t_io	*here_doc(t_io *redir, char *limiter)
 	fd = open("/tmp/here_doc", O_CREAT | O_TRUNC | O_WRONLY, 0644);
 	if (fd == -1)
 		ft_error(0, 0, NULL);
-	line = get_next_line(0);
-	while (ft_strncmp(line, limiter, ft_strlen(limiter)))
+	line = readline("> ");
+	while (line && ft_strncmp(limiter, line, ft_strlen(limiter)) != 0)
 	{
+		line = ft_strjoin_line(line, "\n");
 		ft_putstr_fd(line, fd);
 		free(line);
-		line = get_next_line(0);
+		line = readline("> ");
 	}
-	free(line);
 	close (fd);
-	//fd = open("/tmp/here_doc", O_RDONLY, 0644);
+	free(line);
 	redir->file = "/tmp/here_doc";
 	return (redir);
 }
+
+/* void	create_heredoc(char *delimiter, char *path)
+{
+	char	*str;
+	int		fd;
+
+	fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
+	str = readline("> ");
+	while (str && ft_strcmp(delimiter, str) != 0)
+	{
+		str = ft_strjoin_line(str, "\n");
+		ft_putstr_fd(str, fd);
+		free(str);
+		str = readline("> ");
+	}
+	close(fd);
+	free(str);
+	init_signals(DEFAULT);
+} */

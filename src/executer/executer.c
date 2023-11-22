@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 19:29:48 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:41:25 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,14 @@
 int	executer(t_minishell *shell)
 {
 	t_fdp	fdp;
-	char	**cmnds;
 
-	cmnds = NULL;
 	if (shell->cmnd_list != NULL)
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
-		init_data(&fdp, shell->cmnd_list);
-		cmnds = ft_init_cmd(&fdp, shell->cmnd_list->args, shell->_envp, 0);
+		init_data(&fdp, shell->cmnd_list, shell->_envp);
 /* 		if (fdp.cmnd_cnt == 1 && check_builtin(shell->cmnd_list))
 			manage_builtins(shell); */
-		mult_pipes(&fdp, shell, cmnds);
+		mult_pipes(&fdp, shell, fdp.paths);
 	}
 	restore_io(&fdp);
 	fdp.i = 0;
@@ -34,7 +31,7 @@ int	executer(t_minishell *shell)
 		waitpid(fdp.pid[fdp.i], &fdp.stat, 0);
 		fdp.i++;
 	}
-	ft_free_array(cmnds, ft_arraylen(cmnds));
+	ft_free_array(fdp.paths, ft_arraylen(fdp.paths));
 	return (shell->exit_code = WEXITSTATUS(fdp.stat), 0);
 }
 
@@ -54,7 +51,7 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 		{
 			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		}
-		else if (fdp->cmnd_cnt > 1)//(fdp->i == fdp->cmnd_cnt && fdp->cmnd_cnt > 1)
+		else if (fdp->cmnd_cnt > 1)
 		{
 			printf("entro en final\n");
 			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);

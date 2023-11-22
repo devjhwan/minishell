@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/21 11:56:49 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 21:55:48 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ char	*ft_itoa(int nb);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 int		ft_strcmp_case(const char *s1, const char *s2, int flag);
 int		ft_tolower(int c);
+int		ft_strcmp(const char *s1, const char *s2);
 
 #endif

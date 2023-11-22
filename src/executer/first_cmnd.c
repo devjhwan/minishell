@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:10:33 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 19:08:41 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 22:34:42 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 		only_cmnd(fdp, list, shell, cmnd);
 	else
 	{
-		if (fdp->cmnd_cnt > 1)
-		{
-			if (pipe(fdp->fd_pipe) == -1)
-				ft_error(0, 0, NULL);
-		}
+		if (pipe(fdp->fd_pipe) == -1)
+			ft_error(0, 0, NULL);
 		if (fdp->tmp_in)
 			if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
 				dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
