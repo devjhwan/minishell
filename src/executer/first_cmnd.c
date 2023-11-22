@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:10:33 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 14:59:20 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:08:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 {
 	if (fdp->tmp_in)
 	{
-		printfds();
 		printf("\n llego bien \n");
 		printf("\nfd INFILE es: %d \n", fdp->fd_file[INF]);
 		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
 			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
-		printfds();
 	}
 	if (fdp->tmp_out)
 	{

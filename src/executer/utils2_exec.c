@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 18:38:41 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:59:42 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	printfds(void)
 {
 	int max_fd = 256; // You can adjust this based on your needs
-    printf("Open File Descriptors:\n");
+    printf("\nOpen File Descriptors:\n");
 
     for (int fd = 0; fd < max_fd; ++fd) {
         int flags = fcntl(fd, F_GETFD);

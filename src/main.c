@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/21 14:08:44 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:06:17 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
+		//printfds();
 		executer(&shell);
+		//printfds();
 		//print_cmnd_list(shell.cmnd_list);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;

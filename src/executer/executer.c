@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 18:56:21 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:29:48 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	executer(t_minishell *shell)
 	t_fdp	fdp;
 	char	**cmnds;
 
-	printfds(); //borrar
 	cmnds = NULL;
 	if (shell->cmnd_list != NULL)
 	{
@@ -49,30 +48,25 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 		redirect(cmnd_list->redir, fdp, shell);
 		if (fdp->i == 0)
 		{
-			printf("\nentro en first\n");
 			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		}
-		else if (fdp->i + 1 == fdp->cmnd_cnt && fdp->cmnd_cnt > 1)
+		else if (fdp->cmnd_cnt >= 3 && fdp->i + 1 != fdp->cmnd_cnt)
 		{
-			fprintf(stderr, "\nentro en final\n");
-			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
-		}
-		else if (fdp->cmnd_cnt >= 3)
-		{
-			fprintf(stderr, "\nentro en middle\n");
 			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+		}
+		else if (fdp->cmnd_cnt > 1)//(fdp->i == fdp->cmnd_cnt && fdp->cmnd_cnt > 1)
+		{
+			printf("entro en final\n");
+			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		}
 		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
-	printf("\nsalgo de mult_pipes\n");
 }
 
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 {
-
 	close_fds(fdp);
-	//write(2, "hi\n", 3);
 	if (execve (cmnd, args, envp) == -1)
 		ft_error(0, 0, NULL);
 }
@@ -91,6 +85,7 @@ void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 	printf("redir adress = %s\n", shell->cmnd_list->args[0]);
 	printf("pipes fds:\nRead end: %d\n Write end: %d\n", fdp->fd_pipe[0], fdp->fd_pipe[1]);
 	printf("cmnds en [i] es %s\n", cmnds[fdp->i]);
+	fprintf(stderr, "\nentro en middle\n");
 } */
 
 // /*while (cmds[i])

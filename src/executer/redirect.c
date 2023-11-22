@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 14:34:13 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:08:45 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
 	if (redir && redir->type)
 	{
-		printfds();
 		while (redir != NULL)
 		{
 			get_redir(redir, fdp, shell->cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);
-		printfds();
 	}
 	return (0);
 }
