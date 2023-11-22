@@ -6,11 +6,24 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 19:14:32 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:38:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
+
+void	printfds(void)
+{
+	int max_fd = 256; // You can adjust this based on your needs
+    printf("Open File Descriptors:\n");
+
+    for (int fd = 0; fd < max_fd; ++fd) {
+        int flags = fcntl(fd, F_GETFD);
+        if (flags != -1) {
+            printf("File Descriptor %d is open.\n", fd);
+        }
+    }
+}
 
 static	int	ft_list_size(t_cmnd *cmnd_list)
 {
@@ -37,6 +50,7 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list)
 	fdp->argv = NULL;
 	fdp->fd_pipe[0] = 0;
 	fdp->fd_pipe[1] = 0;
+	fdp->stat = 0;
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 11:57:49 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:34:13 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
 	if (redir && redir->type)
 	{
+		printfds();
 		while (redir != NULL)
 		{
 			get_redir(redir, fdp, shell->cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);
+		printfds();
 	}
 	return (0);
 }
@@ -52,7 +54,8 @@ void	manage_files(t_fdp	*fdp)
 	{
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
 			ft_error(0, 0, NULL);
-		fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
+		else
+			fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}
 	if (fdp->tmp_out && fdp->tmp_out->type)
 		open_outfile(fdp);

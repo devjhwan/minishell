@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 11:49:03 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:55:52 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
 			return (exit(shell)); */
 	}
-	return (-1);
 }
 
 void	restore_io(t_fdp *fdp)
@@ -64,11 +63,16 @@ void	restore_io(t_fdp *fdp)
 
 void	close_fds(t_fdp *fdp)
 {
-	close (fdp->fd_file[0]);
-	close (fdp->fd_file[1]);
-	close (fdp->fd_pipe[0]);
-	close (fdp->fd_pipe[1]);
-	free(fdp->pid);
+	if (fdp->fd_file[0])
+		close (fdp->fd_file[0]);
+	if (fdp->fd_file[1])
+		close (fdp->fd_file[1]);
+	if (fdp->fd_pipe[0])
+		close (fdp->fd_pipe[0]);
+	if (fdp->fd_pipe[1])
+		close (fdp->fd_pipe[1]);
+	if (fdp->pid)
+		free(fdp->pid);
 }
 
 int	ft_error(int err, int ext, char *cmd)

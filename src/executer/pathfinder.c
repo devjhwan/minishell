@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 18:49:58 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:14:31 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,7 @@ char	**findpath(char **env)
 	{
 		if (ft_strncmp(env[i], "PATH=", 5) == 0)
 		{
-			env[i] += 5;
-			path = ft_split(env[i], ":");
+			path = ft_split(env[i] + 5, ":");
 			if (!path)
 				return (NULL);
 			return (path);

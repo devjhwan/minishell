@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 11:54:45 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:32:36 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_fdp
 	int		cmnd_cnt;
 	int		dup_stdin;
 	int		dup_stdout;
+	int		stat;
 }			t_fdp;
 
 /*### NEW PIPE ###*/
@@ -68,6 +69,9 @@ void	ft_free_array(char **arr, int i);
 void	restore_io(t_fdp *fdp);
 int		check_builtin(t_cmnd *cmnd_list);
 void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
+
+/*### HELPER FUNCTIONS ###*/
+void	printfds(void);
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);

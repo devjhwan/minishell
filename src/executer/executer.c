@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 11:59:03 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/22 18:56:21 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	executer(t_minishell *shell)
 	t_fdp	fdp;
 	char	**cmnds;
 
+	printfds(); //borrar
 	cmnds = NULL;
 	if (shell->cmnd_list != NULL)
 	{
@@ -28,8 +29,14 @@ int	executer(t_minishell *shell)
 		mult_pipes(&fdp, shell, cmnds);
 	}
 	restore_io(&fdp);
+	fdp.i = 0;
+	while (fdp.i < fdp.cmnd_cnt)
+	{
+		waitpid(fdp.pid[fdp.i], &fdp.stat, 0);
+		fdp.i++;
+	}
 	ft_free_array(cmnds, ft_arraylen(cmnds));
-	return (0);
+	return (shell->exit_code = WEXITSTATUS(fdp.stat), 0);
 }
 
 void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
@@ -45,7 +52,7 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 			printf("\nentro en first\n");
 			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		}
-		else if (fdp->i + 1 == fdp->cmnd_cnt)
+		else if (fdp->i + 1 == fdp->cmnd_cnt && fdp->cmnd_cnt > 1)
 		{
 			fprintf(stderr, "\nentro en final\n");
 			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
@@ -55,19 +62,21 @@ void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
 			fprintf(stderr, "\nentro en middle\n");
 			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
 		}
-		printf("\nllego a ciclar\n");
 		cmnd_list = cmnd_list->next;
 		fdp->i++;
 	}
+	printf("\nsalgo de mult_pipes\n");
 }
 
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 {
+
 	close_fds(fdp);
-	write(2, "hi\n", 3);
+	//write(2, "hi\n", 3);
 	if (execve (cmnd, args, envp) == -1)
 		ft_error(0, 0, NULL);
 }
+
 
 /* static void testprinter(t_minishell *shell, t_fdp *fdp)
 {
@@ -82,22 +91,6 @@ void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 	printf("redir adress = %s\n", shell->cmnd_list->args[0]);
 	printf("pipes fds:\nRead end: %d\n Write end: %d\n", fdp->fd_pipe[0], fdp->fd_pipe[1]);
 	printf("cmnds en [i] es %s\n", cmnds[fdp->i]);
-} */
-
-/* #include <fcntl.h>
-static void printfds(void)
-{
-
-    int max_fd = 256;  // You can adjust this based on your needs
-
-    printf("Open File Descriptors:\n");
-
-    for (int fd = 0; fd < max_fd; ++fd) {
-        int flags = fcntl(fd, F_GETFD);
-        if (flags != -1) {
-            printf("File Descriptor %d is open.\n", fd);
-        }
-    }
 } */
 
 // /*while (cmds[i])
