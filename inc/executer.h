@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 21:51:01 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:33:01 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
 
 int		executer(t_minishell *shell);
-void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
+void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
+void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	close_fds(t_fdp *fdp);
 
 void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);

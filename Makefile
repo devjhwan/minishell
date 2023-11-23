@@ -6,7 +6,7 @@
 #    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/21 13:56:01 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/23 13:18:58 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ DEPS=$(OBJS:.o=.d)
 
 INCLUDE=-I./inc -I./libft
 CC=cc
-DEBUG=-fsanitize="address,undefined" -g
+#DEBUG=-fsanitize="address,undefined" -g
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a

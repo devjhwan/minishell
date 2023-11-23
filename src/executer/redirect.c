@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 22:28:51 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:36:02 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 
 void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 {
+	(void) args;
 	if (redir->type == IN)
 		fdp->tmp_in = redir;
 	else if (redir->type == HERE_DOC)
-		fdp->tmp_in = here_doc(redir, args[0]);
+		fdp->tmp_in = here_doc(redir, redir->file);
 	if (redir->type == OUT \
 		|| redir->type == OUT_APPEND)
 	{
@@ -39,10 +40,6 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 		open_outfile(fdp);
 		close(fdp->fd_file[OUTF]);
 	}
-	//printf("temp out type = %i\n", fdp->tmp_out->type);
-	//printf("temp out adress = %p\n", fdp->tmp_out);
-	//printf("temp in adress = %p\n", fdp->tmp_in);
-	//printf("temp in type = %i\n", fdp->tmp_in->type);
 }
 
 void	manage_files(t_fdp	*fdp)
@@ -97,22 +94,3 @@ t_io	*here_doc(t_io *redir, char *limiter)
 	redir->file = "/tmp/here_doc";
 	return (redir);
 }
-
-/* void	create_heredoc(char *delimiter, char *path)
-{
-	char	*str;
-	int		fd;
-
-	fd = open(path, O_CREAT | O_WRONLY | O_TRUNC, 0666);
-	str = readline("> ");
-	while (str && ft_strcmp(delimiter, str) != 0)
-	{
-		str = ft_strjoin_line(str, "\n");
-		ft_putstr_fd(str, fd);
-		free(str);
-		str = readline("> ");
-	}
-	close(fd);
-	free(str);
-	init_signals(DEFAULT);
-} */

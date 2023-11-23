@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/22 21:42:41 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:31:49 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	printfds(void)
 {
-	int max_fd = 256; // You can adjust this based on your needs
-    printf("\nOpen File Descriptors:\n");
+/* 	int max_fd = 256; // You can adjust this based on your needs
+    fprintf(stderr, "\nOpen File Descriptors:\n");
 
     for (int fd = 0; fd < max_fd; ++fd) {
         int flags = fcntl(fd, F_GETFD);
         if (flags != -1) {
-            printf("File Descriptor %d is open.\n", fd);
+            fprintf(stderr, "File Descriptor %d is open.\n", fd);
         }
-    }
+    } */
 }
 
 static	int	ft_list_size(t_cmnd *cmnd_list)
@@ -44,12 +44,12 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->dup_stdin = dup(STDIN_FILENO);
 	fdp->dup_stdout = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
+	//controlar fallo paths
 	fdp->paths = ft_init_cmd(fdp, cmnd_list->args, _envp, 0);
+
 	if (!fdp->pid)
 		return (1);
 	fdp->lim = NULL;
-	fdp->fd_pipe[0] = 0;
-	fdp->fd_pipe[1] = 0;
 	fdp->stat = 0;
 	return (0);
 }

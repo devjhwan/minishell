@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 16:10:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/14 18:49:50 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:27:38 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 {
-	if (pipe(fdp->fd_pipe) == -1)
-		ft_error(0, 0, NULL);
 	if (fdp->tmp_in)
 	{
 		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
@@ -23,6 +21,8 @@ void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 	}
 	else
 		dup_and_close(fdp->fd_pipe[0], STDIN_FILENO);
+	if (pipe(fdp->fd_pipe) == -1)
+			ft_error(0, 0, NULL);
 	if (fdp->tmp_out)
 	{
 		if (fdp->tmp_out->type == OUT || fdp->tmp_out->type == OUT_APPEND)
