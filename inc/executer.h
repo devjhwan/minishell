@@ -31,6 +31,8 @@
 # define ERR_PERR	10
 # define INF		0
 # define OUTF		1
+# define RD			0
+# define WR			1
 
 typedef struct s_pipe
 {
@@ -40,16 +42,15 @@ typedef struct s_pipe
 typedef struct s_fdp
 {
 	t_pipe	**pipes;
-	int		fd_file[2];
 	t_io	*tmp_in;
 	t_io	*tmp_out;
+	int		fd_file[2];
+	int		std_in_out[2];
 	int		*pid;
 	char	*lim;
 	char	**paths;
 	int		i;
 	int		cmnd_cnt;
-	int		dup_stdin;
-	int		dup_stdout;
 	int		stat;
 }			t_fdp;
 

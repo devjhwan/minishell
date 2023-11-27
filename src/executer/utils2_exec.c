@@ -43,16 +43,15 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	if (init_pipes(fdp))
 		return (1);
-	fdp->dup_stdin = dup(STDIN_FILENO);
-	fdp->dup_stdout = dup(STDOUT_FILENO);
+	fdp->std_in_out[RD] = dup(STDIN_FILENO);
+	fdp->std_in_out[WR] = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
-	//controlar fallo paths
 	fdp->paths = init_path(fdp, cmnd_list->args, _envp, 0);
-	if ()
-	if (!fdp->pid)
+	if (!fdp->paths || !fdp->pid)
+	{
+		free_fdp(fdp);
 		return (1);
-	fdp->lim = NULL;
-	fdp->stat = 0;
+	}
 	return (0);
 }
 
@@ -100,6 +99,26 @@ void	ft_free_array(char **arr, int i)
 	free(arr);
 }
 
+void	free_fdp(t_fdp *fdp)
+{
+	static int i = 0;
+
+	if (fdp->pipes)
+		while (fdp->pipes[i])
+		{
+			free(fdp->pipes[i]);
+			i++;
+		}
+	i = 0;
+	if (fdp->pid)
+		while (fdp->pid[i])
+		{
+			free (fdp->pid[i]);
+			i++;
+		}
+	if (fdp->paths)
+		ft_free_array(fdp->paths, ft_arraylen(fdp->paths));
+}
 /* 
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv)
 {

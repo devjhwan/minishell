@@ -22,41 +22,40 @@ int	executer(t_minishell *shell)
 	if (shell->cmnd_list != NULL)
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
-		init_data(&fdp, shell->cmnd_list, shell->_envp);
-		exec_cmnds(&fdp, shell, fdp.paths);
+		if (init_data(&fdp, shell->cmnd_list, shell->_envp))
+			return (1);
+		fprintf(stderr, "fdp.i es: %i\n", fdp.i);
+		exit(0);
+		exec_cmnds(&fdp, shell, fdp.paths, shell->cmnd_list);
 	}
-	restore_io(&fdp);
 	fdp.i = 0;
 	/* while (fdp.i < fdp.cmnd_cnt)
 	{
 		waitpid(fdp.pid[fdp.i], &fdp.stat, 0);
 		fdp.i++;
 	} */
-	ft_free_array(fdp.paths, ft_arraylen(fdp.paths));
+	free_fdp(&fdp);
 	return (shell->exit_code = WEXITSTATUS(fdp.stat), 0);
 }
 
-void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **cmnds)
+void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **paths, t_cmnd *cmnds)
 {
-	t_cmnd	*cmnd_list;
-
-	cmnd_list = shell->cmnd_list;
-	while (cmnd_list)
+	while (cmnds)
 	{
-		redirect(cmnd_list->redir, fdp, shell);
+		redirect(cmnds->redir, fdp, shell);
 		if (fdp->i == 0)
 		{
-			first_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+			first_cmnd(fdp, cmnds, shell, paths[fdp->i]);
 		}
 		else if (fdp->cmnd_cnt >= 3 && fdp->i + 1 != fdp->cmnd_cnt)
 		{
-			middle_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+			middle_cmnd(fdp, cmnds, shell, paths[fdp->i]);
 		}
 		else if (fdp->cmnd_cnt > 1)
 		{
-			final_cmnd(fdp, cmnd_list, shell, cmnds[fdp->i]);
+			final_cmnd(fdp, cmnds, shell, paths[fdp->i]);
 		}
-		cmnd_list = cmnd_list->next;
+		cmnds = cmnds->next;
 		fdp->i++;
 	}
 }

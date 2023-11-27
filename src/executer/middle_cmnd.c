@@ -20,7 +20,7 @@ void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
 	}
 	else
-		dup_and_close(fdp->fd_pipe[0], STDIN_FILENO);
+		dup_and_close(fdp->pipes[fdp->i]->fd[RD], STDIN_FILENO);
 	if (pipe(fdp->fd_pipe) == -1)
 			ft_error(0, 0, NULL);
 	if (fdp->tmp_out)

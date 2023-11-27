@@ -57,13 +57,13 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 
 void	restore_io(t_fdp *fdp)
 {
-	dup2(fdp->dup_stdin, STDIN_FILENO);
-	dup2(fdp->dup_stdout, STDOUT_FILENO);
+	dup2(fdp->std_in_out[RD], STDIN_FILENO);
+	dup2(fdp->std_in_out[WR], STDOUT_FILENO);
 }
 
 void	close_fds(t_fdp *fdp)
 {
- 	if (fdp->fd_file[0])
+	if (fdp->fd_file[0])
 	{
 		//fprintf(stderr, "file[0] is: %d\n", fdp->fd_file[0]);
 		close (fdp->fd_file[0]);
