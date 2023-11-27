@@ -32,10 +32,14 @@
 # define INF		0
 # define OUTF		1
 
+typedef struct s_pipe
+{
+	int			fd[2];
+}				t_pipe;
+
 typedef struct s_fdp
 {
-	int		fd_pipe[2];
-	int		fd_prev[2];
+	t_pipe	**pipes;
 	int		fd_file[2];
 	t_io	*tmp_in;
 	t_io	*tmp_out;
@@ -59,7 +63,7 @@ int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 
 int		executer(t_minishell *shell);
-void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
+void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **cmnds);
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	close_fds(t_fdp *fdp);
@@ -70,7 +74,8 @@ void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
-char	**ft_init_cmd(t_fdp *fdp, char **argv, char **envp, int i);
+int		init_pipes(t_fdp	*fdp);
+char	**init_path(t_fdp *fdp, char **argv, char **envp, int i);
 void	ft_free_array(char **arr, int i);
 void	restore_io(t_fdp *fdp);
 int		check_builtin(t_cmnd *cmnd_list);

@@ -12,7 +12,7 @@
 
 #include "executer.h"
 
-char	**ft_init_cmd(t_fdp *fdp, char **args, char **envp, int i)
+char	**init_path(t_fdp *fdp, char **args, char **envp, int i)
 {
 	char	**cmds;
 	char	**path;

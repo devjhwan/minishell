@@ -41,16 +41,43 @@ static	int	ft_list_size(t_cmnd *cmnd_list)
 int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 {
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
+	if (init_pipes(fdp))
+		return (1);
 	fdp->dup_stdin = dup(STDIN_FILENO);
 	fdp->dup_stdout = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
 	//controlar fallo paths
-	fdp->paths = ft_init_cmd(fdp, cmnd_list->args, _envp, 0);
-
+	fdp->paths = init_path(fdp, cmnd_list->args, _envp, 0);
+	if ()
 	if (!fdp->pid)
 		return (1);
 	fdp->lim = NULL;
 	fdp->stat = 0;
+	return (0);
+}
+
+int	init_pipes(t_fdp	*fdp)
+{
+	static int	i = 0;
+
+	if (fdp->cmnd_cnt > 1)
+	{
+		fdp->pipes = malloc(sizeof(t_pipe) * (fdp->cmnd_cnt - 1));
+		if (!fdp->pipes)
+		{
+			perror("malloc");
+			return (1);
+		}
+		while (fdp->cmnd_cnt - 1 > i)
+		{
+			if (pipe(fdp->pipes[i]) == -1)
+			{
+				perror("pipe");
+				return (1);
+			}
+			i++;
+		}		
+	}
 	return (0);
 }
 

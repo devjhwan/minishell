@@ -23,7 +23,7 @@ int	executer(t_minishell *shell)
 	{
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		init_data(&fdp, shell->cmnd_list, shell->_envp);
-		mult_pipes(&fdp, shell, fdp.paths);
+		exec_cmnds(&fdp, shell, fdp.paths);
 	}
 	restore_io(&fdp);
 	fdp.i = 0;
@@ -36,7 +36,7 @@ int	executer(t_minishell *shell)
 	return (shell->exit_code = WEXITSTATUS(fdp.stat), 0);
 }
 
-void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds)
+void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **cmnds)
 {
 	t_cmnd	*cmnd_list;
 
