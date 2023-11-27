@@ -35,6 +35,7 @@
 typedef struct s_fdp
 {
 	int		fd_pipe[2];
+	int		fd_prev[2];
 	int		fd_file[2];
 	t_io	*tmp_in;
 	t_io	*tmp_out;
@@ -54,6 +55,8 @@ t_io	*here_doc(t_io *redir, char *limiter);
 void	manage_files(t_fdp	*fdp);
 void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 void	open_outfile(t_fdp *fdp);
+int		set_redir_in(t_fdp	*fdp);
+int		set_redir_out(t_fdp	*fdp);
 
 int		executer(t_minishell *shell);
 void	mult_pipes(t_fdp *fdp, t_minishell *shell, char **cmnds);
