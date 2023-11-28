@@ -34,7 +34,7 @@ EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
 		   merge_consecutive_arguments.c remove_blanks.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
 EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c first_cmnd.c \
-		 middle_cmnd.c final_cmnd.c pathfinder.c
+		 middle_cmnd.c final_cmnd.c pathfinder.c commander.c files.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
 BUILTINS_SRC=env.c export.c export2.c
@@ -50,10 +50,10 @@ CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-#LDFLAGS=-L/opt/homebrew/lib
-#CPPFLAGS=-I/opt/homebrew/include
-LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
-CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
+LDFLAGS=-L/opt/homebrew/lib
+CPPFLAGS=-I/opt/homebrew/include
+#LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+#CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
 all: $(OBJDIR) libft $(NAME)
 

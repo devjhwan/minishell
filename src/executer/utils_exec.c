@@ -57,8 +57,8 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 
 void	restore_io(t_fdp *fdp)
 {
-	dup2(fdp->std_in_out[RD], STDIN_FILENO);
-	dup2(fdp->std_in_out[WR], STDOUT_FILENO);
+	dup2(fdp->std_in_out[READ], STDIN_FILENO);
+	dup2(fdp->std_in_out[WRTE], STDOUT_FILENO);
 }
 
 void	close_fds(t_fdp *fdp)
@@ -73,15 +73,11 @@ void	close_fds(t_fdp *fdp)
 		//fprintf(stderr, "file[1] is: %d\n", fdp->fd_file[1]);
 		close (fdp->fd_file[1]);
 	}
-	if (fdp->fd_pipe[0])
+	if (fdp->pipes)
 	{
-		//fprintf(stderr, "pipe[0] is: %d\n", fdp->fd_pipe[0]);
-		close (fdp->fd_pipe[0]);
-	}
-	if (fdp->fd_pipe[1])
-	{
-		//fprintf(stderr, "pipe[1] is: %d\n", fdp->fd_pipe[1]);
-		close (fdp->fd_pipe[1]);
+		//fprintf(stderr, "pipe[0] is: %d\n", fdp.fd_pipe[0]);
+		close (fdp->pipes[fdp->i].fd[READ]);
+		close (fdp->pipes[fdp->i].fd[WRTE]);
 	}
 	/* if (fdp->pid)
 		free(fdp->pid); */

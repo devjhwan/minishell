@@ -31,8 +31,8 @@
 # define ERR_PERR	10
 # define INF		0
 # define OUTF		1
-# define RD			0
-# define WR			1
+# define READ		0
+# define WRTE		1
 
 typedef struct s_pipe
 {
@@ -41,7 +41,7 @@ typedef struct s_pipe
 
 typedef struct s_fdp
 {
-	t_pipe	**pipes;
+	t_pipe	*pipes;
 	t_io	*tmp_in;
 	t_io	*tmp_out;
 	int		fd_file[2];
@@ -64,7 +64,8 @@ int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 
 int		executer(t_minishell *shell);
-void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **cmnds);
+int		exec_childs(t_minishell *shell, t_fdp *fdp);
+void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **paths, t_cmnd *cmnds);
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	close_fds(t_fdp *fdp);
@@ -78,6 +79,7 @@ int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
 int		init_pipes(t_fdp	*fdp);
 char	**init_path(t_fdp *fdp, char **argv, char **envp, int i);
 void	ft_free_array(char **arr, int i);
+void	free_fdp(t_fdp *fdp);
 void	restore_io(t_fdp *fdp);
 int		check_builtin(t_cmnd *cmnd_list);
 void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);

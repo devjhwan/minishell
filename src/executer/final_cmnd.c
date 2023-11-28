@@ -17,13 +17,11 @@ void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 	if (fdp->tmp_in)
 		set_redir_in(fdp);
 	else
-		dup_and_close(fdp->pipes[fdp->i]->fd[RD], STDIN_FILENO);
+		dup_and_close(fdp->pipes[fdp->i - 1].fd[READ], STDIN_FILENO);
 	if (fdp->tmp_out)
 		set_redir_out(fdp);
 	else
-		dup_and_close(fdp->std_in_out[WR], STDOUT_FILENO);
-	close(fdp->std_in_out[RD]);
-	fdp->pid[fdp->i] = fork();
-	if (fdp->pid[fdp->i] == 0)
-		child(shell->_envp, fdp, list->args, cmnd);
+		dup_and_close(fdp->std_in_out[WRTE], STDOUT_FILENO);
+	close(fdp->std_in_out[READ]);
+	child(shell->_envp, fdp, list->args, cmnd);
 }

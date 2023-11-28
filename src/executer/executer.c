@@ -24,9 +24,14 @@ int	executer(t_minishell *shell)
 		ft_bzero((void *)&fdp, sizeof(t_fdp));
 		if (init_data(&fdp, shell->cmnd_list, shell->_envp))
 			return (1);
-		fprintf(stderr, "fdp.i es: %i\n", fdp.i);
-		exit(0);
-		exec_cmnds(&fdp, shell, fdp.paths, shell->cmnd_list);
+		if (redirect(shell->cmnd_list->redir, &fdp, shell))
+            return (1);
+		while (shell->cmnd_list)
+		{
+			if (exec_childs(shell, &fdp))
+				return (1);
+			shell->cmnd_list = shell->cmnd_list->next;
+		}
 	}
 	fdp.i = 0;
 	/* while (fdp.i < fdp.cmnd_cnt)
@@ -40,29 +45,25 @@ int	executer(t_minishell *shell)
 
 void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **paths, t_cmnd *cmnds)
 {
-	while (cmnds)
+	if (fdp->i == 0)
 	{
-		redirect(cmnds->redir, fdp, shell);
-		if (fdp->i == 0)
-		{
-			first_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-		}
-		else if (fdp->cmnd_cnt >= 3 && fdp->i + 1 != fdp->cmnd_cnt)
-		{
-			middle_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-		}
-		else if (fdp->cmnd_cnt > 1)
-		{
-			final_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-		}
-		cmnds = cmnds->next;
-		fdp->i++;
+		first_cmnd(fdp, cmnds, shell, paths[fdp->i]);
 	}
+	else if (fdp->cmnd_cnt >= 3 && fdp->i + 1 != fdp->cmnd_cnt)
+	{
+		middle_cmnd(fdp, cmnds, shell, paths[fdp->i]);
+	}
+	else if (fdp->cmnd_cnt > 1)
+	{
+		final_cmnd(fdp, cmnds, shell, paths[fdp->i]);
+	}
+	cmnds = cmnds->next;
+	fdp->i++;
 }
 
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 {
-	close_fds(fdp);
+	(void)fdp;
 	fprintf(stderr, "command is %s\n", cmnd);
 	if (execve (cmnd, args, envp) == -1)
 		ft_error(0, 0, NULL);

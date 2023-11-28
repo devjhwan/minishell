@@ -43,8 +43,8 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	if (init_pipes(fdp))
 		return (1);
-	fdp->std_in_out[RD] = dup(STDIN_FILENO);
-	fdp->std_in_out[WR] = dup(STDOUT_FILENO);
+	fdp->std_in_out[READ] = dup(STDIN_FILENO);
+	fdp->std_in_out[WRTE] = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
 	fdp->paths = init_path(fdp, cmnd_list->args, _envp, 0);
 	if (!fdp->paths || !fdp->pid)
@@ -54,6 +54,8 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	}
 	return (0);
 }
+
+//fprintf(stderr, "hago pipes\n");
 
 int	init_pipes(t_fdp	*fdp)
 {
@@ -69,7 +71,7 @@ int	init_pipes(t_fdp	*fdp)
 		}
 		while (fdp->cmnd_cnt - 1 > i)
 		{
-			if (pipe(fdp->pipes[i]) == -1)
+			if (pipe(fdp->pipes[i].fd) == -1)
 			{
 				perror("pipe");
 				return (1);
@@ -101,21 +103,10 @@ void	ft_free_array(char **arr, int i)
 
 void	free_fdp(t_fdp *fdp)
 {
-	static int i = 0;
-
 	if (fdp->pipes)
-		while (fdp->pipes[i])
-		{
-			free(fdp->pipes[i]);
-			i++;
-		}
-	i = 0;
+		free(fdp->pipes);
 	if (fdp->pid)
-		while (fdp->pid[i])
-		{
-			free (fdp->pid[i]);
-			i++;
-		}
+		free(fdp->pid);
 	if (fdp->paths)
 		ft_free_array(fdp->paths, ft_arraylen(fdp->paths));
 }

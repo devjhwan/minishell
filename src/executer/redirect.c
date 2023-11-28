@@ -49,7 +49,7 @@ int	set_redir_in(t_fdp	*fdp)
 		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
 		{
 			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
-			return(1);
+			return (1);
 		}
 	}
 	return (0);

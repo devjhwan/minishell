@@ -18,16 +18,12 @@ void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 		only_cmnd(fdp, list, shell, cmnd);
 	else
 	{
-		if (pipe(fdp->fd_pipe) == -1)
-			ft_error(0, 0, NULL);
 		set_redir_in(fdp);
 		if (fdp->tmp_out)
 			set_redir_out(fdp);
 		else if (fdp->cmnd_cnt > 1)
-			dup_and_close(fdp->fd_pipe[1], STDOUT_FILENO);
-		fdp->pid[fdp->i] = fork();
-		if (fdp->pid[fdp->i] == 0)
-			child(shell->_envp, fdp, list->args, cmnd);
+			dup_and_close(fdp->pipes[fdp->i].fd[WRTE], STDOUT_FILENO);
+		child(shell->_envp, fdp, list->args, cmnd);
 	}
 }
 
@@ -37,9 +33,7 @@ void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 	set_redir_out(fdp);
 	if (check_builtin(list) == 0)
 	{
-		fdp->pid[fdp->i] = fork();
-		if (fdp->pid[fdp->i] == 0)
-			child(shell->_envp, fdp, list->args, cmnd);
+		child(shell->_envp, fdp, list->args, cmnd);
 	}
 	else
 	{
