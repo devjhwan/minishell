@@ -15,65 +15,75 @@
 /* 		if (fdp.cmnd_cnt == 1 && check_builtin(shell->cmnd_list))
 			manage_builtins(shell); */
 
-int	executer(t_minishell *shell)
+int	executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell)
 {
 	t_fdp	fdp;
 
-	if (shell->cmnd_list != NULL)
+	if (cmnd_list != NULL)
 	{
-		ft_bzero((void *)&fdp, sizeof(t_fdp));
-		if (init_data(&fdp, shell->cmnd_list, shell->_envp))
+		if (init_data(&fdp, cmnd_list, _envp))
 			return (1);
-		if (redirect(shell->cmnd_list->redir, &fdp, shell))
+		if (redirect(cmnd_list->redir, &fdp, cmnd_list))
             return (1);
-		while (shell->cmnd_list)
+		if (fdp.cmnd_cnt == 1 && check_builtin(cmnd_list))
+			return (only_cmnd(&fdp, cmnd_list, shell));
+		while (cmnd_list)
 		{
-			if (exec_childs(shell, &fdp))
+			if (exec_cmnds(shell, &fdp))
 				return (1);
-			shell->cmnd_list = shell->cmnd_list->next;
+			cmnd_list = cmnd_list->next;
+			fdp.i++;
 		}
 	}
-	fdp.i = 0;
-	/* while (fdp.i < fdp.cmnd_cnt)
-	{
-		waitpid(fdp.pid[fdp.i], &fdp.stat, 0);
-		fdp.i++;
-	} */
-	free_fdp(&fdp);
-	return (shell->exit_code = WEXITSTATUS(fdp.stat), 0);
+	wait_childs(&fdp, exit_code);
+	//free_fdp(&fdp);
+	return (0);
 }
 
-void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **paths, t_cmnd *cmnds)
+int		exec_cmnds(t_minishell *shell, t_fdp *fdp)
 {
-	if (fdp->i == 0)
-	{
-		first_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-	}
-	else if (fdp->cmnd_cnt >= 3 && fdp->i + 1 != fdp->cmnd_cnt)
-	{
-		middle_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-	}
-	else if (fdp->cmnd_cnt > 1)
-	{
-		final_cmnd(fdp, cmnds, shell, paths[fdp->i]);
-	}
-	cmnds = cmnds->next;
-	fdp->i++;
+	fdp->pid[fdp->i] = fork();
+	if (fdp->pid[fdp->i] == -1)
+		return (1);
+	else if (fdp->pid[fdp->i] == 0)
+		exec_childs(fdp, shell, shell->cmnd_list);
+	//dup2 (fdp->pipe[fdp->i][RD], STDOUT);
+    //close_fds(fdp);
+    return (0);
 }
 
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
 {
 	(void)fdp;
-	fprintf(stderr, "command is %s\n", cmnd);
 	if (execve (cmnd, args, envp) == -1)
 		ft_error(0, 0, NULL);
 }
 
-void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd)
+void	wait_childs(t_fdp *fdp, int *exit_code)
 {
-	close_fds(fdp);
-	if (execve (cmnd, args, envp) == -1)
-		ft_error(0, 0, NULL);
+	int	i;
+	int	status;
+
+	i = 0;
+	restore_io(fdp);
+	while (i < fdp->cmnd_cnt)
+	{
+		waitpid(fdp->pid[i], &status, 0);
+		i++;
+	}
+	free(fdp->pid);
+	if (WIFEXITED(status))
+		*exit_code = (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == SIGINT)
+			*exit_code = 130;
+		else if (WTERMSIG(status) == SIGQUIT)
+		{
+			*exit_code = 131;
+			printf("Quit: 3\n");
+		}
+	}
 }
 
 

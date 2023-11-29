@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **envp)
 		//print_cmnd_list(shell.cmnd_list);
 		if (shell.cmnd_list == NULL)
 			continue ;
-		executer(&shell);
+		executer(shell.cmnd_list, shell._envp, &shell.exit_code, &shell);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}

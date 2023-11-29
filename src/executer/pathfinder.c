@@ -21,12 +21,13 @@ char	**init_path(t_fdp *fdp, char **args, char **envp, int i)
 	cmds = malloc(sizeof(char *) * (fdp->cmnd_cnt + 1));
 	if (!cmds)
 		return (NULL);
-	cmds[fdp->cmnd_cnt] = NULL;
+	//cmds[fdp->cmnd_cnt] = NULL;
 	while (i < fdp->cmnd_cnt)
 	{
 		cmds[i] = setpath(path, args[0]);
 		if (!args || !path)
 			return (NULL);
+		fprintf(stderr, "\npath es %s\n", cmds[i]);
 		i++;
 	}
 	ft_free_array(path, ft_arraylen(path));

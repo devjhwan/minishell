@@ -12,8 +12,11 @@
 
 #include "executer.h"
 
-void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
+int	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 {
+	char** path;
+
+	path = NULL;
 	if (fdp->tmp_in)
 		set_redir_in(fdp);
 	else
@@ -22,5 +25,16 @@ void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd)
 		set_redir_out(fdp);
 	else
 		dup_and_close(fdp->pipes[fdp->i].fd[WRTE], STDOUT_FILENO);
-	child(shell->_envp, fdp, list->args, cmnd);
+	if (check_builtin(list))
+	{
+		exec_builtin(shell, shell->cmnd_list);
+		restore_io(fdp);
+		return (0);
+	}
+	else
+	{
+		path = init_path(fdp, list->args, shell->_envp, 0);
+		child(shell->_envp, fdp, list->args, path[0]);
+	}
+	return (1);
 }

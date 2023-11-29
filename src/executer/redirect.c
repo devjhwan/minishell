@@ -12,13 +12,13 @@
 
 #include "executer.h"
 
-int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
+int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
 {
 	if (redir && redir->type)
 	{
 		while (redir != NULL)
 		{
-			get_redir(redir, fdp, shell->cmnd_list->args);
+			get_redir(redir, fdp, cmnd_list->args);
 			redir = redir->next;
 		}
 		manage_files(fdp);

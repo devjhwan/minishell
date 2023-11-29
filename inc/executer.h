@@ -55,7 +55,7 @@ typedef struct s_fdp
 }			t_fdp;
 
 /*### NEW PIPE ###*/
-int		redirect(t_io *redir, t_fdp *fdp, t_minishell *shell);
+int		redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list);
 t_io	*here_doc(t_io *redir, char *limiter);
 void	manage_files(t_fdp	*fdp);
 void	get_redir(t_io *redir, t_fdp *fdp, char **args);
@@ -63,17 +63,18 @@ void	open_outfile(t_fdp *fdp);
 int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 
-int		executer(t_minishell *shell);
-int		exec_childs(t_minishell *shell, t_fdp *fdp);
-void	exec_cmnds(t_fdp *fdp, t_minishell *shell, char **paths, t_cmnd *cmnds);
+int		executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell);
+int		exec_cmnds(t_minishell *shell, t_fdp *fdp);
+void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
 void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
+void	wait_childs(t_fdp *fdp, int *exit_code);
 void	close_fds(t_fdp *fdp);
 
-void	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
-void	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
-void	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
-void	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char *cmnd);
+int		only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
+int		first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
+int		middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
+int		final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
 
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
 int		init_pipes(t_fdp	*fdp);

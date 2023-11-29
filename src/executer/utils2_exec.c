@@ -40,17 +40,18 @@ static	int	ft_list_size(t_cmnd *cmnd_list)
 
 int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 {
+	(void)_envp;
+	ft_bzero((void *)fdp, sizeof(t_fdp));
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	if (init_pipes(fdp))
 		return (1);
 	fdp->std_in_out[READ] = dup(STDIN_FILENO);
 	fdp->std_in_out[WRTE] = dup(STDOUT_FILENO);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
-	fdp->paths = init_path(fdp, cmnd_list->args, _envp, 0);
-	if (!fdp->paths || !fdp->pid)
+	if (!fdp->pid)
 	{
-		free_fdp(fdp);
 		return (1);
+		free_fdp(fdp);
 	}
 	return (0);
 }
