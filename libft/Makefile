@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
+#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/22 21:57:08 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/30 13:31:14 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRCS=ft_strncmp.c ft_strlen.c ft_strlcpy.c ft_strdup.c ft_substr.c \
 	 ft_isalpha.c ft_isdigit.c ft_split.c  ft_strnstr.c ft_itoa.c ft_calloc.c \
 	 ft_putstr_fd.c get_next_line.c get_next_line_utils.c \
 	 list_init.c list_clear.c list_append.c list_pop.c ft_memcpy.c \
-	 ft_arraylen.c ft_strcmp.c ft_strcmp_case.c ft_tolower.c
+	 ft_arraylen.c ft_strcmp_case.c ft_tolower.c ft_strrchr.c ft_strcmp.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
