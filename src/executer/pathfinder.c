@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 12:15:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:50:42 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 	cmds = malloc(sizeof(char *) * (fdp->cmnd_cnt + 1));
 	if (!cmds)
 		return (NULL);
-	cmds[fdp->cmnd_cnt] = NULL;
-	while (i < fdp->cmnd_cnt && list)
+	while (list)
 	{
 		cmds[i] = setpath(path, list->args[0]);
 		if (!list->args || !path)
@@ -30,6 +29,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 		i++;
 		list = list->next;
 	}
+	cmds[fdp->cmnd_cnt] = NULL;
 	ft_free_array(path);
 	return (cmds);
 }
@@ -69,13 +69,13 @@ char	*setpath(char **path, const char *argv)
 		if (!tmp2)
 			return (NULL);
 		tmp = ft_strjoin(tmp2, argv);
-		if (!tmp)
-			return (free(tmp2), NULL);
 		free(tmp2);
+		if (!tmp)
+			return (NULL);
 		if (access(tmp, X_OK) == 0)
-		{
 			return (tmp);
-		}
+		else if (access(argv, X_OK) == 0)
+			return (free(tmp), ft_strdup(argv));
 		i++;
 		free (tmp);
 	}

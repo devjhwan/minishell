@@ -1,28 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/16 19:23:09 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/05/23 14:38:44 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/05/24 16:49:22 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/05/25 12:32:44 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/ft_printf.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int	ft_parse(va_list args, const char *s)
 {
 	int	ret;
+	int	cnt;
 
 	ret = 0;
+	cnt = 0;
 	while (*s)
 	{
-		ret += ft_putchar_fd(*s, fd);
-		s++;
+		if (*s == '%')
+		{
+			ret = ft_search(args, *(++s));
+			if (ret < 0)
+				return (-1);
+			cnt += ret;
+			s++;
+		}
+		else
+		{
+			ret = ft_putchar(*(s++));
+			if (ret < 0)
+				return (-1);
+			cnt += ret;
+		}
 	}
-	if (ret < 0)
-		return (-1);
-	return (ret);
+	return (cnt);
 }

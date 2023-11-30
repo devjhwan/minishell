@@ -6,3 +6,4 @@ minishell
 *.txt
 /test/
 .DS_Store
+/.vscode/

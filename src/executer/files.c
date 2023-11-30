@@ -1,16 +1,18 @@
 #include "executer.h"
 
-void	manage_files(t_fdp	*fdp)
+int	manage_files(t_fdp	*fdp)
 {
 	if (fdp->tmp_in && fdp->tmp_in->type)
 	{
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
-			ft_error(0, 0, NULL);
+			//return (ft_perror(), 1);
+			return (1);
 		else
 			fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}
 	if (fdp->tmp_out && fdp->tmp_out->type)
 		open_outfile(fdp);
+	return (0);
 }
 
 void	open_outfile(t_fdp *fdp)

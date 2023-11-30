@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 12:51:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:06:09 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
 			get_redir(redir, fdp, cmnd_list->args);
 			redir = redir->next;
 		}
-		manage_files(fdp);
+		if (manage_files(fdp))
+			return (1);
 	}
 	return (0);
 }
@@ -46,13 +47,11 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 
 int	set_redir_in(t_fdp	*fdp)
 {
-	if (fdp->tmp_in)
+	if (fdp->tmp_in != NULL && \
+		(fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC))
 	{
-		if (fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC)
-		{
-			dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
-			return (1);
-		}
+		dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
+		return (1);
 	}
 	return (0);
 }

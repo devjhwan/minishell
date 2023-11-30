@@ -6,13 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 13:30:31 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:32:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 
+# include "ft_printf/includes/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <stddef.h>
@@ -36,7 +37,8 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
-void	ft_putstr_fd(char *s, int fd);
+int		ft_putchar_fd(char c, int fd);
+int		ft_putstr_fd(char *s, int fd);
 char	*get_next_line(int fd);
 char	*ft_strchr_line(const char *s, int c);
 size_t	ft_len_line(const char *s);

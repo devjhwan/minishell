@@ -6,25 +6,20 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/30 16:37:45 by junghwle         ###   ########.fr        #
+#    Updated: 2023/11/30 16:17:44 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME=libft.a
+NAME=ft_printf.a
 
-SRCDIR=.
+SRCDIR=./srcs
 OBJDIR=objs
-SRCS=ft_strncmp.c ft_strlen.c ft_strlcpy.c ft_strdup.c ft_substr.c \
-	 ft_isspace.c ft_strlcat.c ft_strjoin.c ft_strchr.c ft_isalnum.c \
-	 ft_isalpha.c ft_isdigit.c ft_split.c  ft_strnstr.c ft_itoa.c ft_calloc.c \
-	 ft_putstr_fd.c get_next_line.c get_next_line_utils.c \
-	 list_init.c list_clear.c list_append.c list_pop.c ft_memcpy.c \
-	 ft_arraylen.c ft_strcmp_case.c ft_tolower.c ft_strrchr.c ft_strcmp.c \
-	 ft_putchar_fd.c
+SRCS=ft_digit.c ft_hex_fd.c ft_hexnum.c ft_parse.c ft_printf.c ft_printf_fd.c \
+	 ft_printfnbr_fd.c ft_ptr.c ft_ui.c utils.c
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
-INCLUDE=-I.
+INCLUDE=-I. -I/includes -I..
 CC=cc
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
@@ -32,8 +27,6 @@ DEPFLAGS=-MMD
 all: $(OBJDIR) $(NAME)
 
 $(NAME): $(OBJS) Makefile
-	make -C ft_printf
-	mv ft_printf/ft_printf.a $@
 	ar -rcs $@ $(OBJS) 
 	echo "(MINISHELL) COMPILING $@"
 
@@ -45,7 +38,6 @@ $(OBJDIR): Makefile
 	mkdir -p $@
 
 clean:
-	make -C ft_printf fclean
 	rm -rf $(OBJDIR)
 
 fclean: clean

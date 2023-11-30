@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:59:01 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:36:31 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ void	ft_perror(int errtype, ...)
 
 	va_start(ap, errtype);
 	if (errtype == UNEXPECTED_TOKEN)
-		print_unexpected_token_err(va_arg(ap, char *));
+	{
+		ft_printf_fd(STDERR_FILENO, "minishell: syntax error near");
+		ft_printf_fd(STDERR_FILENO, "unexpected token \'%s\'\n", va_arg(ap, char *));
+	}
 	else if (errtype == AMBIGUOUS_REDIRECT)
 		print_ambiguous_redirect_err(va_arg(ap, char *));
 	else if (errtype == EXPORT_INVALID_IDENTIFIER)

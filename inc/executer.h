@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 15:22:41 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:06:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,17 @@
 # define INF		0
 # define OUTF		1
 
-typedef struct s_pipe
-{
-	int			fd[2];
-}				t_pipe;
-
 typedef struct s_fdp
 {
-	t_pipe	*pipes;
 	int		pipe[2];
 	t_io	*tmp_in;
 	t_io	*tmp_out;
 	int		fd_file[2];
 	int		std_in_out[2];
 	int		*pid;
-	char	*lim;
 	char	**paths;
-	int		i;
+	int		child_id;
 	int		cmnd_cnt;
-	int		stat;
 }			t_fdp;
 
 /*### NEW PIPE ###*/
@@ -68,9 +60,8 @@ void	ft_free_array(char **arr);
 void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 t_io	*here_doc(t_io *redir, char *limiter);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
-int		init_pipes(t_fdp *fdp);
 char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i);
-void	manage_files(t_fdp	*fdp);
+int		manage_files(t_fdp	*fdp);
 void	open_outfile(t_fdp *fdp);
 int		redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list);
 void	restore_io(t_fdp *fdp);

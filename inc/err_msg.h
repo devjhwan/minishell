@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:56:39 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 16:09:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define UNEXPECTED_TOKEN 1
 # define AMBIGUOUS_REDIRECT 2
 # define EXPORT_INVALID_IDENTIFIER 3
+# define NO_FILE_OR_DIRECTORY 4
 
 void	ft_perror(int errtype, ...);
 void	print_unexpected_token_err(char *next_token);

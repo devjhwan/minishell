@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 15:22:20 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:33:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,10 @@ void	restore_io(t_fdp *fdp)
 
 void	close_fds(t_fdp *fdp)
 {
-	static int i = 0;
-
 	if (fdp->fd_file[0])
-	{
-		//fprintf(stderr, "file[0] is: %d\n", fdp->fd_file[0]);
 		close (fdp->fd_file[0]);
-	}
 	if (fdp->fd_file[1])
-	{
-		//fprintf(stderr, "file[1] is: %d\n", fdp->fd_file[1]);
 		close (fdp->fd_file[1]);
-	}
-	if (fdp->pipes)
-	{
-		//fprintf(stderr, "pipe[0] is: %d\n", fdp.fd_pipe[0]);
-		while (i < fdp->cmnd_cnt - 1)
-		{
-			close (fdp->pipes[i].fd[0]);
-			close (fdp->pipes[i++].fd[1]);
-		}
-	}
-	/* if (fdp->pid)
-		free(fdp->pid); */
 }
 
 int	ft_error(int err, int ext, char *cmd)
