@@ -49,6 +49,9 @@ t_io	*here_doc(t_io *redir, char *limiter)
 	}
 	close (fd);
 	free(line);
-	redir->file = "/tmp/here_doc";
+	free(redir->file);
+	redir->file = ft_strdup("/tmp/here_doc");
+	if (redir->file == NULL)
+		ft_error(0, 0, NULL);
 	return (redir);
 }
