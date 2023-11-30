@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:49:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:46:15 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 13:21:48 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,16 @@ static t_list	*loop_on_parse_list(t_list *parse_list, t_list *new_parse_list)
 		if (cur_token->type == ARG || cur_token->type == RD)
 			new_token = merge_arguments(&cur_node, cur_token->type);
 		else
+		{
 			new_token = create_token(cur_token->type, \
 							(void *)ft_strdup((char *)cur_token->content));
+			cur_node = cur_node->next;
+		}
 		if (new_token == NULL)
 			return (NULL);
 		if (list_append(new_parse_list, new_token) == NULL)
 			return (free_token((void *)new_token), NULL);
-		if (cur_node != NULL)
+		if (cur_node != NULL && ((t_token *)cur_node->content)->type == BK)
 			cur_node = cur_node->next;
 	}
 	return (new_parse_list);

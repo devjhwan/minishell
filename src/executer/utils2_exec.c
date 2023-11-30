@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/23 16:31:49 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:13:24 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,15 @@ int	dup_and_close(int fd_to, int fd_from)
 	return (0);
 }
 
-void	ft_free_array(char **arr, int i)
+void	ft_free_array(char **arr)
 {
-	while (i >= 0)
-	{
-		free(arr[i]);
-		i--;
-	}
+	int	i;
+
+	if (arr == NULL)
+		return ;
+	i = 0;
+	while (arr[i] != NULL)
+		free(arr[i++]);
 	free(arr);
 }
 
@@ -110,7 +112,7 @@ void	free_fdp(t_fdp *fdp)
 	if (fdp->pid)
 		free(fdp->pid);
 	if (fdp->paths)
-		ft_free_array(fdp->paths, ft_arraylen(fdp->paths));
+		ft_free_array(fdp->paths);
 }
 /* 
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv)

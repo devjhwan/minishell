@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/21 14:14:31 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:15:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 	cmds = malloc(sizeof(char *) * (fdp->cmnd_cnt + 1));
 	if (!cmds)
 		return (NULL);
-	//cmds[fdp->cmnd_cnt] = NULL;
+	cmds[fdp->cmnd_cnt] = NULL;
 	while (i < fdp->cmnd_cnt && list)
 	{
 		cmds[i] = setpath(path, list->args[0]);
@@ -30,7 +30,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 		i++;
 		list = list->next;
 	}
-	ft_free_array(path, ft_arraylen(path));
+	ft_free_array(path);
 	return (cmds);
 }
 

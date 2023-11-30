@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
+#    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/23 13:18:58 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/11/30 12:08:32 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,14 +46,14 @@ DEPS=$(OBJS:.o=.d)
 
 INCLUDE=-I./inc -I./libft
 CC=cc
-#DEBUG=-fsanitize="address,undefined" -g
+DEBUG=-fsanitize="address,undefined" -g
 CFLAGS=-Wall -Werror -Wextra
 DEPFLAGS=-MMD
 LIBFT=libft/libft.a
-LDFLAGS=-L/opt/homebrew/lib
-CPPFLAGS=-I/opt/homebrew/include
-#LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
-#CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
+#LDFLAGS=-L/opt/homebrew/lib
+#CPPFLAGS=-I/opt/homebrew/include
+LDFLAGS=-L${HOME}/homebrew/opt/readline/lib
+CPPFLAGS=-I${HOME}/homebrew/opt/readline/include
 
 all: $(OBJDIR) libft $(NAME)
 

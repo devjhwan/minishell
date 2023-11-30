@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/23 12:36:02 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:51:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
 {
+	fdp->tmp_in = NULL;
+	fdp->tmp_out = NULL;
 	if (redir && redir->type)
 	{
 		while (redir != NULL)

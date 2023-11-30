@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:20:26 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/23 16:36:08 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:55:00 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ int	executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell
 	{
 		if (init_data(&fdp, cmnd_list, _envp))
 			return (1);
-		if (redirect(cmnd_list->redir, &fdp, cmnd_list))
-            return (1);
-		if (fdp.cmnd_cnt == 1 && check_builtin(cmnd_list))
+		if (cmnd_list->next == NULL && check_builtin(cmnd_list))
 			return (only_cmnd(&fdp, cmnd_list, shell));
 		while (cmnd_list)
 		{
+			if (redirect(cmnd_list->redir, &fdp, cmnd_list))
+				return (1);
 			pipe(fdp.pipe);
 			if (do_fork(shell, &fdp, cmnd_list))
 				return (1);
@@ -68,7 +68,7 @@ void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
 	if (check_builtin(cmnds))
 	{
 		exec_builtin(shell, cmnds);
-		restore_io(fdp);
+		//restore_io(fdp); no hace falta?
 	}
 	else
 		child(shell->_envp, fdp, cmnds->args, fdp->paths[fdp->i]);

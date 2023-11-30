@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/23 13:33:01 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 12:11:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
 void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
 char	**findpath(char **env);
 void	free_fdp(t_fdp *fdp);
-void	ft_free_array(char **arr, int i);
+void	ft_free_array(char **arr);
 void	get_redir(t_io *redir, t_fdp *fdp, char **args);
 t_io	*here_doc(t_io *redir, char *limiter);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
