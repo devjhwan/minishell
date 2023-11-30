@@ -47,8 +47,9 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 		return (1);
 	fdp->std_in_out[READ] = dup(STDIN_FILENO);
 	fdp->std_in_out[WRTE] = dup(STDOUT_FILENO);
+	fdp->paths = init_path(fdp, cmnd_list, _envp, 0);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
-	if (!fdp->pid)
+	if (!fdp->pid || !fdp->paths)
 	{
 		return (1);
 		free_fdp(fdp);
@@ -86,9 +87,9 @@ int	init_pipes(t_fdp	*fdp)
 int	dup_and_close(int fd_to, int fd_from)
 {
 	if (dup2(fd_to, fd_from) == -1)
-		return (-1);
+		return (1);
 	if (close(fd_to) == -1)
-		return (-1);
+		return (1);
 	return (0);
 }
 

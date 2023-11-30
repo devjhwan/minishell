@@ -12,11 +12,8 @@
 
 #include "executer.h"
 
-int	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
+int	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path)
 {
-	char** path;
-
-	path = NULL;
 	if (fdp->tmp_in)
 		set_redir_in(fdp);
 	else
@@ -33,8 +30,9 @@ int	middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 	}
 	else
 	{
-		path = init_path(fdp, list->args, shell->_envp, 0);
-		child(shell->_envp, fdp, list->args, path[0]);
+		//fprintf(stderr, "\npath es %s\n i fdp.i es: %i\n", path[fdp->i], fdp->i);
+		child(shell->_envp, fdp, list->args, path[fdp->i]);
+		return (0);
 	}
 	return (1);
 }

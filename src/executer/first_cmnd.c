@@ -12,19 +12,18 @@
 
 #include "executer.h"
 
-int	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
+int	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path)
 {
-	char** path;
-
-	path = NULL;
 	set_redir_in(fdp);
 	if (fdp->tmp_out)
 		set_redir_out(fdp);
-	else
+/* 	else if (fdp->cmnd_cnt > 1)
 	{
 		dup_and_close(fdp->pipes[fdp->i].fd[WRTE], STDOUT_FILENO);
 		close(fdp->pipes[fdp->i].fd[READ]);
-	}
+	} */
+	if (fdp->cmnd_cnt > 1)
+		dup_and_close(fdp->pipe[1], STDOUT_FILENO);
 	if (check_builtin(list))
 	{
 		exec_builtin(shell, shell->cmnd_list);
@@ -33,8 +32,8 @@ int	first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 	}
 	else
 	{
-		path = init_path(fdp, list->args, shell->_envp, 0);
-		child(shell->_envp, fdp, list->args, path[0]);
+		//fprintf(stderr, "\npath es %s\n i fdp.i es: %i\n", path[fdp->i], fdp->i);
+		child(shell->_envp, fdp, list->args, path[fdp->i]);
 	}
 	return (1);
 }

@@ -12,7 +12,7 @@
 
 #include "executer.h"
 
-char	**init_path(t_fdp *fdp, char **args, char **envp, int i)
+char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 {
 	char	**cmds;
 	char	**path;
@@ -22,13 +22,13 @@ char	**init_path(t_fdp *fdp, char **args, char **envp, int i)
 	if (!cmds)
 		return (NULL);
 	//cmds[fdp->cmnd_cnt] = NULL;
-	while (i < fdp->cmnd_cnt)
+	while (i < fdp->cmnd_cnt && list)
 	{
-		cmds[i] = setpath(path, args[0]);
-		if (!args || !path)
+		cmds[i] = setpath(path, list->args[0]);
+		if (!list->args || !path)
 			return (NULL);
-		fprintf(stderr, "\npath es %s\n", cmds[i]);
 		i++;
+		list = list->next;
 	}
 	ft_free_array(path, ft_arraylen(path));
 	return (cmds);

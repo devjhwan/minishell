@@ -12,9 +12,6 @@
 
 #include "executer.h"
 
-/* 		if (fdp.cmnd_cnt == 1 && check_builtin(shell->cmnd_list))
-			manage_builtins(shell); */
-
 int	executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell)
 {
 	t_fdp	fdp;
@@ -29,27 +26,52 @@ int	executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell
 			return (only_cmnd(&fdp, cmnd_list, shell));
 		while (cmnd_list)
 		{
-			if (exec_cmnds(shell, &fdp))
+			pipe(fdp.pipe);
+			if (do_fork(shell, &fdp, cmnd_list))
 				return (1);
+			dup_and_close(fdp.pipe[0], STDIN_FILENO);
+			close (fdp.pipe[1]);
 			cmnd_list = cmnd_list->next;
 			fdp.i++;
 		}
 	}
 	wait_childs(&fdp, exit_code);
-	//free_fdp(&fdp);
+	close_fds(&fdp);
+	free_fdp(&fdp);
 	return (0);
 }
 
-int		exec_cmnds(t_minishell *shell, t_fdp *fdp)
+int		do_fork(t_minishell *shell, t_fdp *fdp, t_cmnd *cmnd_list)
 {
 	fdp->pid[fdp->i] = fork();
 	if (fdp->pid[fdp->i] == -1)
 		return (1);
 	else if (fdp->pid[fdp->i] == 0)
-		exec_childs(fdp, shell, shell->cmnd_list);
-	//dup2 (fdp->pipe[fdp->i][RD], STDOUT);
-    //close_fds(fdp);
+	{
+		exec_childs(fdp, shell, cmnd_list);
+		return (0);
+	}
     return (0);
+}
+
+void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
+{
+	if (fdp->tmp_in)
+		set_redir_in(fdp);
+	if (cmnds->next != NULL)
+	{
+		dup_and_close(fdp->pipe[1], STDOUT_FILENO);
+		close(fdp->pipe[0]);
+	}
+	if (fdp->tmp_out)
+		set_redir_out(fdp);
+	if (check_builtin(cmnds))
+	{
+		exec_builtin(shell, cmnds);
+		restore_io(fdp);
+	}
+	else
+		child(shell->_envp, fdp, cmnds->args, fdp->paths[fdp->i]);
 }
 
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd)
@@ -71,7 +93,6 @@ void	wait_childs(t_fdp *fdp, int *exit_code)
 		waitpid(fdp->pid[i], &status, 0);
 		i++;
 	}
-	free(fdp->pid);
 	if (WIFEXITED(status))
 		*exit_code = (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))

@@ -12,19 +12,24 @@
 
 #include "executer.h"
 
-int	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
+int	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path)
 {
-	char** path;
-
-	path = NULL;
 	if (fdp->tmp_in)
+	{
+		fprintf(stderr, "entro aqui\n");
 		set_redir_in(fdp);
-	else
-		dup_and_close(fdp->pipes[fdp->i - 1].fd[READ], STDIN_FILENO);
+	}
+	/* else
+		dup_and_close(fdp->pipes[fdp->i - 1].fd[READ], STDIN_FILENO); */
 	if (fdp->tmp_out)
+	{
+		fprintf(stderr, "entro aqui\n");
 		set_redir_out(fdp);
-	else
+	}
+/* 	else
+	{
 		dup_and_close(fdp->std_in_out[WRTE], STDOUT_FILENO);
+	} */
 	if (check_builtin(list))
 	{
 		exec_builtin(shell, shell->cmnd_list);
@@ -33,8 +38,8 @@ int	final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 	}
 	else
 	{
-		path = init_path(fdp, list->args, shell->_envp, 0);
-		child(shell->_envp, fdp, list->args, path[0]);
+		//fprintf(stderr, "\npath es %s\n i fdp.i es: %i\n", path[fdp->i], fdp->i);
+		child(shell->_envp, fdp, list->args, path[fdp->i]);
 	}
 	//close(fdp->std_in_out[READ]);
 	return (1);

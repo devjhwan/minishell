@@ -42,6 +42,7 @@ typedef struct s_pipe
 typedef struct s_fdp
 {
 	t_pipe	*pipes;
+	int		pipe[2];
 	t_io	*tmp_in;
 	t_io	*tmp_out;
 	int		fd_file[2];
@@ -55,49 +56,49 @@ typedef struct s_fdp
 }			t_fdp;
 
 /*### NEW PIPE ###*/
-int		redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list);
-t_io	*here_doc(t_io *redir, char *limiter);
-void	manage_files(t_fdp	*fdp);
-void	get_redir(t_io *redir, t_fdp *fdp, char **args);
-void	open_outfile(t_fdp *fdp);
-int		set_redir_in(t_fdp	*fdp);
-int		set_redir_out(t_fdp	*fdp);
-
-int		executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell);
-int		exec_cmnds(t_minishell *shell, t_fdp *fdp);
-void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
 void	child(char **envp, t_fdp *fdp, char **args, char *cmnd);
-void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
-void	wait_childs(t_fdp *fdp, int *exit_code);
+int		check_builtin(t_cmnd *cmnd_list);
 void	close_fds(t_fdp *fdp);
-
-int		only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
-int		first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
-int		middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
-int		final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
-
+int		dup_and_close(int fd_to, int fd_from);
+int		executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell);
+int		do_fork(t_minishell *shell, t_fdp *fdp, t_cmnd *cmnd_list);
+void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
+void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
+char	**findpath(char **env);
+void	free_fdp(t_fdp *fdp);
+void	ft_free_array(char **arr, int i);
+void	get_redir(t_io *redir, t_fdp *fdp, char **args);
+t_io	*here_doc(t_io *redir, char *limiter);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
 int		init_pipes(t_fdp	*fdp);
-char	**init_path(t_fdp *fdp, char **argv, char **envp, int i);
-void	ft_free_array(char **arr, int i);
-void	free_fdp(t_fdp *fdp);
+char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i);
+void	manage_files(t_fdp	*fdp);
+void	open_outfile(t_fdp *fdp);
+int		redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list);
 void	restore_io(t_fdp *fdp);
-int		check_builtin(t_cmnd *cmnd_list);
-void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
+int		set_redir_in(t_fdp	*fdp);
+int		set_redir_out(t_fdp	*fdp);
+void	test_child(char **envp, t_fdp *fdp, char **args, char *cmnd);
+void	wait_childs(t_fdp *fdp, int *exit_code);
+
+
+int		only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
+int		first_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path);
+int		middle_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path);
+int		final_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell, char **path);
+
 
 /*### HELPER FUNCTIONS ###*/
 void	printfds(void);
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);
-char	**findpath(char **env);
 size_t	ft_strlen(const char *str);
 char	*setpath(char **path, const char *argv);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		*check_files(char **argv, int argc, int hd, int *io);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 t_fdp	ft_init_fdp(t_fdp *fdp, int argc, char **argv);
-int		dup_and_close(int fd_to, int fd_from);
 void	ft_init_argv(char **argv, t_fdp *fdp);
 void	ft_freep(char **willy);
 

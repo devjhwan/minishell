@@ -63,6 +63,8 @@ void	restore_io(t_fdp *fdp)
 
 void	close_fds(t_fdp *fdp)
 {
+	static int i = 0;
+
 	if (fdp->fd_file[0])
 	{
 		//fprintf(stderr, "file[0] is: %d\n", fdp->fd_file[0]);
@@ -76,8 +78,11 @@ void	close_fds(t_fdp *fdp)
 	if (fdp->pipes)
 	{
 		//fprintf(stderr, "pipe[0] is: %d\n", fdp.fd_pipe[0]);
-		close (fdp->pipes[fdp->i].fd[READ]);
-		close (fdp->pipes[fdp->i].fd[WRTE]);
+		while (i < fdp->cmnd_cnt - 1)
+		{
+			close (fdp->pipes[i].fd[READ]);
+			close (fdp->pipes[i++].fd[WRTE]);
+		}
 	}
 	/* if (fdp->pid)
 		free(fdp->pid); */
