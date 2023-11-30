@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 13:37:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:09:53 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(argc, argv, envp, &shell);
 	while (1)
 	{
+		set_default_minishell_signal();
 		set_minishell_terminal();
 		str = readline("prompt: ");
 		if (str == NULL)
@@ -62,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 		if (shell.cmnd_list == NULL)
 			continue ;
 		//print_cmnd_list(shell.cmnd_list);
+		set_execution_signal();
 		executer(shell.cmnd_list, shell._envp, &shell.exit_code, &shell);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;

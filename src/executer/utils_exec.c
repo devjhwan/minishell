@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/23 16:32:58 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:22:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 
 void	restore_io(t_fdp *fdp)
 {
-	dup2(fdp->std_in_out[READ], STDIN_FILENO);
-	dup2(fdp->std_in_out[WRTE], STDOUT_FILENO);
+	dup2(fdp->std_in_out[0], STDIN_FILENO);
+	dup2(fdp->std_in_out[1], STDOUT_FILENO);
 }
 
 void	close_fds(t_fdp *fdp)
@@ -80,8 +80,8 @@ void	close_fds(t_fdp *fdp)
 		//fprintf(stderr, "pipe[0] is: %d\n", fdp.fd_pipe[0]);
 		while (i < fdp->cmnd_cnt - 1)
 		{
-			close (fdp->pipes[i].fd[READ]);
-			close (fdp->pipes[i++].fd[WRTE]);
+			close (fdp->pipes[i].fd[0]);
+			close (fdp->pipes[i++].fd[1]);
 		}
 	}
 	/* if (fdp->pid)
