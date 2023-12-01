@@ -71,9 +71,8 @@ void	free_fdp(t_fdp *fdp)
 
 int	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 {
-	char** path;
-
-	(void)path;
+	if (redirect(list->redir, fdp, list))
+		return (1);
 	set_redir_in(fdp);
 	set_redir_out(fdp);
 	exec_builtin(shell, list);

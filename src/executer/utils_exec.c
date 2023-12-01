@@ -34,18 +34,18 @@ int	check_builtin(t_cmnd *cmnd_list)
 	return (0);
 }
 
-void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
+int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 {
 	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
 	{
 		if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
 			env(shell);
+		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
+			return (echo(cmnd_list->args));
 /* 		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
 			return (cd(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
 			return (pwd(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
-			return (echo(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
 			return (export(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
@@ -53,6 +53,7 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
 			return (exit(shell)); */
 	}
+	return (0);
 }
 
 void	restore_io(t_fdp *fdp)

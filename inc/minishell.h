@@ -66,6 +66,7 @@ void			env(t_minishell *shell);
 char			**_export(t_minishell *shell, char **args);
 int	 			cd(t_minishell *shell, char *path);
 void			pwd(void);
+int 			echo(char **args);
 
 char			**realloc_char2p(char **arr, int new_size);
 

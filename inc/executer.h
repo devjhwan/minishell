@@ -53,7 +53,7 @@ int		dup_and_close(int fd_to, int fd_from);
 int		executer(t_cmnd *cmnd_list, char **_envp, int *exit_code, t_minishell *shell);
 int		do_fork(t_minishell *shell, t_fdp *fdp, t_cmnd *cmnd_list);
 void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
-void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
+int		exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
 char	**findpath(char **env);
 void	free_fdp(t_fdp *fdp);
 void	ft_free_array(char **arr);
