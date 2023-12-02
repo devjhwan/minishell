@@ -11,7 +11,7 @@
 		return (1);
 	return (0);
 } */
-
+/* 
 int exit_sh(char **args, int *exit_code)
 {
 	if (args[1])
@@ -33,4 +33,4 @@ int exit_sh(char **args, int *exit_code)
 	}
 	ft_printf_fd(2, "exit\n");
 	exit(*exit_code);
-}
+} */

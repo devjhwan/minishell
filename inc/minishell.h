@@ -68,6 +68,7 @@ int	 			cd(t_minishell *shell, char *path);
 void			pwd(void);
 int 			echo(char **args);
 int				exit_sh(char **args, int *exit_code);
+int				_unset(char **args, char **_envp);
 
 char			**realloc_char2p(char **arr, int new_size);
 
