@@ -37,7 +37,7 @@ EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c \
 		  	 pathfinder.c files.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
-BUILTINS_SRC=echo.c env.c export.c export2.c cd.c pwd.c
+BUILTINS_SRC=echo.c env.c export.c export2.c cd.c pwd.c exit.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
 	 $(EXECUTER_SRC) $(ERR_MSG_SRC) $(BUILTINS_SRC)

@@ -42,6 +42,8 @@ int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 			env(shell);
 		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
 			return (echo(cmnd_list->args));
+		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
+			return (exit_sh(cmnd_list->args, shell->exit_code));
 /* 		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
 			return (cd(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
@@ -49,9 +51,7 @@ int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
 			return (export(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
-			return (unset(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
-			return (exit(shell)); */
+			return (unset(shell));*/
 	}
 	return (0);
 }
