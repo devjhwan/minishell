@@ -6,14 +6,11 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/04 19:27:26 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:07:12 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
-
-static char	**findpath(char **env);
-static char	*setpath(char **path, const char *argv);
 
 char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 {
@@ -23,22 +20,20 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 	path = findpath(envp);
 	if (path == NULL)
 		return (NULL);
-	cmds = malloc(sizeof(char *) * (fdp->cmnd_cnt + 1));
+	cmds = (char **)ft_calloc((fdp->cmnd_cnt + 1), sizeof(char *));
 	if (!cmds)
 		return (ft_free_array(path), NULL);
 	while (list)
 	{
-		cmds[i] = setpath(path, list->args[0]);
-		if (cmds[i] == NULL)
-			return (ft_free_array(path), ft_free_array(cmds), NULL);
+		if (list->args != NULL)
+			cmds[i] = setpath(path, list->args[0]);
 		i++;
 		list = list->next;
 	}
-	cmds[fdp->cmnd_cnt] = NULL;
 	return (ft_free_array(path), cmds);
 }
 
-static char	**findpath(char **env)
+char	**findpath(char **env)
 {
 	int		i;
 
@@ -52,15 +47,15 @@ static char	**findpath(char **env)
 	return (NULL);
 }
 
-static char	*setpath(char **path, const char *argv)
+char	*setpath(char **path, const char *argv)
 {
 	int		i;
 	char	*tmp;
 
 	i = 0;
 	tmp = (char *)malloc(sizeof(char) * 1000);
-	if (tmp == NULL)
-		return (NULL);
+	if (tmp == NULL || argv == NULL)
+		return (free(tmp), NULL);
 	while (path && path[i])
 	{
 		ft_strlcpy(tmp, path[i], 1000);

@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/04 19:07:44 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:02:57 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	fdp->std_in_out[0] = dup(STDIN_FILENO);
 	fdp->std_in_out[1] = dup(STDOUT_FILENO);
-	fdp->paths = init_path(fdp, cmnd_list, _envp, 0);
+	fdp->paths = findpath(_envp);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
 	if (!fdp->pid || !fdp->paths)
 		return (ERROR);

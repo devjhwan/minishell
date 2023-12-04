@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 19:30:29 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:06:52 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell)
 
 static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
 {
+	char	*cmnd_path;
+
 	if (fdp->tmp_in)
 		set_redir_in(fdp);
 	if (cmnds->next != NULL)
@@ -51,7 +53,11 @@ static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
 	if (check_builtin(cmnds))
 		exec_builtin(shell, cmnds);
 	else
-		execve (fdp->paths[fdp->child_id], cmnds->args, shell->_envp);
+	{
+		cmnd_path = setpath(fdp->paths, cmnds->args[0]);
+		if (cmnd_path != NULL)
+			execve (cmnd_path, cmnds->args, shell->_envp);
+	}
 	exit(0);
 }
 

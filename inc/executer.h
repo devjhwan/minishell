@@ -6,13 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/04 19:29:13 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:03:24 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTER_H
 # define EXECUTER_H
 
+# include <signal.h>
 # include <stdio.h>
 # include <sys/wait.h>
 # include <sys/types.h>
@@ -56,6 +57,7 @@ int		executer(t_cmnd *cmnd_list, t_minishell *shell);
 void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list);
 int		execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell);
 int		execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell);
+char	**findpath(char **env);
 void	free_fdp(t_fdp *fdp);
 void	ft_free_array(char **arr);
 void	get_redir(t_io *redir, t_fdp *fdp);
@@ -66,6 +68,7 @@ int		manage_files(t_fdp	*fdp);
 void	open_outfile(t_fdp *fdp);
 int		redirect(t_io *redir, t_fdp *fdp);
 int		restore_io(t_fdp *fdp);
+char	*setpath(char **path, const char *argv);
 int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 
