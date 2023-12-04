@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:40 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 13:01:03 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:31:07 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static t_token	*insert_blank(t_list *token_list, char *line, int *i)
 		return (free_token((void *)new_token), NULL);
 	return (new_token);
 }
-
-#include <stdio.h>
 
 static t_token	*insert_metacharacter(t_list *token_list, char *line, int *i)
 {

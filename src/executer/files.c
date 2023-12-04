@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   files.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/04 19:29:55 by junghwle          #+#    #+#             */
+/*   Updated: 2023/12/04 19:30:17 by junghwle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "executer.h"
 
 int	manage_files(t_fdp	*fdp)
@@ -5,8 +17,7 @@ int	manage_files(t_fdp	*fdp)
 	if (fdp->tmp_in && fdp->tmp_in->type)
 	{
 		if (access(fdp->tmp_in->file, F_OK | R_OK) != 0)
-			//return (ft_perror(), 1);
-			return (1);
+			return (ERROR);
 		else
 			fdp->fd_file[INF] = open(fdp->tmp_in->file, O_RDONLY);
 	}

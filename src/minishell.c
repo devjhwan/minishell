@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 13:33:28 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:32:54 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static char	**init_export(char **envp)
 		ft_strlcpy(&tmp[11], _export[i], \
 					(int)(ft_strchr(_export[i], '=') - _export[i] + 2));
 		tmp[ft_strlen(tmp)] = '"';
-		ft_strlcat(tmp, ft_strchr(_export[i], '=') + 1, ft_strlen(_export[i]) + 14);
+		ft_strlcat(tmp, ft_strchr(_export[i], '=') + 1, \
+						ft_strlen(_export[i]) + 14);
 		tmp[ft_strlen(_export[i]) + 12] = '"';
 		free(_export[i]);
 		_export[i++] = tmp;

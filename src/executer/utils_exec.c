@@ -6,59 +6,19 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 15:33:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 18:36:47 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int	check_builtin(t_cmnd *cmnd_list)
+int	restore_io(t_fdp *fdp)
 {
-	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
-	{
-		if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
-			return (1);
-		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
-			return (1);
-	}
+	if (dup2(fdp->std_in_out[0], STDIN_FILENO) == -1)
+		return (1);
+	if (dup2(fdp->std_in_out[1], STDOUT_FILENO) == -1)
+		return (1);
 	return (0);
-}
-
-void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
-{
-	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
-	{
-		if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
-			env(shell);
-/* 		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
-			return (cd(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
-			return (pwd(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
-			return (echo(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
-			return (export(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
-			return (unset(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
-			return (exit(shell)); */
-	}
-}
-
-void	restore_io(t_fdp *fdp)
-{
-	dup2(fdp->std_in_out[0], STDIN_FILENO);
-	dup2(fdp->std_in_out[1], STDOUT_FILENO);
 }
 
 void	close_fds(t_fdp *fdp)

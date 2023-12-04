@@ -6,13 +6,13 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 16:06:09 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/03 23:59:47 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
+int	redirect(t_io *redir, t_fdp *fdp)
 {
 	fdp->tmp_in = NULL;
 	fdp->tmp_out = NULL;
@@ -20,7 +20,7 @@ int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
 	{
 		while (redir != NULL)
 		{
-			get_redir(redir, fdp, cmnd_list->args);
+			get_redir(redir, fdp);
 			redir = redir->next;
 		}
 		if (manage_files(fdp))
@@ -29,9 +29,8 @@ int	redirect(t_io *redir, t_fdp *fdp, t_cmnd *cmnd_list)
 	return (0);
 }
 
-void	get_redir(t_io *redir, t_fdp *fdp, char **args)
+void	get_redir(t_io *redir, t_fdp *fdp)
 {
-	(void) args;
 	if (redir->type == IN)
 		fdp->tmp_in = redir;
 	else if (redir->type == HERE_DOC)
@@ -48,23 +47,15 @@ void	get_redir(t_io *redir, t_fdp *fdp, char **args)
 int	set_redir_in(t_fdp	*fdp)
 {
 	if (fdp->tmp_in != NULL && \
-		(fdp->tmp_in->type == IN || fdp->tmp_in->type == HERE_DOC))
-	{
-		dup_and_close(fdp->fd_file[INF], STDIN_FILENO);
-		return (1);
-	}
-	return (0);
+		dup_and_close(fdp->fd_file[INF], STDIN_FILENO) == -1)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	set_redir_out(t_fdp	*fdp)
 {
-	if (fdp->tmp_out)
-	{
-		if (fdp->tmp_out->type == OUT || fdp->tmp_out->type == OUT_APPEND)
-		{
-			dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO);
-			return (1);
-		}
-	}
-	return (0);
+	if (fdp->tmp_out != NULL && \
+		dup_and_close(fdp->fd_file[OUTF], STDOUT_FILENO) == -1)
+		return (ERROR);
+	return (SUCCESS);
 }

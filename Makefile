@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/11/30 15:45:01 by junghwle         ###   ########.fr        #
+#    Updated: 2023/12/04 19:25:16 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,8 @@ PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
 		   merge_consecutive_arguments.c remove_blanks.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
-EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c \
-		  	 pathfinder.c files.c
+EXECUTER_SRC=executer.c execute_builtin.c utils_exec.c utils2_exec.c redirect.c \
+		  	 pathfinder.c files.c execute_pipeline.c
 ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
 			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
 BUILTINS_SRC=env.c export.c export2.c cd.c pwd.c

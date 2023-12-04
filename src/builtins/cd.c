@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/21 14:45:56 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:32:10 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ int	cd(t_minishell *shell, char *path)
 	(void)path;
 	ret = 0;
 	if (path == NULL || ft_strncmp(path, "~", 2) == 0)
-	 	ret = cd_home(shell, path);
+		ret = cd_home(shell, path);
 	else if (ft_strncmp(path, "..", 3) == 0)
-	 	ret = cd_up(shell);
+		ret = cd_up(shell);
 	else if (ft_strncmp(path, ".", 2) == 0)
-	 	ret = cd_here(shell);
+		ret = cd_here(shell);
 	else if (ft_strncmp(path, "-", 2) == 0)
-	 	ret = cd_back(shell);
+		ret = cd_back(shell);
 	else
-	 	ret = chdir(path);
+		ret = chdir(path);
 	return (ret);
 }
