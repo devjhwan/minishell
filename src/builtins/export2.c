@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:41:52 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/21 10:37:19 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:06:24 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	**append_argument(char **arr, char *arg)
 	}
 	new_arr[i++] = arg;
 	new_arr[i++] = NULL;
-	free(arr);
+	free (arr);
 	return (new_arr);
 }
 

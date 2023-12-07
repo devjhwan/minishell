@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/07 12:35:19 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:24:48 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,12 @@ int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 			return (_unset(cmnd_list->args, shell->_envp));
 		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
 			return (exit_sh(cmnd_list->args, &shell->exit_code));
-/*		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
+		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
+			return (cd(shell, cmnd_list->args[1]));
+		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
 			shell->_envp = _export(shell, cmnd_list->args);
- 		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
-			return (cd(shell));
 		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
-			return (pwd(shell));
-			*/
+			pwd();
 	}
 	return (0);
 }
