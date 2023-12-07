@@ -1,23 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 12:21:03 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/07 12:21:17 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/12/07 12:40:44 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/12/07 12:41:42 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_atoi(const char *str)
 {
-	while (*s1 && *s2 && *s1 == *s2)
+	int	num;
+	int	i;
+	int	sign;
+
+	num = 0;
+	i = 0;
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		s1++;
-		s2++;
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	return ((unsigned char) *s1 - (unsigned char) *s2);
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		num = num * 10 + (str[i] - '0');
+		i++;
+	}
+	return (num * sign);
 }
+

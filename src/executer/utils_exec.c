@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_exec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 15:33:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:35:19 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 			return (echo(cmnd_list->args));
 		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
 			return (_unset(cmnd_list->args, shell->_envp));
+		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
+			return (exit_sh(cmnd_list->args, &shell->exit_code));
 /*		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
 			shell->_envp = _export(shell, cmnd_list->args);
  		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
 			return (cd(shell));
-		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
-			return (exit_sh(cmnd_list->args, &shell->exit_code));
 		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
 			return (pwd(shell));
 			*/
