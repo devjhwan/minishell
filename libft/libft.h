@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/07 15:18:18 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:22:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_strcmp_case(const char *s1, const char *s2, int flag);
 int			ft_tolower(int c);
 int			ft_strcmp(const char *s1, const char *s2);
-int			ft_atoll(const char *str);
+long long 	ft_atoll(const char *str);
 int			ft_atoi(const char *str);
 
 #endif

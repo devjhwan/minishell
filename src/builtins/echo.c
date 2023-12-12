@@ -3,9 +3,16 @@
 
 static int is_n(char *str)
 {
-	if (!ft_strncmp(str, "-n", 3))
-		return (1);
-	return (0);
+	int	i;
+
+	if (str[0] != '-')
+		return (0);
+	i = 1;
+	while (str[i] == 'n')
+		i++;
+	if (str[i] != '\0')
+		return (0);
+	return (1);
 }
 
 int echo(char **args)
