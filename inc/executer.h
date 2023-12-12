@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/04 20:03:24 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:05:38 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,9 @@ int		execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell);
 char	**findpath(char **env);
 void	free_fdp(t_fdp *fdp);
 void	ft_free_array(char **arr);
-void	get_redir(t_io *redir, t_fdp *fdp);
-t_io	*here_doc(t_io *redir, char *limiter);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
 char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i);
 int		manage_files(t_fdp	*fdp);
-void	open_outfile(t_fdp *fdp);
 int		redirect(t_io *redir, t_fdp *fdp);
 int		restore_io(t_fdp *fdp);
 char	*setpath(char **path, const char *argv);

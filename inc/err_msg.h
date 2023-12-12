@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 19:52:41 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 10:54:55 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define AMBIGUOUS_REDIRECT 1
 # define EXPORT_INVALID_IDENTIFIER 2
 # define NO_FILE_OR_DIRECTORY 3
+# define COMMAND_NOT_FOUND 4
+# define PERMISSION_DENIED 5
 # define UNKNWON_ERROR 127
 
 void	ft_perror(int errtype, ...);

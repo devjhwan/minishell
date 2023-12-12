@@ -6,11 +6,12 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/04 20:07:12 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 10:39:20 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
+#include "err_msg.h"
 
 char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 {
@@ -68,5 +69,5 @@ char	*setpath(char **path, const char *argv)
 	ft_strlcpy(tmp, argv, 1000);
 	if (access(tmp, X_OK) == 0)
 		return (tmp);
-	return (free(tmp), NULL);
+	return (free(tmp), ft_perror(COMMAND_NOT_FOUND, argv), NULL);
 }

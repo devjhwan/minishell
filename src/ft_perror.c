@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 19:53:04 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 10:55:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,15 @@ void	ft_perror(int errtype, ...)
 		errstr = "minishell: %s: ambiguous redirect\n";
 	else if (errtype == EXPORT_INVALID_IDENTIFIER)
 		errstr = "minishell: export: \'%s\': not a valid identifier\n";
+	else if (errtype == COMMAND_NOT_FOUND)
+		errstr = "minishell: command not found: %s\n";
+	else if (errtype == NO_FILE_OR_DIRECTORY)
+		errstr = "minishell: No such file or directory: %s\n";
+	else if (errtype == PERMISSION_DENIED)
+		errstr = "minishell: permission denied: %s\n";
 	else
 		errstr = "minishell: unkown error\n";
-	if (errtype < 4)
+	if (errtype < 6)
 		ft_printf_fd(STDERR_FILENO, errstr, va_arg(ap, char *));
 	else
 		ft_printf_fd(STDERR_FILENO, errstr);
