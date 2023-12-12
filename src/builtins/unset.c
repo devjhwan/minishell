@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   unset.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/12/12 18:20:34 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/12/12 18:30:31 by jmarinel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 #include "libft.h"
 #include "err_msg.h"
 
-static int is_valid(char *arg)
+static int	is_valid(char *arg)
 {
-	int i;
+	int	i;
 
 	if (!ft_isalpha(arg[0]))
 		return (1);
@@ -18,10 +30,34 @@ static int is_valid(char *arg)
 	return (0);
 }
 
-static void unset_var(char **_envp, char *var)
+static void	unset_export(char **_export, char *var)
 {
 	int		i;
-	char*	tmp;
+	char	*tmp;
+
+	i = 0;
+	tmp = NULL;
+	while (_export[i])
+	{
+		if (!ft_strncmp(var, _export[i] + 11, ft_strlen(var)))
+		{
+			tmp = _export[i];
+			while (_export[i])
+			{
+				_export[i] = _export[i + 1];
+				i++;
+			}
+			free (tmp);
+		}
+		if (_export[i])
+			i++;
+	}
+}
+
+static void	unset_envp(char **_envp, char *var)
+{
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	tmp = NULL;
@@ -42,10 +78,10 @@ static void unset_var(char **_envp, char *var)
 	}
 }
 
-int _unset(char **args, char **_envp, char **_export)
+int	_unset(char **args, char **_envp, char **_export)
 {
 	int		i;
-	char*	var;
+	char	*var;
 
 	(void)_export;
 	var = NULL;
@@ -61,7 +97,8 @@ int _unset(char **args, char **_envp, char **_export)
 		var = ft_strjoin(args[i], "=");
 		if (!var)
 			return (1);
-		unset_var(_envp, var);
+		unset_envp(_envp, var);
+		unset_export(_export, var);
 		i++;
 		free (var);
 	}
