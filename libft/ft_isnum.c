@@ -1,39 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_isnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 12:20:14 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 17:59:36 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/12/12 17:23:47 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/12/12 18:07:47 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long long	ft_atoll(const char *str)
+int	is_num(char *arg)
 {
-	long long	num;
-	int			i;
-	int			sign;	
+	int	i;
 
-	num = 0;
 	i = 0;
-	sign = 1;
-	while ((str[i] >= 9 && str[i] <= 13) || (str[i] == 32))
+	if (arg[i] == '-' || arg[i] == '+')
 		i++;
-	if (str[i] == '-' || str[i] == '+')
-	{
-		if (str[i++] == '-')
-			sign *= -1;
-	}
-	if (str[i] < '0' || str[i] > '9')
+	if (arg[i] == '\0')
 		return (1);
-	while (str[i] >= '0' && str[i] <= '9')
+	while (arg[i])
 	{
-		num *= 10;
-		num += (str[i++] - '0');
+		if (!(arg[i] >= '0' && arg[i] <= '9'))
+			return (1);
+		i++;
 	}
-	return (num * sign);
+	return (0);
 }

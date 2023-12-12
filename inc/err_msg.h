@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 13:40:19 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:13:23 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define COMMAND_NOT_FOUND 4
 # define PERMISSION_DENIED 5
 # define HIGH_SHELL_LEVEL 6
+# define NUMERIC_ARGUMENT 7
+# define TOO_MANY_ARGS 8
 # define UNKNWON_ERROR 127
 
 void	ft_perror(int errtype, ...);

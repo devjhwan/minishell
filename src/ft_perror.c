@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 14:11:51 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:26:03 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void	ft_perror(int errtype, ...)
 		errstr = "%s: permission denied\n";
 	else if (errtype == HIGH_SHELL_LEVEL)
 		errstr = "warning: shell level (%s) too high, resetting to 1\n";
+	else if (errtype == NUMERIC_ARGUMENT)
+		errstr = "exit: %s: numeric argument required\n";
+	else if (errtype == TOO_MANY_ARGS)
+		errstr = "minishell: exit: too many arguments\n";
 	else
 		errstr = "unkown error\n";
 	ft_printf_fd(STDERR_FILENO, "minishell: ");

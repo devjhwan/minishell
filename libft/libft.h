@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 11:22:03 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/12 17:57:59 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int			ft_arraylen(char **arr);
 int			ft_isalpha(int c);
 int			ft_isalnum(int c);
 int			ft_isdigit(int c);
+int			is_num(char *arg);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_isspace(char ch);
 size_t		ft_strlen(const char *s);
@@ -53,7 +54,8 @@ void		*ft_memcpy(void *dst, const void *src, size_t n);
 int			ft_strcmp_case(const char *s1, const char *s2, int flag);
 int			ft_tolower(int c);
 int			ft_strcmp(const char *s1, const char *s2);
-long long 	ft_atoll(const char *str);
+long long	ft_atoll(const char *str);
 int			ft_atoi(const char *str);
+int			ft_islonglong(const char *str);
 
 #endif

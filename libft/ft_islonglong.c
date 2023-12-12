@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_islonglong.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 12:20:14 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 17:59:36 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/12/12 17:56:55 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/12/12 17:57:16 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <limits.h>
 
-long long	ft_atoll(const char *str)
+int	ft_islonglong(const char *str)
 {
 	long long	num;
 	int			i;
@@ -32,8 +33,11 @@ long long	ft_atoll(const char *str)
 		return (1);
 	while (str[i] >= '0' && str[i] <= '9')
 	{
+		if (num * sign > (LLONG_MAX - (str[i] - '0')) / 10 || \
+			num * sign < ((LLONG_MIN + 1) + (str[i] - '0')) / 10)
+			return (0);
 		num *= 10;
 		num += (str[i++] - '0');
 	}
-	return (num * sign);
+	return (0);
 }
