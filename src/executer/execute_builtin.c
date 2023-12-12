@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 19:30:53 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:39:24 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,26 @@ int	check_builtin(t_cmnd *cmnd_list)
 	return (0);
 }
 
-void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
+int	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 {
-	if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
-		env(shell);
-/* 	else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
-		return (cd(shell));
-	else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
-		return (pwd(shell));
-	else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
-		return (echo(shell));
-	else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
-		return (export(shell));
-	else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
-		return (unset(shell));
-	else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
-		return (exit(shell)); */
+	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
+	{
+		if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
+			env(shell);
+		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
+			return (echo(cmnd_list->args));
+		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
+			return (_unset(cmnd_list->args, shell->_envp));
+		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)
+			return (exit_sh(cmnd_list->args, &shell->exit_code));
+		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 1) == 0)
+			return (cd(shell, cmnd_list->args[1]));
+		else if (ft_strcmp_case(cmnd_list->args[0], "export", 0) == 0)
+			shell->_envp = _export(shell, cmnd_list->args);
+		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 1) == 0)
+			pwd();
+	}
+	return (0);
 }
 
 int	execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
