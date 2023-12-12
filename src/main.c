@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 16:33:54 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:17:11 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		//print_cmnd_list(shell.cmnd_list);
 		set_execution_signal();
-		executer(shell.cmnd_list, shell._envp, &shell.exit_code, &shell);
+		executer(shell.cmnd_list, &shell);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}

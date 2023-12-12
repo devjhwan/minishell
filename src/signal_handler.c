@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 22:36:41 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/11 23:02:03 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:32:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	sigint_handler(int signum)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
-		//rl_replace_line("", 1);
+		rl_replace_line("", 1);
 		rl_redisplay();
 	}
 }

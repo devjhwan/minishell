@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:04:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/30 13:08:21 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 20:16:58 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static char	**get_command_arguments(t_list_node *cur_node, int count, int i)
 			count++;
 		tmp = tmp->next;
 	}
-	if (count == 0)
-		return (NULL);
 	args = (char **)malloc(sizeof(char *) * (count + 1));
 	if (args == NULL)
 		return (NULL);

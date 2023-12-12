@@ -6,7 +6,7 @@
 #    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/12/07 13:00:48 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/12/12 11:35:58 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,11 +19,10 @@ PARSE_HELPER_DIR=$(PARSE_DIR)/parse_helper
 EXPAND_DIR=$(PARSE_DIR)/expand
 TOKEN_CHECKER_DIR=$(PARSE_DIR)/token_checker
 EXECUTER_DIR=executer
-ERR_MSG_DIR=err_msg
 BUILTINS_DIR=builtins
 OBJDIR=objs
 MAIN_SRC=main.c terminal_setting.c signal_handler.c minishell.c \
-		 clear_command_list.c
+		 clear_command_list.c ft_perror.c
 PARSE_SRC=parse_input.c token.c lexer.c parser.c expander.c \
 		  command_builder.c
 JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \
@@ -33,14 +32,12 @@ PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
 		   merge_consecutive_arguments.c remove_blanks.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
-EXECUTER_SRC=executer.c utils_exec.c utils2_exec.c redirect.c \
-		  	 pathfinder.c files.c
-ERR_MSG_SRC=ft_perror.c print_unknown_err.c print_unexpected_token_err.c \
-			print_ambiguous_redirect_err.c print_export_invalid_identifier.c
+EXECUTER_SRC=executer.c execute_builtin.c utils_exec.c utils2_exec.c redirect.c \
+		  	 pathfinder.c files.c execute_pipeline.c
 BUILTINS_SRC=echo.c env.c export.c export2.c cd.c pwd.c exit.c unset.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
-	 $(EXECUTER_SRC) $(ERR_MSG_SRC) $(BUILTINS_SRC)
+	 $(EXECUTER_SRC) $(BUILTINS_SRC)
 OBJS=$(patsubst %.c, $(OBJDIR)/%.o, $(SRCS))
 DEPS=$(OBJS:.o=.d)
 
@@ -86,10 +83,6 @@ $(OBJDIR)/%.o: $(SRCDIR)/$(TOKEN_CHECKER_DIR)/%.c $(LIBFT) Makefile
 	echo "(MINISHELL) COMPILING $@"
 
 $(OBJDIR)/%.o: $(SRCDIR)/$(EXECUTER_DIR)/%.c Makefile
-	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
-	echo "(MINISHELL) COMPILING $@"
-
-$(OBJDIR)/%.o: $(SRCDIR)/$(ERR_MSG_DIR)/%.c $(LIBFT) Makefile
 	$(CC) $(DEBUG) $(DEPFLAGS) $(CFLAGS) $(INCLUDE) -c -o $@ $< $(CPPFLAGS)
 	echo "(MINISHELL) COMPILING $@"
 

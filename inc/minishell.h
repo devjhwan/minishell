@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/21 14:21:50 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/04 19:29:23 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			free_cmnd_list(t_cmnd **cmnd_list);
 /*-----BUILTINS-----*/
 void			env(t_minishell *shell);
 char			**_export(t_minishell *shell, char **args);
-int	 			cd(t_minishell *shell, char *path);
+int				cd(t_minishell *shell, char *path);
 void			pwd(void);
 int 			echo(char **args);
 int				exit_sh(char **args, int *exit_code);

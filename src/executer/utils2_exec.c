@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/30 15:57:37 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 11:42:02 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,18 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->cmnd_cnt = ft_list_size(cmnd_list);
 	fdp->std_in_out[0] = dup(STDIN_FILENO);
 	fdp->std_in_out[1] = dup(STDOUT_FILENO);
-	fdp->paths = init_path(fdp, cmnd_list, _envp, 0);
+	fdp->paths = findpath(_envp);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
 	if (!fdp->pid || !fdp->paths)
-	{
-		free_fdp(fdp);
-		return (1);
-	}
-	return (0);
+		return (ERROR);
+	return (SUCCESS);
 }
 
 int	dup_and_close(int fd_to, int fd_from)
 {
-	if (dup2(fd_to, fd_from) == -1)
-		return (1);
-	if (close(fd_to) == -1)
-		return (1);
-	return (0);
+	if (dup2(fd_to, fd_from) == -1 || close(fd_to) == -1)
+		return (ERROR);
+	return (SUCCESS);
 }
 
 void	ft_free_array(char **arr)
@@ -67,15 +62,4 @@ void	free_fdp(t_fdp *fdp)
 {
 	free(fdp->pid);
 	ft_free_array(fdp->paths);
-}
-
-int	only_cmnd(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
-{
-	if (redirect(list->redir, fdp, list))
-		return (1);
-	set_redir_in(fdp);
-	set_redir_out(fdp);
-	exec_builtin(shell, list);
-	restore_io(fdp);
-	return (0);
 }
