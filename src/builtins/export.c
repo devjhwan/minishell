@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:43:05 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 22:01:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:22:04 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,23 @@ static void	*split_argument(char *arg, char **var_name, char **content)
 	*var_name = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 	if (*var_name == NULL)
 		return (NULL);
-	ft_strlcpy(*var_name, arg, (size_t)(ft_strchr(arg, '=') - arg + 1));
 	if (ft_strchr(arg, '=') != NULL)
 	{
+		ft_strlcpy(*var_name, arg, (size_t)(ft_strchr(arg, '=') - arg + 1));
 		*content = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 		if (*content == NULL)
 			return (free(var_name), NULL);
 		ft_strlcpy(*content, ft_strchr(arg, '=') + 1, ft_strlen(arg));
 	}
+	else
+	{
+		ft_strlcpy(*var_name, arg, ft_strlen(arg) + 1);
+		*content = NULL;
+	}
 	return (arg);
 }
 
-static t_minishell	*append_new_envvar(t_minishell *shell, char **_export, \
+t_minishell	*append_new_envvar(t_minishell *shell, char **_export, \
 											char **_envp, char *arg)
 {
 	int		i;
@@ -64,21 +69,15 @@ static t_minishell	*append_new_envvar(t_minishell *shell, char **_export, \
 	return (free(var_name), free(content), shell);
 }
 
-char	**_export(t_minishell *shell, char **args)
+void	_export(t_minishell *shell, char **args)
 {
 	int		i;
-	char	**_export;
-	char	**_envp;
 
-	_export = shell->_export;
-	_envp = shell->_envp;
-	i = 0;
-	if (args == NULL || args[0] == NULL)
-		while (_export[i] != NULL)
-			printf("%s\n", _export[i++]);
+	i = 1;
+	if (args[1] == NULL)
+		while (shell->_export[i] != NULL)
+			printf("%s\n", shell->_export[i++]);
 	else
 		while (args[i] != NULL)
-			if (append_new_envvar(shell, _export, _envp, args[i++]) == NULL)
-				return (NULL);
-	return (_export);
+			append_new_envvar(shell, shell->_export, shell->_envp, args[i++]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   search_env_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 04:11:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 01:10:46 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 13:26:50 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ char	*search_env_value(char *substr, char **envp, t_minishell *shell)
 			j = 0;
 			while (envp[i][j] != '\0' && envp[i][j] != '=')
 				j++;
-			env_value = ft_substr(envp[i], j + 1, ft_strlen(envp[i]) - j - 1);
+			env_value = ft_strdup(ft_substr(envp[i], j + 1, \
+											ft_strlen(envp[i]) - j - 1));
 			break ;
 		}
 		i++;

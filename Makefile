@@ -6,7 +6,7 @@
 #    By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/12/12 11:35:58 by jmarinel         ###   ########.fr        #
+#    Updated: 2023/12/12 13:28:51 by jmarinel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ EXECUTER_DIR=executer
 BUILTINS_DIR=builtins
 OBJDIR=objs
 MAIN_SRC=main.c terminal_setting.c signal_handler.c minishell.c \
-		 clear_command_list.c ft_perror.c
+		 clear_command_list.c ft_perror.c minishell2.c
 PARSE_SRC=parse_input.c token.c lexer.c parser.c expander.c \
 		  command_builder.c
 JOIN_TOKENS_SRC=join_content.c join_arguments.c join_env_var_arguments.c \

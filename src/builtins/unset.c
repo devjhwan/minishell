@@ -42,11 +42,12 @@ static void unset_var(char **_envp, char *var)
 	}
 }
 
-int _unset(char **args, char **_envp)
+int _unset(char **args, char **_envp, char **_export)
 {
 	int		i;
 	char*	var;
 
+	(void)_export;
 	var = NULL;
 	i = 1;
 	while (args[i])

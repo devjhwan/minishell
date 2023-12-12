@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 21:41:52 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/07 16:06:24 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/12 12:45:58 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	var_position(char **arr, char *var_name, int offset)
 	while (arr[i] != NULL)
 	{
 		if (ft_strncmp(&arr[i][offset], var_name, len) == 0 && \
-			arr[i][len + offset] == '=')
+			(arr[i][len + offset] == '=' || arr[i][len + offset] == '\0'))
 			return (i);
 		i++;
 	}
@@ -65,9 +65,9 @@ void	*append_to_export(char **_export, char *var_name, \
 		return (_export);
 	ft_strlcpy(tmp, "declare -x ", len);
 	ft_strlcat(tmp, var_name, len);
-	ft_strlcat(tmp, "=", len);
 	if (content != NULL)
 	{
+		ft_strlcat(tmp, "=", len);
 		ft_strlcat(tmp, "\"", len);
 		ft_strlcat(tmp, content, len);
 		ft_strlcat(tmp, "\"", len);

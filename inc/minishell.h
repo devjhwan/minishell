@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 19:29:23 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:04:09 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "list.h"
 # include <stdlib.h>
 # include <stdio.h>
+
+# define ERROR	1
+# define SUCCESS 0
 
 typedef enum s_redir_type
 {
@@ -59,16 +62,21 @@ void			rollback_terminal_setting(void);
 void			set_default_minishell_signal(void);
 void			set_execution_signal(void);
 
+t_minishell		*append_new_envvar(t_minishell *shell, char **_export, \
+											char **_envp, char *arg);
+int				update_shlvl(t_minishell *shell, char **envp);
+											
+
 void			free_cmnd_list(t_cmnd **cmnd_list);
 
 /*-----BUILTINS-----*/
 void			env(t_minishell *shell);
-char			**_export(t_minishell *shell, char **args);
+void			_export(t_minishell *shell, char **args);
 int				cd(t_minishell *shell, char *path);
 void			pwd(void);
 int 			echo(char **args);
 int				exit_sh(char **args, int *exit_code);
-int				_unset(char **args, char **_envp);
+int				_unset(char **args, char **_envp, char **_export);
 
 char			**realloc_char2p(char **arr, int new_size);
 
