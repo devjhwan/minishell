@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:05:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/08 16:16:03 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:11:33 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 	t_list_node	*cur_node;
 	t_token		*cur_token;
 	t_token		*new_token;
-
+	
 	cur_node = token_list->header;
 	while (cur_node != NULL)
 	{

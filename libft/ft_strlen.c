@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 20:07:46 by junghwle          #+#    #+#             */
-/*   Updated: 2023/05/02 20:08:20 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:38:37 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	len;
 
+	if (s == NULL)
+		return (0);
 	len = 0;
 	while (s[len])
 		len++;

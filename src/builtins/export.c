@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:43:05 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:55:00 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:02:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "libft.h"
 #include "err_msg.h"
 
-void	*append_to_export(char **_export, char *var_name, \
-											char *content, int len);
-void	*append_to_envp(char **_envp, char *var_name, char *content, int len);
+void	*append_to_export(char **_export, char *var_name, char *content, \
+															int add_flag);
+void	*append_to_envp(char **_envp, char *var_name, char *content, \
+															int add_flag);
 
 static void	*split_argument(char *arg, char **var_name, char **content)
 {
@@ -49,7 +50,8 @@ static int	check_varname(char *arg)
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '=')
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '_')
+		if (!ft_isalnum(arg[i]) && arg[i] != '_' && \
+			!(arg[i] == '+' && arg[i + 1] == '='))
 			return (ERROR);
 		i++;
 	}
@@ -59,18 +61,25 @@ static int	check_varname(char *arg)
 int	append_new_envvar(t_minishell *shell, char **_export, \
 											char **_envp, char *arg)
 {
+	int		add_flag;
 	char	*var_name;
 	char	*content;
 
+	add_flag = 0;
 	if (check_varname(arg) == ERROR)
 		return (ft_perror(EXPORT_INVALID_IDENTIFIER, arg), 1);
 	if (split_argument(arg, &var_name, &content) == NULL)
 		return (1);
-	_export = append_to_export(_export, var_name, content, ft_strlen(arg) + 15);
+	if (var_name[ft_strlen(var_name) - 1] == '+')
+	{
+		add_flag = 1;
+		var_name[ft_strlen(var_name) - 1] = '\0';
+	}
+	_export = append_to_export(_export, var_name, content, add_flag);
 	if (_export == NULL)
 		return (free(var_name), free(content), 1);
 	shell->_export = _export;
-	_envp = append_to_envp(_envp, var_name, content, ft_strlen(arg) + 2);
+	_envp = append_to_envp(_envp, var_name, content, add_flag);
 	if (_envp == NULL)
 		return (free(var_name), free(content), 1);
 	shell->_envp = _envp;
