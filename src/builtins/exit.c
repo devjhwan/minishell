@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:37:42 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 18:06:10 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:03:45 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exit_sh(char **args, int *exit_code)
 {
 	if (args[1])
 	{
-		if (ft_atoll(args[1]) == -1 || is_num(args[1]))
+		if (ft_islonglong(args[1]) || is_num(args[1]))
 		{
 			ft_perror(NUMERIC_ARGUMENT, args[1]);
 			exit(255);

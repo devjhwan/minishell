@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:37:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:23:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_builtin(t_cmnd *cmnd_list)
 void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 {
 	int	exit_code;
-	
+
 	exit_code = 0;
 	if (cmnd_list && cmnd_list->args && cmnd_list->args[0])
 	{
