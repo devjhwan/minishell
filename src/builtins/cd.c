@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:45:02 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 22:38:19 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,17 @@ static int	cd_up(t_minishell *shell)
 static int	cd_home(t_minishell *shell, char *path)
 {
 	char	*home_var;
+	int		ret;
 
 	home_var = search_env_value("HOME", shell->_envp, shell);
 	if (home_var != NULL)
-		return (chdir(home_var));
+		ret = chdir(home_var);
 	else if (path == NULL)
-		return (write(2, "minishell: cd: HOME not set\n", 28), -1);
+		return (free(home_var), \
+			write(2, "minishell: cd: HOME not set\n", 28), -1);
 	else
-		return (chdir(shell->home));
+		ret = chdir(shell->home);
+	return (free(home_var), ret);
 }
 
 static int	cd_here(t_minishell *shell)

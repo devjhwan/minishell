@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:58 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:47:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 22:08:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 t_list	*expander(t_list *parse_list, t_minishell *shell)
 {
 	if (expand_env_variables(parse_list, shell) == NULL)
+		return (NULL);
+	if (split_blank_from_env(parse_list, shell) == NULL)
+		return (NULL);
+	if (expand_home_character(parse_list, shell) == NULL)
 		return (NULL);
 	if (remove_quotes(parse_list) == NULL)
 		return (NULL);
