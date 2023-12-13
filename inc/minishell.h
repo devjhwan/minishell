@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:47:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:50:34 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@
 # include "list.h"
 # include <stdlib.h>
 # include <stdio.h>
+# include "libft.h"
 
 # define ERROR	1
 # define SUCCESS 0
-
-int PID1;
-int PID2;
 
 typedef enum s_redir_type
 {

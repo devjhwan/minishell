@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 14:04:24 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:43:52 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static void	wait_childs(t_fdp *fdp, int *exit_code)
 		else if (WTERMSIG(status) == SIGQUIT)
 		{
 			*exit_code = 131;
-			printf("Quit: 3\n");
+			ft_printf("Quit: 3\n");
 		}
 	}
 }

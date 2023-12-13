@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:23:41 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:45:56 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,17 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 
 int	execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 {
-	if (set_redir_in(fdp) == ERROR)
-		return (ERROR);
-	if (set_redir_out(fdp) == ERROR)
-		return (ERROR);
-	exec_builtin(shell, list);
-	if (restore_io(fdp) == ERROR)
-		return (ERROR);
+	if (redirect(list->redir, fdp) == SUCCESS)
+	{
+/* 		fprintf(stderr, "%u\n", fdp->tmp_out->type);
+		fprintf(stderr, "%s\n", fdp->tmp_out->file); */
+		if (set_redir_in(fdp) == ERROR)
+			return (ERROR);
+		if (set_redir_out(fdp) == ERROR)
+			return (ERROR);
+		exec_builtin(shell, list);
+		if (restore_io(fdp) == ERROR)
+			return (ERROR);
+	}
 	return (SUCCESS);
 }

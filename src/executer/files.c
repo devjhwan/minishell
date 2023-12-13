@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:29:55 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 11:04:04 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:54:19 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include "err_msg.h"
 
 static int	open_infile(t_fdp *fdp);
-static int	open_outfile(t_fdp *fdp);
 
 int	manage_files(t_fdp	*fdp)
 {
@@ -38,7 +37,7 @@ static int	open_infile(t_fdp *fdp)
 	return (SUCCESS);
 }
 
-static int	open_outfile(t_fdp *fdp)
+int	open_outfile(t_fdp *fdp)
 {
 	if (access(fdp->tmp_out->file, F_OK) == 0)
 	{
