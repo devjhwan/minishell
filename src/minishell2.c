@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 14:12:11 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:32:38 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	update_shlvl(t_minishell *shell, char **envp)
 		value = ft_atoi(env_value) + 1;
 	if (value == 1000)
 		return (free(env_value), unset_shlvl(shell), SUCCESS);
+	if (value < 0)
+		value = 0;
 	tmp = ft_itoa(value);
 	if (tmp == NULL)
 		return (free(env_value), ERROR);

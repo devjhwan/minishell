@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/04 20:17:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:56:53 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ int	main(int argc, char **argv, char **envp)
 	{
 		set_default_minishell_signal();
 		set_minishell_terminal();
+		
 		str = readline("prompt: ");
 		if (str == NULL)
 			break ;
 		add_history(str);
 		shell.cmnd_list = parse_input(str, &shell);
-		rollback_terminal_setting();
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
-		//print_cmnd_list(shell.cmnd_list);
+		rollback_terminal_setting();
 		set_execution_signal();
 		executer(shell.cmnd_list, &shell);
 		free_cmnd_list(&shell.cmnd_list);

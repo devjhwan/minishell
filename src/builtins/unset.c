@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 18:20:34 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 18:30:31 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 12:29:04 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	is_valid(char *arg)
 	if (!ft_isalpha(arg[0]))
 		return (1);
 	i = 0;
-	while (arg[i] != '\0' && arg[i] != '=')
+	while (arg[i] != '\0')
 	{
 		if (!ft_isalnum(arg[i]) && arg[i] != '_')
 			return (1);
@@ -83,7 +83,6 @@ int	_unset(char **args, char **_envp, char **_export)
 	int		i;
 	char	*var;
 
-	(void)_export;
 	var = NULL;
 	i = 1;
 	while (args[i])
@@ -94,11 +93,11 @@ int	_unset(char **args, char **_envp, char **_export)
 			ft_printf_fd(2, "`%s': not a valid identifier\n", args[i]);
 			return (1);
 		}
+		unset_export(_export, args[i]);
 		var = ft_strjoin(args[i], "=");
 		if (!var)
 			return (1);
 		unset_envp(_envp, var);
-		unset_export(_export, var);
 		i++;
 		free (var);
 	}
