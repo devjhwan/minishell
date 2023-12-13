@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 11:50:31 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:37:17 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i);
 int		manage_files(t_fdp	*fdp);
 int		redirect(t_io *redir, t_fdp *fdp);
 int		restore_io(t_fdp *fdp);
-char	*setpath(char **path, const char *argv);
+char	*setpath(char **path, const char *argv, int *exit_code);
 int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 
