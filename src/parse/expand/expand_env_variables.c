@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 01:14:07 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:09:29 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ t_list	*expand_env_variables(t_list *parse_list, t_minishell *shell)
 	cur_node = parse_list->header;
 	while (cur_node != NULL)
 	{
+		new_argument = NULL;
 		cur_token = (t_token *)cur_node->content;
 		argument = (char *)cur_token->content;
 		if (ft_strchr(argument, '$') != NULL && !check_quote(argument) && \

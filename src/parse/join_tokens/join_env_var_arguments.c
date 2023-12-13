@@ -6,12 +6,60 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 03:08:57 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 17:05:45 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:41:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
+
+char	get_escape_character(char ch)
+{
+	if (ch == 'a')
+		return ('\a');
+	if (ch == 'b')
+		return ('\b');
+	if (ch == 'e')
+		return ('\e');
+	if (ch == 'f')
+		return ('\f');
+	if (ch == 'n')
+		return ('\n');
+	if (ch == 'r')
+		return ('\r');
+	if (ch == 't')
+		return ('\t');
+	if (ch == 'v')
+		return ('\v');
+	if (ch == '\\')
+		return ('\\');
+	if (ch == '\'')
+		return ('\'');
+	if (ch == '\"')
+		return ('\"');
+	if (ch == '?')
+		return ('\?');
+	return (ch);
+}
+
+static void	remove_backslash(char *content)
+{
+	int	i;
+
+	i = 0;
+	while (content[i] != '\0')
+	{
+		if (content[i] == '\\' && \
+			ft_strchr("abefnrtv\\\'\"?", content[i + 1]) != NULL)
+		{
+			content[i] = get_escape_character(content[i + 1]);
+			ft_strlcpy(&content[i + 1], &content[i + 2], ft_strlen(content));
+		}
+		if (content[i] == '\\')
+			ft_strlcpy(&content[i], &content[i + 1], ft_strlen(content));
+		i++;
+	}
+}
 
 static t_token	*merge_env_var_argument(t_list_node **node)
 {
@@ -34,6 +82,7 @@ static t_token	*merge_env_var_argument(t_list_node **node)
 		new_content = join_content(new_content, tmp);
 		if (new_content == NULL)
 			return (NULL);
+		remove_backslash(new_content);
 		*node = (*node)->next;
 	}
 	new_token = create_token(ARG, new_content);

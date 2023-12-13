@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:49:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:18:59 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:48:37 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ static t_token	*merge_arguments(t_list_node **node, char type)
 		*node = (*node)->next;
 		if (*node != NULL)
 			cur_token = (t_token *)(*node)->content;
-		if (cur_token->type == ARG)
-			break ;
 	}
 	new_token = create_token(type, new_content);
 	return (new_token);
@@ -51,6 +49,7 @@ static t_list	*loop_on_parse_list(t_list *parse_list, t_list *new_parse_list)
 	while (cur_node != NULL)
 	{
 		cur_token = (t_token *)cur_node->content;
+		
 		if (cur_token->type == ARG || cur_token->type == RD)
 			new_token = merge_arguments(&cur_node, cur_token->type);
 		else

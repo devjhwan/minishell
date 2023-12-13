@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:24:38 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:49:18 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	print_cmnd_list(t_cmnd *cmnd_list)
 		i = 0;
 		printf("arguments:\n");
 		while (args != NULL && args[i] != NULL)
-			printf("\targ: %s\n", args[i++]);
+			printf("\targ: %s$\n", args[i++]);
 		cmnd_list = cmnd_list->next;
 	}
 }
