@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 14:04:30 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:47:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,18 @@ static char	**init_export(char **envp)
 	return (_export);
 }
 
-void	free_minishell(t_minishell shell)
+int	free_minishell(t_minishell shell)
 {
+	int	exit_code;
+	
+	exit_code = shell.exit_code;
 	if (shell.cmnd_list != NULL)
 		free_cmnd_list(&shell.cmnd_list);
 	free_envp(shell._envp);
 	free_envp(shell._export);
 	free(shell.home);
 	free(shell.oldpwd);
+	return (exit_code);
 }
 
 t_minishell	*init_minishell(int argc, char **argv, char **envp, \

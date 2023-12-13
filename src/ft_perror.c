@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 17:26:03 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:21:47 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	ft_perror(int errtype, ...)
 	else if (errtype == AMBIGUOUS_REDIRECT)
 		errstr = "%s: ambiguous redirect\n";
 	else if (errtype == EXPORT_INVALID_IDENTIFIER)
-		errstr = "export: \'%s\': not a valid identifier\n";
+		errstr = "export: `%s\': not a valid identifier\n";
 	else if (errtype == COMMAND_NOT_FOUND)
 		errstr = "%s: command not found\n";
 	else if (errtype == NO_FILE_OR_DIRECTORY)

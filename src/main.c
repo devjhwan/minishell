@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:57:06 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 14:05:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ int	main(int argc, char **argv, char **envp)
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}
-	free_minishell(shell);
-	return (rollback_terminal_setting(), 0);
+	return (rollback_terminal_setting(), free_minishell(shell));
 }
