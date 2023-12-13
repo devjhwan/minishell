@@ -1,19 +1,7 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/13 13:47:49 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 13:47:50 by jmarinel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "minishell.h"
 #include "libft.h"
 
-static int	is_n(char *str)
+static int is_n(char *str)
 {
 	int	i;
 
@@ -27,7 +15,7 @@ static int	is_n(char *str)
 	return (1);
 }
 
-int	echo(char **args)
+int echo(char **args)
 {
 	int	i;
 
@@ -40,12 +28,7 @@ int	echo(char **args)
 	while (args[i] && is_n(args[i]))
 		i++;
 	while (args[i])
-	{
-		printf("%s", args[i]);
-		if (args[i + 1] != NULL)
-			printf(" ");
-		i++;
-	}
+		printf("%s ", args[i++]);
 	if (is_n(args[1]) == 0)
 		printf ("\n");
 	return (0);
