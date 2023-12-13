@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:47:26 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:20:16 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static char	**init_export(char **envp)
 int	free_minishell(t_minishell shell)
 {
 	int	exit_code;
-	
+
 	exit_code = shell.exit_code;
 	if (shell.cmnd_list != NULL)
 		free_cmnd_list(&shell.cmnd_list);

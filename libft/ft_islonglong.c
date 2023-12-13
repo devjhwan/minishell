@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:56:55 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 17:57:16 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:57:29 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ int	ft_islonglong(const char *str)
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		if (num * sign > (LLONG_MAX - (str[i] - '0')) / 10 || \
-			num * sign < ((LLONG_MIN + 1) + (str[i] - '0')) / 10)
-			return (0);
+			num * sign < ((LLONG_MIN) + (str[i] - '0')) / 10)
+			return (1);
 		num *= 10;
 		num += (str[i++] - '0');
 	}

@@ -6,14 +6,14 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:47:49 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 14:09:41 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 15:20:07 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
 
-static int is_n(char *str)
+static int	is_n(char *str)
 {
 	int	i;
 
@@ -27,7 +27,7 @@ static int is_n(char *str)
 	return (1);
 }
 
-int echo(char **args)
+int	echo(char **args)
 {
 	int	i;
 
