@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:50:34 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:52:00 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void			env(t_minishell *shell);
 int				_export(t_minishell *shell, char **args);
 int				cd(t_minishell *shell, char *path);
 void			pwd(void);
-int				echo(char **args);
+int				echo(t_minishell *shell, char **args);
 int				exit_sh(char **args, int *exit_code);
 int				_unset(char **args, char **_envp, char **_export);
 

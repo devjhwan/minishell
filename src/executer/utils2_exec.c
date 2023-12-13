@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2_exec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/28 13:29:24 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 11:42:02 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:32:24 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp)
 	fdp->std_in_out[1] = dup(STDOUT_FILENO);
 	fdp->paths = findpath(_envp);
 	fdp->pid = malloc (sizeof(int) * fdp->cmnd_cnt);
-	if (!fdp->pid || !fdp->paths)
+	if (!fdp->pid)
 		return (ERROR);
 	return (SUCCESS);
 }

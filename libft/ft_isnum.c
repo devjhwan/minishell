@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isnum.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:23:47 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 15:50:56 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 19:35:07 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	is_num(char *arg)
 {
 	int	i;
-	int	block;
 
-	block = 0;
 	i = 0;
 	while (ft_isspace(arg[i]))
 		i++;

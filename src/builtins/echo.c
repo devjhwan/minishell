@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:47:49 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 17:37:36 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 21:37:47 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "libft.h"
+#include "parser.h"
+#include "err_msg.h"
+
+static int	is_pathset(t_minishell *shell)
+{
+	char	*path;
+
+	path = search_env_value("PATH", shell->_envp, shell);
+	if (path[0] == '\0')
+		return (free(path), 0);
+	else
+		return (free(path), 1);
+}
 
 static int	is_n(char *str)
 {
@@ -27,10 +40,12 @@ static int	is_n(char *str)
 	return (1);
 }
 
-int	echo(char **args)
+int	echo(t_minishell *shell, char **args)
 {
-	int	i;
+	int		i;
 
+	if (!is_pathset(shell))
+		return (ft_perror(NO_FILE_OR_DIRECTORY, args[0]), 127);
 	i = 1;
 	if (args[1] == NULL)
 	{
