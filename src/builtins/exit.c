@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:37:42 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 16:03:45 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:26:15 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	exit_sh(char **args, int *exit_code)
 			*exit_code = 1;
 			return (ERROR);
 		}
-		ft_printf_fd(2, "exit\n");
+		//ft_printf_fd(2, "exit\n");
 		exit(exit_mod(ft_atoll(args[1])));
 	}
-	ft_printf_fd(2, "exit\n");
+	//ft_printf_fd(2, "exit\n");
 	exit(*exit_code);
 }
