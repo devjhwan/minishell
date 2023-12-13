@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 10:39:20 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:39:18 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 #include "err_msg.h"
 
-char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
+/* char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 {
 	char	**cmds;
 	char	**path;
@@ -32,7 +32,7 @@ char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 		list = list->next;
 	}
 	return (ft_free_array(path), cmds);
-}
+} */
 
 char	**findpath(char **env)
 {
@@ -48,7 +48,7 @@ char	**findpath(char **env)
 	return (NULL);
 }
 
-char	*setpath(char **path, const char *argv)
+char	*setpath(char **path, const char *argv, int *exit_code)
 {
 	int		i;
 	char	*tmp;
@@ -69,5 +69,6 @@ char	*setpath(char **path, const char *argv)
 	ft_strlcpy(tmp, argv, 1000);
 	if (access(tmp, X_OK) == 0)
 		return (tmp);
+	*exit_code = 127;
 	return (free(tmp), ft_perror(COMMAND_NOT_FOUND, argv), NULL);
 }

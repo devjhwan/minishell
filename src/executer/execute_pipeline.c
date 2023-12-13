@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 13:10:28 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:43:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell)
 			pipe(fdp->pipe);
 			fdp->pid[fdp->child_id] = fork();
 			if (fdp->pid[fdp->child_id] == -1)
-				break; 
+				break;
 			else if (fdp->pid[fdp->child_id] == 0)
 				exec_childs(fdp, shell, cmnd_list);
 		}
@@ -57,9 +57,10 @@ static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
 		exec_builtin(shell, cmnds);
 	else
 	{
-		cmnd_path = setpath(fdp->paths, cmnds->args[0]);
+		cmnd_path = setpath(fdp->paths, cmnds->args[0], &shell->exit_code);
 		if (cmnd_path != NULL)
 			execve (cmnd_path, cmnds->args, shell->_envp);
+		exit (shell->exit_code);
 	}
 	exit(0);
 }
