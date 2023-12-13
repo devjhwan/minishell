@@ -28,7 +28,7 @@ int echo(char **args)
 	while (args[i] && is_n(args[i]))
 		i++;
 	while (args[i])
-		printf("%s ", args[i++]);
+		printf("%s", args[i++]);
 	if (is_n(args[1]) == 0)
 		printf ("\n");
 	return (0);

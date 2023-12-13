@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 12:43:15 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 13:47:36 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ typedef struct s_minishell
 
 t_minishell		*init_minishell(int argc, char **argv, char **envp, \
 								t_minishell *shell);
-void			free_minishell(t_minishell shell);
+int				free_minishell(t_minishell shell);
 
 void			set_minishell_terminal(void);
 void			rollback_terminal_setting(void);
 void			set_default_minishell_signal(void);
 void			set_execution_signal(void);
 
-t_minishell		*append_new_envvar(t_minishell *shell, char **_export, \
+int				append_new_envvar(t_minishell *shell, char **_export, \
 											char **_envp, char *arg);
 int				update_shlvl(t_minishell *shell, char **envp);
 
@@ -74,7 +74,7 @@ void			free_cmnd_list(t_cmnd **cmnd_list);
 
 /*-----BUILTINS-----*/
 void			env(t_minishell *shell);
-void			_export(t_minishell *shell, char **args);
+int				_export(t_minishell *shell, char **args);
 int				cd(t_minishell *shell, char *path);
 void			pwd(void);
 int				echo(char **args);
