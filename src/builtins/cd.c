@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 11:37:11 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:45:02 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 #include "libft.h"
+#include "err_msg.h"
 #include <unistd.h>
 
 static int	cd_up(t_minishell *shell)
@@ -76,9 +77,10 @@ static int	cd_back(t_minishell *shell)
 int	cd(t_minishell *shell, char *path)
 {
 	int		ret;
+	char	errmsg[1000];
 
-	(void)shell;
-	(void)path;
+	if (path != NULL && path[0] == '\0')
+		return (0);
 	ret = 0;
 	if (path == NULL || ft_strncmp(path, "~", 2) == 0)
 		ret = cd_home(shell, path);
@@ -90,5 +92,10 @@ int	cd(t_minishell *shell, char *path)
 		ret = cd_back(shell);
 	else
 		ret = chdir(path);
-	return (ret);
+	ft_strlcpy(errmsg, "minishell: cd: ", 1000);
+	if (path != NULL)
+		ft_strlcat(errmsg, path, 1000);
+	if (ret == -1)
+		return (perror(errmsg), 1);
+	return (0);
 }
