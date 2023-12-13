@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:43:05 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:02:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:43:36 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int	_export(t_minishell *shell, char **args)
 	ret = SUCCESS;
 	if (args[1] == NULL)
 		while (shell->_export[i] != NULL)
-			printf("%s\n", shell->_export[i++]);
+			ft_printf("%s\n", shell->_export[i++]);
 	else
 		while (args[i] != NULL)
 			if (append_new_envvar(shell, shell->_export, \

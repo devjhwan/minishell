@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/13 13:47:49 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 15:20:07 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:37:36 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,19 @@ int	echo(char **args)
 	i = 1;
 	if (args[1] == NULL)
 	{
-		printf ("\n");
+		ft_printf ("\n");
 		return (0);
 	}
 	while (args[i] && is_n(args[i]))
 		i++;
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		ft_printf("%s", args[i]);
 		if (args[i + 1] != NULL)
-			printf(" ");
+			ft_printf(" ");
 		i++;
 	}
 	if (is_n(args[1]) == 0)
-		printf ("\n");
+		ft_printf ("\n");
 	return (0);
 }

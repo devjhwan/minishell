@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:22:39 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 11:39:42 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:45:51 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ int	ft_error(int err, int ext, char *cmd)
 {
 	(void)cmd;
 	if (err == ERR_ARG)
-		fprintf(stderr, "bash: Invalid number of arguments\n");
+		ft_printf_fd(2, "bash: Invalid number of arguments\n");
 	else if (err == ERR_MC)
-		fprintf(stderr, "bash: error trying to allocate memory\n");
+		ft_printf_fd(2, "bash: error trying to allocate memory\n");
 	else if (err == ERR_CNF)
-		fprintf(stderr, "minishell: command not found\n");
+		ft_printf_fd(2, "minishell: command not found\n");
 	else if (err == ERR_NFD)
-		fprintf(stderr, "minishell: No such file or directory\n");
+		ft_printf_fd(2, "minishell: No such file or directory\n");
 	else if (err == ERR_PERM)
-		fprintf(stderr, "minishell: permission denied\n");
+		ft_printf_fd(2, "minishell: permission denied\n");
 	else if (err == ERR_PERR)
 		perror("bash: ");
 	return (ext);

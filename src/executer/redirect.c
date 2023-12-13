@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/12 11:05:35 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 16:52:55 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,11 @@ static void	get_redir(t_io *redir, t_fdp *fdp)
 	else if (redir->type == HERE_DOC)
 		fdp->tmp_in = here_doc(redir, redir->file);
 	if (redir->type == OUT || redir->type == OUT_APPEND)
+	{
 		fdp->tmp_out = redir;
+		open_outfile(fdp);
+		//donde los cierro?
+	}
 }
 
 static t_io	*here_doc(t_io *redir, char *limiter)

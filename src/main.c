@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:24:38 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:43:14 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	print_cmnd_list(t_cmnd *cmnd_list)
 	{
 		redir = cmnd_list->redir;
 		args = cmnd_list->args;
-		printf("redirections:\n");
+		ft_printf("redirections:\n");
 		while (redir != NULL)
 		{
-			printf("\ttype: %d, file: %s$\n", redir->type, redir->file);
+			ft_printf("\ttype: %d, file: %s$\n", redir->type, redir->file);
 			redir = redir->next;
 		}
 		i = 0;
-		printf("arguments:\n");
+		ft_printf("arguments:\n");
 		while (args != NULL && args[i] != NULL)
-			printf("\targ: %s\n", args[i++]);
+			ft_printf("\targ: %s\n", args[i++]);
 		cmnd_list = cmnd_list->next;
 	}
 }
