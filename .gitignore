@@ -7,3 +7,4 @@ minishell
 /test/
 .DS_Store
 /.vscode/
+/mpanic/
