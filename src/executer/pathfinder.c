@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 11:40:21 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:49:10 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@
 
 static int	check_valid_cmd(const char *argv, int *exit_code)
 {
+	if (argv == NULL)
+		return (ERROR);
 	if (argv[0] == '\0')
 		return (*exit_code = 127, \
 				ft_perror(COMMAND_NOT_FOUND, argv), ERROR);
