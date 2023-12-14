@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_consecutive_arguments.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:49:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:48:37 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:21:05 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,11 @@ static t_list	*loop_on_parse_list(t_list *parse_list, t_list *new_parse_list)
 	t_list_node	*cur_node;
 	t_token		*cur_token;
 	t_token		*new_token;
-	
+
 	cur_node = parse_list->header;
 	while (cur_node != NULL)
 	{
 		cur_token = (t_token *)cur_node->content;
-		
 		if (cur_token->type == ARG || cur_token->type == RD)
 			new_token = merge_arguments(&cur_node, cur_token->type);
 		else

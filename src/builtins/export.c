@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:43:05 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:43:36 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:34:14 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	*split_argument(char *arg, char **var_name, char **content)
 static int	check_varname(char *arg)
 {
 	int	i;
-	
+
 	if (!ft_isalpha(arg[0]))
 		return (ERROR);
 	i = 0;
@@ -67,7 +67,7 @@ int	append_new_envvar(t_minishell *shell, char **_export, \
 
 	add_flag = 0;
 	if (check_varname(arg) == ERROR)
-		return (ft_perror(EXPORT_INVALID_IDENTIFIER, arg), 1);
+		return (ft_perror2(EXPORT_INVALID_IDENTIFIER, arg), 1);
 	if (split_argument(arg, &var_name, &content) == NULL)
 		return (1);
 	if (var_name[ft_strlen(var_name) - 1] == '+')

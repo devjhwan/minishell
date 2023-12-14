@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:33:49 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:34:28 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	update_shlvl(t_minishell *shell, char **envp)
 		return (free(env_value), ERROR);
 	if (value > 1000)
 	{
-		ft_perror(HIGH_SHELL_LEVEL, tmp);
+		ft_perror2(HIGH_SHELL_LEVEL, tmp);
 		ft_strlcpy(tmp, "1", 2);
 	}
 	arg = ft_strjoin("SHLVL=", tmp);

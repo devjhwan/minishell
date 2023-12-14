@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:27:25 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:22:37 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	wait_childs(t_fdp *fdp, int *exit_code);
 int	execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell)
 {
 	int	err;
-	
+
 	err = 0;
 	while (cmnd_list)
 	{

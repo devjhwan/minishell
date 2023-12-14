@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_arguments.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 20:05:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:11:33 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:20:48 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static t_list	*loop_on_token_list(t_list *token_list, t_list *new_token_list)
 	t_list_node	*cur_node;
 	t_token		*cur_token;
 	t_token		*new_token;
-	
+
 	cur_node = token_list->header;
 	while (cur_node != NULL)
 	{

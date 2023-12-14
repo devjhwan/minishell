@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 14:06:32 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:22:18 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,33 +16,13 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-int is_regular_file(const char *path)
+int	is_regular_file(const char *path)
 {
-    struct stat path_stat;
-    stat(path, &path_stat);
-    return S_ISREG(path_stat.st_mode);
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISREG(path_stat.st_mode));
 }
-
-/* char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
-{
-	char	**cmds;
-	char	**path;
-
-	path = findpath(envp);
-	if (path == NULL)
-		return (NULL);
-	cmds = (char **)ft_calloc((fdp->cmnd_cnt + 1), sizeof(char *));
-	if (!cmds)
-		return (ft_free_array(path), NULL);
-	while (list)
-	{
-		if (list->args != NULL)
-			cmds[i] = setpath(path, list->args[0]);
-		i++;
-		list = list->next;
-	}
-	return (ft_free_array(path), cmds);
-} */
 
 static int	check_valid_cmd(const char *argv, int *exit_code)
 {

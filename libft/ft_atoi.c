@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:40:44 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/07 12:41:42 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:25:12 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ int	ft_atoi(const char *str)
 	}
 	return (num * sign);
 }
-

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:53:18 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:24:50 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void			set_execution_signal(void);
 int				append_new_envvar(t_minishell *shell, char **_export, \
 											char **_envp, char *arg);
 int				update_shlvl(t_minishell *shell, char **envp);
-
 
 void			free_cmnd_list(t_cmnd **cmnd_list);
 

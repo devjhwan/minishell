@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 11:36:02 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:24:04 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		set_default_minishell_signal();
 		set_minishell_terminal();
-		str = readline("prompt: ");
+		str = readline("minishell: ");
 		if (str == NULL)
 			break ;
 		add_history(str);
@@ -61,7 +61,6 @@ int	main(int argc, char **argv, char **envp)
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
-		//print_cmnd_list(shell.cmnd_list);
 		rollback_terminal_setting();
 		set_execution_signal();
 		executer(shell.cmnd_list, &shell);
@@ -70,3 +69,5 @@ int	main(int argc, char **argv, char **envp)
 	}
 	return (rollback_terminal_setting(), free_minishell(shell));
 }
+
+//print_cmnd_list(shell.cmnd_list);

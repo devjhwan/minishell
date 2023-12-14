@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:47:12 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:33:17 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define UNKNWON_ERROR 127
 
 void	ft_perror(int errtype, ...);
+void	ft_perror2(int errtype, ...);
 void	print_unexpected_token_err(char *next_token);
 void	print_ambiguous_redirect_err(char *env_var);
 void	print_unknown_err(void);

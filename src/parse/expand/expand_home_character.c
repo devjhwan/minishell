@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_home_character.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:21:56 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:21:21 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_list	*replace_argument(t_list *parse_list, t_minishell *shell, \
 	t_token		*cur_token;
 	char		*argument;
 	char		*new_argument;
-	
+
 	cur_token = (t_token *)cur_node->content;
 	argument = (char *)cur_token->content;
 	if (((ft_strncmp(argument, "~", 2) == 0 && (cur_node->next == NULL || \
