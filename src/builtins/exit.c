@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:37:42 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 16:26:15 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:48:34 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static long long	exit_mod(long long num)
 
 int	exit_sh(char **args, int *exit_code)
 {
+	if (args[2] == NULL && ft_strncmp(args[1], "--", 3) == 0)
+		exit(0);
 	if (args[1])
 	{
 		if (ft_islonglong(args[1]) || is_num(args[1]))
