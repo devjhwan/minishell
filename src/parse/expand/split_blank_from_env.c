@@ -6,15 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 22:34:45 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:08:37 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 
-static int	split_argument(t_list_node *cur_node, t_minishell *shell, \
-							char *arg)
+int	split_argument(t_list_node *cur_node, t_minishell *shell, char *arg)
 {
 	t_list		*lexer_list;
 	t_list		*parser_list;
@@ -54,7 +53,7 @@ t_list	*split_blank_from_env(t_list *parse_list, t_minishell *shell)
 	{
 		cur_token = (t_token *)cur_node->content;
 		argument = (char *)cur_token->content;
-		if (cur_token->type != PIPE)
+		if (cur_token->type != PIPE && cur_token->type != ENV)
 			if (split_argument(cur_node, shell, argument) == 1)
 				return (list_clear(parse_list, free_token), NULL);
 		cur_node = cur_node->next;

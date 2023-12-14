@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/12/13 22:11:08 by junghwle         ###   ########.fr        #
+#    Updated: 2023/12/14 11:03:55 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ PARSE_HELPER_SRC=print_token_list.c ismetacharacter.c append_substr.c \
 				 replace_substr.c isquote.c
 EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
 		   merge_consecutive_arguments.c remove_blanks.c \
-		   expand_home_character.c split_blank_from_env.c
+		   expand_home_character.c split_blank_from_env.c \
+		   clear_empty_nodes.c env_to_arg.c
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
 EXECUTER_SRC=executer.c execute_builtin.c utils_exec.c utils2_exec.c redirect.c \
 		  	 pathfinder.c files.c execute_pipeline.c

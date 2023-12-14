@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 22:11:17 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:09:55 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define BK 6
 # define WD 7
 # define ARG 8
+# define ENV 9
 
 typedef struct s_token
 {
@@ -55,9 +56,13 @@ int				check_pipe(t_list *token_list, t_list_node *cur_node, \
 														int *exit_code);
 
 t_list			*expand_env_variables(t_list *parse_list, t_minishell *shell);
+t_list			*clear_empty_nodes(t_list *parse_list);
+int				split_argument(t_list_node *cur_node, t_minishell *shell, \
+								char *arg);
 t_list			*split_blank_from_env(t_list *parse_list, t_minishell *shell);
 t_list			*expand_home_character(t_list *parse_list, t_minishell *shell);
 t_list			*remove_quotes(t_list *parse_list);
+t_list			*env_to_arg(t_list *parse_list, t_minishell *shell);
 t_list			*merge_consecutive_arguments(t_list *parse_list);
 t_list			*remove_blanks(t_list *parse_list);
 char			*search_env_value(char *substr, char **envp, \

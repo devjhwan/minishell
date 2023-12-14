@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 02:37:10 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 03:29:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:00:17 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_list	*remove_quotes(t_list *parse_list)
 		if (cur_token->type == RD)
 			remove_rd_quote(argument);
 		else
-			if (isquote(argument[0]))
+			if (cur_token->type != ENV && isquote(argument[0]))
 				ft_strlcpy(argument, argument + 1, ft_strlen(argument) - 1);
 		cur_node = cur_node->next;
 	}

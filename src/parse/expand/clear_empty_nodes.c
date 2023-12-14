@@ -1,42 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   remove_blanks.c                                    :+:      :+:    :+:   */
+/*   clear_empty_nodes.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 18:02:59 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 11:14:15 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/09 02:41:07 by junghwle          #+#    #+#             */
+/*   Updated: 2023/12/14 10:43:51 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 
-t_list	*remove_blanks(t_list *parse_list)
+static void	delete_node(t_list *parse_list, t_list_node *cur_node, \
+					t_list_node *prev_node)
 {
-	t_list		*new_parse_list;
-	t_list_node	*cur_node;
-	t_token		*cur_token;
-	t_token		*new_token;
+	if (prev_node == NULL)
+		parse_list->header = cur_node->next;
+	else
+		prev_node->next = cur_node->next;
+	free(((t_token *)cur_node->content)->content);
+	free((t_token *)cur_node->content);
+}
 
-	new_parse_list = list_init();
-	if (new_parse_list == NULL)
-		return (list_clear(parse_list, free_token), NULL);
+t_list	*clear_empty_nodes(t_list *parse_list)
+{
+	t_list_node	*cur_node;
+	t_list_node	*prev_node;
+	t_token		*cur_token;
+	char		*argument;
+
 	cur_node = parse_list->header;
+	prev_node = NULL;
 	while (cur_node != NULL)
 	{
 		cur_token = (t_token *)cur_node->content;
-		if (cur_token->type != BK)
-		{
-			new_token = create_token(cur_token->type, \
-						(void *)ft_strdup((char *)cur_token->content));
-			if (new_token == NULL)
-				return (list_clear(new_parse_list, free_token), \
-						list_clear(parse_list, free_token), NULL);
-			list_append(new_parse_list, (void *)new_token);
-		}
+		argument = (char *)cur_token->content;
+		if (argument[0] == '\0')
+			delete_node(parse_list, cur_node, prev_node);
+		prev_node = cur_node;
 		cur_node = cur_node->next;
 	}
-	return (list_clear(parse_list, free_token), new_parse_list);
+	return (parse_list);
 }
