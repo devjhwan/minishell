@@ -6,14 +6,12 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:29:55 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:16:14 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:01:24 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 #include "err_msg.h"
-
-static int	open_infile(t_fdp *fdp);
 
 int	is_directory(char *file)
 {
@@ -43,7 +41,7 @@ int	manage_files(t_fdp	*fdp)
 	return (ret);
 }
 
-static int	open_infile(t_fdp *fdp)
+int	open_infile(t_fdp *fdp)
 {
 	if (access(fdp->tmp_in->file, F_OK) != 0)
 		return (ft_perror(NO_FILE_OR_DIRECTORY, fdp->tmp_in->file), ERROR);

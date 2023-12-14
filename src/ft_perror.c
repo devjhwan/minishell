@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_perror.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:02:26 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:49:58 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_perror(int errtype, ...)
 	else if (errtype == NO_FILE_OR_DIRECTORY)
 		errstr = "%s: No such file or directory\n";
 	else if (errtype == PERMISSION_DENIED)
-		errstr = "%s: permission denied\n";
+		errstr = "%s: Permission denied\n";
 	else if (errtype == HIGH_SHELL_LEVEL)
 		errstr = "warning: shell level (%s) too high, resetting to 1\n";
 	else if (errtype == NUMERIC_ARGUMENT)

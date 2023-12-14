@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 12:15:15 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:01:38 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		set_redir_in(t_fdp	*fdp);
 int		set_redir_out(t_fdp	*fdp);
 int		open_outfile(t_fdp *fdp);
 int		is_directory(char *file);
+int		open_infile(t_fdp *fdp);
 
 /*### OLD PIPEX ###*/
 int		ft_error(int err, int ext, char *cmd);
