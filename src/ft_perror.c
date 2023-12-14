@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:49:58 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:47:55 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	ft_perror(int errtype, ...)
 	else if (errtype == NUMERIC_ARGUMENT)
 		errstr = "exit: %s: numeric argument required\n";
 	else if (errtype == IS_A_DIRECTORY)
+		errstr = "%s: Is a directory\n";
+	else if (errtype == IS_A_DIRECTORY_I)
 		errstr = "%s: is a directory\n";
 	else if (errtype == TOO_MANY_ARGS)
 		errstr = "exit: too many arguments\n";

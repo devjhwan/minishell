@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 13:01:38 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:24:17 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_free_array(char **arr);
 int		init_data(t_fdp *fdp, t_cmnd *cmnd_list, char **_envp);
 char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i);
 int		manage_files(t_fdp	*fdp);
-int		redirect(t_io *redir, t_fdp *fdp);
+int		redirect(t_io *redir, t_fdp *fdp, t_minishell *shell);
 int		restore_io(t_fdp *fdp);
 char	*setpath(char **path, const char *argv, int *exit_code);
 int		set_redir_in(t_fdp	*fdp);

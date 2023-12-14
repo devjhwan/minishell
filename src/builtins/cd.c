@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 22:38:19 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:58:26 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 #include "libft.h"
 #include "err_msg.h"
 #include <unistd.h>
+
+static int	cd_here(t_minishell *shell);
 
 static int	cd_up(t_minishell *shell)
 {
@@ -39,6 +41,8 @@ static int	cd_home(t_minishell *shell, char *path)
 	char	*home_var;
 	int		ret;
 
+	if (cd_here(shell) == -1)
+		return (-1);
 	home_var = search_env_value("HOME", shell->_envp, shell);
 	if (home_var != NULL)
 		ret = chdir(home_var);

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 11:59:32 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:53:04 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ int	free_minishell(t_minishell shell)
 	free_envp(shell._export);
 	free(shell.home);
 	free(shell.oldpwd);
-	unlink("/tmp/here_doc");
 	return (exit_code);
 }
 

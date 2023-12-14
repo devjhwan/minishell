@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_msg.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:00:53 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:47:12 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define HIGH_SHELL_LEVEL 6
 # define NUMERIC_ARGUMENT 7
 # define IS_A_DIRECTORY 8
+# define IS_A_DIRECTORY_I 9
 # define TOO_MANY_ARGS 20
 # define UNKNWON_ERROR 127
 

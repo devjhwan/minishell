@@ -6,44 +6,47 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:36:37 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:27:25 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds);
+static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds, int err);
 static void	wait_childs(t_fdp *fdp, int *exit_code);
 
 int	execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell)
 {
+	int	err;
+	
+	err = 0;
 	while (cmnd_list)
 	{
-		if (redirect(cmnd_list->redir, fdp) == SUCCESS)
-		{
-			pipe(fdp->pipe);
-			fdp->pid[fdp->child_id] = fork();
-			if (fdp->pid[fdp->child_id] == -1)
-				break ;
-			else if (fdp->pid[fdp->child_id] == 0)
-				exec_childs(fdp, shell, cmnd_list);
-		}
-		else
-			return (shell->exit_code = 1, ERROR);
+		if (redirect(cmnd_list->redir, fdp, shell) == ERROR)
+			err = 1;
+		pipe(fdp->pipe);
+		fdp->pid[fdp->child_id] = fork();
+		if (fdp->pid[fdp->child_id] == -1)
+			break ;
+		else if (fdp->pid[fdp->child_id] == 0)
+			exec_childs(fdp, shell, cmnd_list, err);
 		dup_and_close(fdp->pipe[0], STDIN_FILENO);
 		close (fdp->pipe[1]);
 		cmnd_list = cmnd_list->next;
 		fdp->child_id++;
+		err = 0;
 	}
 	restore_io(fdp);
 	wait_childs(fdp, &shell->exit_code);
 	return (SUCCESS);
 }
 
-static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
+static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds, int err)
 {
 	char	*cmnd_path;
 
+	if (err != 0)
+		exit(shell->exit_code);
 	if (fdp->tmp_in)
 		if (set_redir_in(fdp) == ERROR)
 			exit(0);

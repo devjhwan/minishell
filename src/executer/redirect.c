@@ -6,16 +6,17 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 13:05:28 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:44:06 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
+#include "err_msg.h"
 
 static int	get_redir(t_io *redir, t_fdp *fdp);
 static t_io	*here_doc(t_io *redir, char *limiter);
 
-int	redirect(t_io *redir, t_fdp *fdp)
+int	redirect(t_io *redir, t_fdp *fdp, t_minishell *shell)
 {
 	fdp->tmp_in = NULL;
 	fdp->tmp_out = NULL;
@@ -24,11 +25,11 @@ int	redirect(t_io *redir, t_fdp *fdp)
 		while (redir != NULL)
 		{
 			if (get_redir(redir, fdp) == ERROR)
-				return (ERROR);
+				return (shell->exit_code = 1, ERROR);
 			redir = redir->next;
 		}
 		if (manage_files(fdp))
-			return (ERROR);
+			return (shell->exit_code = 1, ERROR);
 	}
 	return (SUCCESS);
 }
@@ -39,7 +40,7 @@ static int	get_redir(t_io *redir, t_fdp *fdp)
 	{
 		fdp->tmp_in = redir;
 		if (is_directory(fdp->tmp_in->file) == ERROR)
-			return (ERROR);
+			return (ft_perror(IS_A_DIRECTORY, fdp->tmp_in->file), ERROR);
 		if (open_infile(fdp) == ERROR)
 			return (ERROR);
 		else
@@ -51,7 +52,7 @@ static int	get_redir(t_io *redir, t_fdp *fdp)
 	{
 		fdp->tmp_out = redir;
 		if (is_directory(fdp->tmp_out->file) == ERROR)
-			return (ERROR);
+			return (ft_perror(IS_A_DIRECTORY, fdp->tmp_out->file), ERROR);
 		if (open_outfile(fdp) == ERROR)
 			return (ERROR);
 	}

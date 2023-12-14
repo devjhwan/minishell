@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:37:42 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 12:48:34 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:11:19 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static long long	exit_mod(long long num)
 
 int	exit_sh(char **args, int *exit_code)
 {
-	if (args[2] == NULL && ft_strncmp(args[1], "--", 3) == 0)
+	if (args[1] && args[2] == NULL && ft_strncmp(args[1], "--", 3) == 0)
 		exit(0);
 	if (args[1])
 	{

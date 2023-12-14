@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:36:27 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:24:29 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 
 int	execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 {
-	if (redirect(list->redir, fdp) == SUCCESS)
+	if (redirect(list->redir, fdp, shell) == SUCCESS)
 	{
 		if (set_redir_in(fdp) == ERROR)
 			return (ERROR);
