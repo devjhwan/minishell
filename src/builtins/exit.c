@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 12:37:42 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 15:35:03 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:45:41 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	exit_sh(char **args, int *exit_code)
 			*exit_code = 1;
 			return (ERROR);
 		}
-		//ft_printf_fd(2, "exit\n");
+		ft_printf_fd(2, "exit\n");
 		exit(exit_mod(ft_atoll(args[1])));
 	}
-	//ft_printf_fd(2, "exit\n");
+	ft_printf_fd(2, "exit\n");
 	exit(*exit_code);
 }
