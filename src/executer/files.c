@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:29:55 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 16:54:19 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:16:14 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,22 @@
 #include "err_msg.h"
 
 static int	open_infile(t_fdp *fdp);
+
+int	is_directory(char *file)
+{
+	struct stat	file_info;
+
+	if (stat(file, &file_info) == 0)
+	{
+		if (S_ISDIR(file_info.st_mode))
+		{
+			ft_printf_fd(2, "minishell: %s: ",file);
+			ft_printf_fd(2, "Is a directory\n");
+			return (ERROR);
+		}
+	}
+	return (SUCCESS);
+}
 
 int	manage_files(t_fdp	*fdp)
 {

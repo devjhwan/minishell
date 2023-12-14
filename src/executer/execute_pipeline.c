@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 11:35:40 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:36:37 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	execute_pipeline(t_cmnd *cmnd_list, t_fdp *fdp, t_minishell *shell)
 			else if (fdp->pid[fdp->child_id] == 0)
 				exec_childs(fdp, shell, cmnd_list);
 		}
+		else
+			return (shell->exit_code = 1, ERROR);
 		dup_and_close(fdp->pipe[0], STDIN_FILENO);
 		close (fdp->pipe[1]);
 		cmnd_list = cmnd_list->next;

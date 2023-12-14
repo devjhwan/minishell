@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 21:33:49 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:36:27 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int	execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 {
 	if (redirect(list->redir, fdp) == SUCCESS)
 	{
-/* 		fprintf(stderr, "%u\n", fdp->tmp_out->type);
-		fprintf(stderr, "%s\n", fdp->tmp_out->file); */
 		if (set_redir_in(fdp) == ERROR)
 			return (ERROR);
 		if (set_redir_out(fdp) == ERROR)
@@ -73,5 +71,7 @@ int	execute_builtin(t_fdp *fdp, t_cmnd *list, t_minishell *shell)
 		if (restore_io(fdp) == ERROR)
 			return (ERROR);
 	}
+	else
+		return (shell->exit_code = 1, ERROR);
 	return (SUCCESS);
 }
