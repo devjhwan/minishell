@@ -6,13 +6,13 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 16:52:55 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:14:25 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-static void	get_redir(t_io *redir, t_fdp *fdp);
+static int	get_redir(t_io *redir, t_fdp *fdp);
 static t_io	*here_doc(t_io *redir, char *limiter);
 
 int	redirect(t_io *redir, t_fdp *fdp)
@@ -23,27 +23,34 @@ int	redirect(t_io *redir, t_fdp *fdp)
 	{
 		while (redir != NULL)
 		{
-			get_redir(redir, fdp);
+			if (get_redir(redir, fdp) == ERROR)
+				return (ERROR);
 			redir = redir->next;
 		}
 		if (manage_files(fdp))
-			return (1);
+			return (ERROR);
 	}
-	return (0);
+	return (SUCCESS);
 }
 
-static void	get_redir(t_io *redir, t_fdp *fdp)
+static int	get_redir(t_io *redir, t_fdp *fdp)
 {
 	if (redir->type == IN)
+	{
 		fdp->tmp_in = redir;
+		if (is_directory(fdp->tmp_in->file) == ERROR)
+			return (ERROR);
+	}
 	else if (redir->type == HERE_DOC)
 		fdp->tmp_in = here_doc(redir, redir->file);
 	if (redir->type == OUT || redir->type == OUT_APPEND)
 	{
 		fdp->tmp_out = redir;
+		if (is_directory(fdp->tmp_out->file) == ERROR)
+			return (ERROR);
 		open_outfile(fdp);
-		//donde los cierro?
 	}
+	return (SUCCESS);
 }
 
 static t_io	*here_doc(t_io *redir, char *limiter)
