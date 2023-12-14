@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:42:19 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 12:14:25 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:05:28 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ static int	get_redir(t_io *redir, t_fdp *fdp)
 		fdp->tmp_in = redir;
 		if (is_directory(fdp->tmp_in->file) == ERROR)
 			return (ERROR);
+		if (open_infile(fdp) == ERROR)
+			return (ERROR);
+		else
+			close (fdp->fd_file[INF]);
 	}
 	else if (redir->type == HERE_DOC)
 		fdp->tmp_in = here_doc(redir, redir->file);
@@ -48,7 +52,8 @@ static int	get_redir(t_io *redir, t_fdp *fdp)
 		fdp->tmp_out = redir;
 		if (is_directory(fdp->tmp_out->file) == ERROR)
 			return (ERROR);
-		open_outfile(fdp);
+		if (open_outfile(fdp) == ERROR)
+			return (ERROR);
 	}
 	return (SUCCESS);
 }
