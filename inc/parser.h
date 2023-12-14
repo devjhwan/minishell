@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:17:22 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 11:09:55 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:28:33 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void			free_token(void *token);
 
 t_cmnd			*parse_input(char *line, t_minishell *shell);
 t_list			*lexer(char *line);
-t_list			*parser(t_list *token_list, t_minishell *shell);
+t_list			*parser(t_list *token_list);
 t_list			*expander(t_list *parse_list, t_minishell *shell);
 t_cmnd			*command_builder(t_list *expander_list);
 
@@ -57,12 +57,11 @@ int				check_pipe(t_list *token_list, t_list_node *cur_node, \
 
 t_list			*expand_env_variables(t_list *parse_list, t_minishell *shell);
 t_list			*clear_empty_nodes(t_list *parse_list);
-int				split_argument(t_list_node *cur_node, t_minishell *shell, \
-								char *arg);
-t_list			*split_blank_from_env(t_list *parse_list, t_minishell *shell);
+int				split_argument(t_list_node *cur_node, char *arg);
+t_list			*split_blank_from_env(t_list *parse_list);
 t_list			*expand_home_character(t_list *parse_list, t_minishell *shell);
 t_list			*remove_quotes(t_list *parse_list);
-t_list			*env_to_arg(t_list *parse_list, t_minishell *shell);
+t_list			*env_to_arg(t_list *parse_list);
 t_list			*merge_consecutive_arguments(t_list *parse_list);
 t_list			*remove_blanks(t_list *parse_list);
 char			*search_env_value(char *substr, char **envp, \

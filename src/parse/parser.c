@@ -6,14 +6,14 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 22:03:32 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 12:24:16 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:26:03 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 #include "libft.h"
 
-t_list	*parser(t_list *token_list, t_minishell *shell)
+t_list	*parser(t_list *token_list)
 {
 	t_list	*parse_list;
 
@@ -24,9 +24,6 @@ t_list	*parser(t_list *token_list, t_minishell *shell)
 	if (token_list == NULL)
 		return (NULL);
 	token_list = join_redirections(token_list);
-	if (token_list == NULL)
-		return (NULL);
-	token_list = check_token_error(token_list, shell);
 	if (token_list == NULL)
 		return (NULL);
 	parse_list = token_list;
