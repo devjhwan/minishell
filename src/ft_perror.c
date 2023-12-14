@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:32:11 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 13:21:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:02:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ void	ft_perror(int errtype, ...)
 		errstr = "warning: shell level (%s) too high, resetting to 1\n";
 	else if (errtype == NUMERIC_ARGUMENT)
 		errstr = "exit: %s: numeric argument required\n";
+	else if (errtype == IS_A_DIRECTORY)
+		errstr = "%s: is a directory\n";
 	else if (errtype == TOO_MANY_ARGS)
-		errstr = "minishell: exit: too many arguments\n";
+		errstr = "exit: too many arguments\n";
 	else
 		errstr = "unkown error\n";
 	ft_printf_fd(STDERR_FILENO, "minishell: ");

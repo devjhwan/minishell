@@ -6,12 +6,22 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/14 11:49:10 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:08:42 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 #include "err_msg.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+int is_regular_file(const char *path)
+{
+    struct stat path_stat;
+    stat(path, &path_stat);
+    return S_ISREG(path_stat.st_mode);
+}
 
 /* char	**init_path(t_fdp *fdp, t_cmnd *list, char **envp, int i)
 {
@@ -36,12 +46,20 @@
 
 static int	check_valid_cmd(const char *argv, int *exit_code)
 {
+	struct stat	path_stat;
+
 	if (argv == NULL)
 		return (ERROR);
 	if (argv[0] == '\0')
 		return (*exit_code = 127, \
 				ft_perror(COMMAND_NOT_FOUND, argv), ERROR);
-	
+	if (argv[0] == '/')
+	{
+		stat(argv, &path_stat);
+		if (S_ISDIR(path_stat.st_mode))
+			return (*exit_code = 126, \
+					ft_perror(IS_A_DIRECTORY, argv), ERROR);
+	}
 	return (SUCCESS);
 }
 

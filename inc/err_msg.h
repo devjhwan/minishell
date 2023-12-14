@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_msg.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 22:35:37 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 17:13:23 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 12:00:53 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # define PERMISSION_DENIED 5
 # define HIGH_SHELL_LEVEL 6
 # define NUMERIC_ARGUMENT 7
-# define TOO_MANY_ARGS 8
+# define IS_A_DIRECTORY 8
+# define TOO_MANY_ARGS 20
 # define UNKNWON_ERROR 127
 
 void	ft_perror(int errtype, ...);
