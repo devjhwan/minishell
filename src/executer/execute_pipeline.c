@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipeline.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/13 17:43:52 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:35:40 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds)
 			execve (cmnd_path, cmnds->args, shell->_envp);
 		exit (shell->exit_code);
 	}
-	exit(0);
+	exit (0);
 }
 
 static void	wait_childs(t_fdp *fdp, int *exit_code)

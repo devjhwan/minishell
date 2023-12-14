@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pathfinder.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 13:39:18 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/14 11:40:21 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,15 @@
 	return (ft_free_array(path), cmds);
 } */
 
+static int	check_valid_cmd(const char *argv, int *exit_code)
+{
+	if (argv[0] == '\0')
+		return (*exit_code = 127, \
+				ft_perror(COMMAND_NOT_FOUND, argv), ERROR);
+	
+	return (SUCCESS);
+}
+
 char	**findpath(char **env)
 {
 	int		i;
@@ -52,7 +61,9 @@ char	*setpath(char **path, const char *argv, int *exit_code)
 {
 	int		i;
 	char	*tmp;
-
+	
+	if (check_valid_cmd(argv, exit_code) == ERROR)
+		return (NULL);
 	i = 0;
 	tmp = (char *)malloc(sizeof(char) * 1000);
 	if (tmp == NULL || argv == NULL)
