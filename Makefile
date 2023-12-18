@@ -6,7 +6,7 @@
 #    By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/03 14:32:42 by junghwle          #+#    #+#              #
-#    Updated: 2023/12/14 11:03:55 by junghwle         ###   ########.fr        #
+#    Updated: 2023/12/18 22:37:02 by junghwle         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ EXPAND_SRC=expand_env_variables.c remove_quotes.c search_env_value.c \
 TOKEN_CHECKER_SRC=check_token_error.c check_redirection.c check_pipe.c
 EXECUTER_SRC=executer.c execute_builtin.c utils_exec.c utils2_exec.c redirect.c \
 		  	 pathfinder.c files.c execute_pipeline.c
-BUILTINS_SRC=echo.c env.c export.c export2.c cd.c pwd.c exit.c unset.c
+BUILTINS_SRC=echo.c env.c export.c export2.c cd.c cd2.c cd3.c \
+			 pwd.c exit.c unset.c
 SRCS=$(MAIN_SRC) $(PARSE_SRC) $(JOIN_TOKENS_SRC) $(PARSE_HELPER_SRC) \
 	 $(EXPAND_SRC) $(TOKEN_CHECKER_SRC) $(COMMAND_BUILDER_SRC) \
 	 $(EXECUTER_SRC) $(BUILTINS_SRC)
