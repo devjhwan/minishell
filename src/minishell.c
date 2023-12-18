@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:53:04 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/18 20:24:46 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	free_minishell(t_minishell shell)
 	free_envp(shell._envp);
 	free_envp(shell._export);
 	free(shell.home);
-	free(shell.oldpwd);
 	return (exit_code);
 }
 
@@ -101,7 +100,6 @@ t_minishell	*init_minishell(int argc, char **argv, char **envp, \
 	shell->_envp = init_envp(envp);
 	shell->_export = init_export(envp);
 	shell->home = search_env_value("HOME", envp, 0);
-	shell->oldpwd = NULL;
 	shell->exit_code = 0;
 	if (shell->_envp == NULL || shell->_export == NULL || \
 		shell->home == NULL)

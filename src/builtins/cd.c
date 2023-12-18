@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:58:26 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/18 21:03:08 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,9 @@ static int	cd_up(t_minishell *shell)
 	char	cwd[1024];
 	char	*strptr;
 
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	if (cd_here(shell) == -1)
 		return (-1);
-	shell->oldpwd = ft_strdup(cwd);
-	if (shell->oldpwd == NULL)
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (-1);
 	strptr = ft_strrchr(cwd, '/');
 	if (strptr != cwd)
@@ -57,28 +56,39 @@ static int	cd_home(t_minishell *shell, char *path)
 static int	cd_here(t_minishell *shell)
 {
 	char	cwd[1024];
+	char	*new_dir;
 
-	free(shell->oldpwd);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (-1);
-	shell->oldpwd = ft_strdup(cwd);
-	return (0);
+	new_dir = ft_strjoin("OLDPWD=", cwd);
+	if (append_new_envvar(shell, shell->_export, shell->_envp, new_dir) == ERROR)
+		return (free(new_dir), -1);
+	return (free(new_dir), 0);
 }
 
 static int	cd_back(t_minishell *shell)
 {
 	char	*oldpwd;
 	char	cwd[1024];
+	char	errmsg[1000];
 	int		ret;
 
-	if (shell->oldpwd == NULL)
-		return (write(2, "minishell: cd: OLDPWD not set\n", 30), -1);
-	oldpwd = shell->oldpwd;
+	oldpwd = search_env_value("OLDPWD", shell->_envp, shell);
+	if (oldpwd[0] == '\0')
+		return (free(oldpwd), write(2, "minishell: cd: OLDPWD not set\n", 30), 0);
+	if (cd_here(shell) == -1)
+		return (free(oldpwd), -1);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
-		return (-1);
-	shell->oldpwd = ft_strdup(cwd);
+		return (free(oldpwd), -1);
 	ret = chdir(oldpwd);
-	return (free(oldpwd), ret);
+	if (ret == -1)
+	{
+		ft_strlcpy(errmsg, "minishell: cd: ", 1000);
+		ft_strlcat(errmsg, oldpwd, 1000);
+		return (perror(errmsg), free(oldpwd), 1);
+	}
+	else
+		return (ft_printf("%s\n", oldpwd), free(oldpwd), 0);
 }
 
 int	cd(t_minishell *shell, char *path)
@@ -104,5 +114,5 @@ int	cd(t_minishell *shell, char *path)
 		ft_strlcat(errmsg, path, 1000);
 	if (ret == -1)
 		return (perror(errmsg), 1);
-	return (0);
+	return (ret);
 }
