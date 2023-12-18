@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/18 22:50:11 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/18 23:00:26 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	update_oldpwd(t_minishell *shell)
 	return (free(arg), SUCCESS);
 }
 
-int update_pwds(t_minishell *shell)
+int	update_pwds(t_minishell *shell)
 {
 	if (update_oldpwd(shell) == ERROR || update_pwd(shell) == ERROR)
 		return (ERROR);

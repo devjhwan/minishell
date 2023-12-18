@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd2.c                                               :+:      :+:    :+:   */
+/*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:40:02 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/18 22:27:29 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/18 23:00:49 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "err_msg.h"
 #include <unistd.h>
 
-int update_pwds(t_minishell *shell);
+int	update_pwds(t_minishell *shell);
 
 int	cd_up(t_minishell *shell)
 {
@@ -71,7 +71,8 @@ int	cd_back(t_minishell *shell)
 
 	oldpwd = search_env_value("OLDPWD", shell->_envp, shell);
 	if (oldpwd[0] == '\0')
-		return (free(oldpwd), write(2, "minishell: cd: OLDPWD not set\n", 30), 0);
+		return (free(oldpwd), \
+				write(2, "minishell: cd: OLDPWD not set\n", 30), 0);
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 		return (free(oldpwd), -1);
 	ret = chdir(oldpwd);
