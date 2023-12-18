@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:37:15 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 19:27:36 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/13 17:46:37 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "libft.h"
 
 void	env(t_minishell *shell)
 {
@@ -20,5 +21,5 @@ void	env(t_minishell *shell)
 	i = 0;
 	envp = shell->_envp;
 	while (envp[i] != NULL)
-		printf("%s\n", envp[i++]);
+		ft_printf("%s\n", envp[i++]);
 }

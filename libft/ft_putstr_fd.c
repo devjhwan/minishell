@@ -5,24 +5,24 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 13:51:06 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/11/13 13:51:07 by jmarinel         ###   ########.fr       */
+/*   Created: 2023/05/16 19:23:09 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/05/23 14:38:44 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	int	ret;
 
-	i = 0;
-	if (s)
+	ret = 0;
+	while (*s)
 	{
-		while (s[i] != '\0')
-		{
-			write(fd, &s[i], 1);
-			i++;
-		}
+		ret += ft_putchar_fd(*s, fd);
+		s++;
 	}
+	if (ret < 0)
+		return (-1);
+	return (ret);
 }

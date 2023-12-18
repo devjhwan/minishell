@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_consecutive_arguments.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:49:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:46:15 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:21:05 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static t_token	*merge_arguments(t_list_node **node, char type)
 		new_content = join_content(new_content, cur_token->content);
 		if (new_content == NULL)
 			return (NULL);
-		if (cur_token->type == ARG)
-			break ;
 		*node = (*node)->next;
 		if (*node != NULL)
 			cur_token = (t_token *)(*node)->content;
@@ -54,13 +52,16 @@ static t_list	*loop_on_parse_list(t_list *parse_list, t_list *new_parse_list)
 		if (cur_token->type == ARG || cur_token->type == RD)
 			new_token = merge_arguments(&cur_node, cur_token->type);
 		else
+		{
 			new_token = create_token(cur_token->type, \
 							(void *)ft_strdup((char *)cur_token->content));
+			cur_node = cur_node->next;
+		}
 		if (new_token == NULL)
 			return (NULL);
 		if (list_append(new_parse_list, new_token) == NULL)
 			return (free_token((void *)new_token), NULL);
-		if (cur_node != NULL)
+		if (cur_node != NULL && ((t_token *)cur_node->content)->type == BK)
 			cur_node = cur_node->next;
 	}
 	return (new_parse_list);

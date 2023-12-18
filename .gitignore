@@ -5,3 +5,7 @@ minishell
 *.d
 *.txt
 *.json
+/test/
+.DS_Store
+/.vscode/
+/mpanic/

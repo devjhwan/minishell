@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 23:14:27 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 21:38:07 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 13:53:04 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ static char	**init_export(char **envp)
 		ft_strlcpy(&tmp[11], _export[i], \
 					(int)(ft_strchr(_export[i], '=') - _export[i] + 2));
 		tmp[ft_strlen(tmp)] = '"';
-		ft_strlcat(tmp, ft_strchr(_export[i], '=') + 1, ft_strlen(_export[i]) + 14);
+		ft_strlcat(tmp, ft_strchr(_export[i], '=') + 1, \
+						ft_strlen(_export[i]) + 14);
 		tmp[ft_strlen(_export[i]) + 12] = '"';
 		free(_export[i]);
 		_export[i++] = tmp;
@@ -76,15 +77,18 @@ static char	**init_export(char **envp)
 	return (_export);
 }
 
-void	free_minishell(t_minishell shell)
+int	free_minishell(t_minishell shell)
 {
+	int	exit_code;
+
+	exit_code = shell.exit_code;
 	if (shell.cmnd_list != NULL)
 		free_cmnd_list(&shell.cmnd_list);
 	free_envp(shell._envp);
 	free_envp(shell._export);
 	free(shell.home);
-	free(shell.pwd);
 	free(shell.oldpwd);
+	return (exit_code);
 }
 
 t_minishell	*init_minishell(int argc, char **argv, char **envp, \
@@ -97,11 +101,12 @@ t_minishell	*init_minishell(int argc, char **argv, char **envp, \
 	shell->_envp = init_envp(envp);
 	shell->_export = init_export(envp);
 	shell->home = search_env_value("HOME", envp, 0);
-	shell->pwd = ft_strdup("");
-	shell->oldpwd = ft_strdup("");
+	shell->oldpwd = NULL;
 	shell->exit_code = 0;
 	if (shell->_envp == NULL || shell->_export == NULL || \
-		shell->home == NULL || shell->pwd == NULL || shell->oldpwd == NULL)
+		shell->home == NULL)
+		return (free_minishell(*shell), NULL);
+	if (update_shlvl(shell, envp) == ERROR)
 		return (free_minishell(*shell), NULL);
 	return (shell);
 }

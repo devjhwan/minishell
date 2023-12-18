@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_unexpected_token_err.c                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:40:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:17:29 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/03 17:06:07 by junghwle          #+#    #+#             */
+/*   Updated: 2023/05/12 12:21:21 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "err_msg.h"
+#include "libft.h"
 
-void	print_unexpected_token_err(char *next_token)
+char	*ft_strrchr(const char *s, int c)
 {
-	write(STDERR_FILENO, "minishell: ", 11);
-	write(STDERR_FILENO, "syntax error near unexpected token \'", 36);
-	write(STDERR_FILENO, next_token, ft_strlen(next_token));
-	write(STDERR_FILENO, "\'\n", 2);
+	size_t	ssize;
+	size_t	i;
+
+	i = 0;
+	ssize = ft_strlen(s);
+	while (i <= ssize)
+	{
+		if (s[ssize - i] == (char)c)
+			return (&((char *)s)[ssize - i]);
+		i++;
+	}
+	return (NULL);
 }

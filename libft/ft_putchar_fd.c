@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_unknown_err.c                                :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/09 22:44:26 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/09 22:50:46 by junghwle         ###   ########.fr       */
+/*   Created: 2023/05/16 19:19:56 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/05/23 14:38:56 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "err_msg.h"
+#include "libft.h"
 
-void	print_unknown_err(void)
+int	ft_putchar_fd(char c, int fd)
 {
-	write(STDERR_FILENO, "Unkown Error\n", 13);
+	int	ret;
+
+	ret = write (fd, &c, sizeof(char));
+	if (ret < 0)
+		return (-1);
+	return (ret);
 }

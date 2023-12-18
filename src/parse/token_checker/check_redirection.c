@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_redirection.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 23:25:51 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 01:14:26 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:33:58 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	check_env_var_argument(char	*argument, t_minishell *shell)
 	if (tmp[0] != '\0')
 		return (free(substr), free(tmp), 0);
 	shell->exit_code = 2;
-	ft_perror(AMBIGUOUS_REDIRECT, substr);
+	ft_perror2(AMBIGUOUS_REDIRECT, substr);
 	return (free(substr), 1);
 }
 

@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_ambiguous_redirect_err.c                     :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 00:12:42 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/10 00:14:56 by junghwle         ###   ########.fr       */
+/*   Created: 2023/12/07 12:21:03 by jmarinel          #+#    #+#             */
+/*   Updated: 2023/12/07 12:21:17 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "err_msg.h"
+#include "libft.h"
 
-void	print_ambiguous_redirect_err(char *env_var)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	write(STDERR_FILENO, "minishell: ", 11);
-	write(STDERR_FILENO, env_var, ft_strlen(env_var));
-	write(STDERR_FILENO, ": ambiguous redirect\n", 21);
+	while (*s1 && *s2 && *s1 == *s2)
+	{
+		s1++;
+		s2++;
+	}
+	return ((unsigned char) *s1 - (unsigned char) *s2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:43:05 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 22:01:47 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:34:14 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 #include "libft.h"
 #include "err_msg.h"
 
-void	*append_to_export(char **_export, char *var_name, \
-											char *content, int len);
-void	*append_to_envp(char **_envp, char *var_name, char *content, int len);
+void	*append_to_export(char **_export, char *var_name, char *content, \
+															int add_flag);
+void	*append_to_envp(char **_envp, char *var_name, char *content, \
+															int add_flag);
 
 static void	*split_argument(char *arg, char **var_name, char **content)
 {
@@ -24,61 +25,81 @@ static void	*split_argument(char *arg, char **var_name, char **content)
 	*var_name = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 	if (*var_name == NULL)
 		return (NULL);
-	ft_strlcpy(*var_name, arg, (size_t)(ft_strchr(arg, '=') - arg + 1));
 	if (ft_strchr(arg, '=') != NULL)
 	{
+		ft_strlcpy(*var_name, arg, (size_t)(ft_strchr(arg, '=') - arg + 1));
 		*content = (char *)malloc(sizeof(char) * (ft_strlen(arg) + 1));
 		if (*content == NULL)
 			return (free(var_name), NULL);
 		ft_strlcpy(*content, ft_strchr(arg, '=') + 1, ft_strlen(arg));
 	}
+	else
+	{
+		ft_strlcpy(*var_name, arg, ft_strlen(arg) + 1);
+		*content = NULL;
+	}
 	return (arg);
 }
 
-static t_minishell	*append_new_envvar(t_minishell *shell, char **_export, \
-											char **_envp, char *arg)
+static int	check_varname(char *arg)
 {
-	int		i;
-	char	*var_name;
-	char	*content;
+	int	i;
 
 	if (!ft_isalpha(arg[0]))
-		return (ft_perror(EXPORT_INVALID_IDENTIFIER, arg), NULL);
+		return (ERROR);
 	i = 0;
 	while (arg[i] != '\0' && arg[i] != '=')
 	{
-		if (!ft_isalnum(arg[i]) && arg[i] != '_')
-			return (ft_perror(EXPORT_INVALID_IDENTIFIER, arg), NULL);
+		if (!ft_isalnum(arg[i]) && arg[i] != '_' && \
+			!(arg[i] == '+' && arg[i + 1] == '='))
+			return (ERROR);
 		i++;
 	}
-	if (split_argument(arg, &var_name, &content) == NULL)
-		return (NULL);
-	_export = append_to_export(_export, var_name, content, ft_strlen(arg) + 15);
-	if (_export == NULL)
-		return (free(var_name), free(content), NULL);
-	shell->_export = _export;
-	_envp = append_to_envp(_envp, var_name, content, ft_strlen(arg) + 2);
-	if (_envp == NULL)
-		return (free(var_name), free(content), NULL);
-	shell->_envp = _envp;
-	return (free(var_name), free(content), shell);
+	return (SUCCESS);
 }
 
-char	**_export(t_minishell *shell, char **args)
+int	append_new_envvar(t_minishell *shell, char **_export, \
+											char **_envp, char *arg)
+{
+	int		add_flag;
+	char	*var_name;
+	char	*content;
+
+	add_flag = 0;
+	if (check_varname(arg) == ERROR)
+		return (ft_perror2(EXPORT_INVALID_IDENTIFIER, arg), 1);
+	if (split_argument(arg, &var_name, &content) == NULL)
+		return (1);
+	if (var_name[ft_strlen(var_name) - 1] == '+')
+	{
+		add_flag = 1;
+		var_name[ft_strlen(var_name) - 1] = '\0';
+	}
+	_export = append_to_export(_export, var_name, content, add_flag);
+	if (_export == NULL)
+		return (free(var_name), free(content), 1);
+	shell->_export = _export;
+	_envp = append_to_envp(_envp, var_name, content, add_flag);
+	if (_envp == NULL)
+		return (free(var_name), free(content), 1);
+	shell->_envp = _envp;
+	return (free(var_name), free(content), 0);
+}
+
+int	_export(t_minishell *shell, char **args)
 {
 	int		i;
-	char	**_export;
-	char	**_envp;
+	int		ret;
 
-	_export = shell->_export;
-	_envp = shell->_envp;
-	i = 0;
-	if (args == NULL || args[0] == NULL)
-		while (_export[i] != NULL)
-			printf("%s\n", _export[i++]);
+	i = 1;
+	ret = SUCCESS;
+	if (args[1] == NULL)
+		while (shell->_export[i] != NULL)
+			ft_printf("%s\n", shell->_export[i++]);
 	else
 		while (args[i] != NULL)
-			if (append_new_envvar(shell, _export, _envp, args[i++]) == NULL)
-				return (NULL);
-	return (_export);
+			if (append_new_envvar(shell, shell->_export, \
+									shell->_envp, args[i++]) == ERROR)
+				ret = ERROR;
+	return (ret);
 }

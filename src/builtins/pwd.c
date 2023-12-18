@@ -1,20 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_export_invalid_identifier.c                  :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 18:57:03 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/14 18:59:11 by junghwle         ###   ########.fr       */
+/*   Created: 2023/11/21 14:19:25 by junghwle          #+#    #+#             */
+/*   Updated: 2023/12/13 17:48:05 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "err_msg.h"
+#include <stdio.h>
+#include <unistd.h>
+#include "minishell.h"
 
-void	print_export_invalid_identifier(char *argument)
+void	pwd(void)
 {
-	write(STDERR_FILENO, "minishell: export: '", 20);
-	write(STDERR_FILENO, argument, ft_strlen(argument));
-	write(STDERR_FILENO, "': not a valid identifier\n", 26);
+	char	cwd[1024];
+
+	ft_printf("%s\n", getcwd(cwd, sizeof(cwd)));
 }

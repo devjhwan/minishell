@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
+/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 15:42:54 by junghwle          #+#    #+#             */
-/*   Updated: 2023/11/16 15:55:44 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/14 15:24:04 by jmarinel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ void	print_cmnd_list(t_cmnd *cmnd_list)
 	{
 		redir = cmnd_list->redir;
 		args = cmnd_list->args;
-		printf("redirections:\n");
+		ft_printf("redirections:\n");
 		while (redir != NULL)
 		{
-			printf("\ttype: %d, file: %s\n", redir->type, redir->file);
+			ft_printf("\ttype: %d, file: %s$\n", redir->type, redir->file);
 			redir = redir->next;
 		}
 		i = 0;
-		printf("arguments:\n");
+		ft_printf("arguments:\n");
 		while (args != NULL && args[i] != NULL)
-			printf("\targ: %s\n", args[i++]);
+			ft_printf("\targ: %s$\n", args[i++]);
 		cmnd_list = cmnd_list->next;
 	}
 }
@@ -51,20 +51,23 @@ int	main(int argc, char **argv, char **envp)
 	init_minishell(argc, argv, envp, &shell);
 	while (1)
 	{
+		set_default_minishell_signal();
 		set_minishell_terminal();
-		str = readline("prompt: ");
+		str = readline("minishell: ");
 		if (str == NULL)
 			break ;
 		add_history(str);
 		shell.cmnd_list = parse_input(str, &shell);
-		rollback_terminal_setting();
 		free(str);
 		if (shell.cmnd_list == NULL)
 			continue ;
-		print_cmnd_list(shell.cmnd_list);
+		rollback_terminal_setting();
+		set_execution_signal();
+		executer(shell.cmnd_list, &shell);
 		free_cmnd_list(&shell.cmnd_list);
 		shell.cmnd_list = NULL;
 	}
-	free_minishell(shell);
-	return (rollback_terminal_setting(), 0);
+	return (rollback_terminal_setting(), free_minishell(shell));
 }
+
+//print_cmnd_list(shell.cmnd_list);
