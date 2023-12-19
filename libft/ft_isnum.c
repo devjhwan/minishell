@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 17:23:47 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/13 19:35:07 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:42:34 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,3 @@ int	is_num(char *arg)
 		return (1);
 	return (0);
 }
-/* 	if (arg[i] == '\0')
-		return (1); */
-
-/* 	if (!(arg[i] >= '0' && arg[i] <= '9'))
-		return (1); */
