@@ -6,14 +6,36 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/19 01:53:59 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:14:49 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "executer.h"
 
-int	check_builtin(t_cmnd *cmnd_list)
+static int	check_builtin2(t_cmnd *cmnd_list)
 {
+	if (cmnd_list->args && cmnd_list->args[0])
+	{
+		if (ft_strcmp_case(cmnd_list->args[0], "echo", 0) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "cd", 0) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "pwd", 0) == 0)
+			return (1);
+		else if (ft_strcmp_case(cmnd_list->args[0], "env", 0) == 0)
+			return (1);
+	}
+	return (0);
+}
+
+int	check_builtin(t_cmnd *cmnd_list, char **env)
+{
+	char	**arg;
+
+	arg = findpath(env);
+	if (arg == NULL)
+		return (check_builtin2(cmnd_list));
+	ft_free_array(arg);
 	if (cmnd_list->args && cmnd_list->args[0])
 	{
 		if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)

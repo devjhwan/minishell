@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 19:23:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/19 02:01:38 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:15:12 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	exec_childs(t_fdp *fdp, t_minishell *shell, t_cmnd *cmnds, int err)
 	if (fdp->tmp_out)
 		if (set_redir_out(fdp) == ERROR)
 			exit(0);
-	if (check_builtin(cmnds))
+	if (check_builtin(cmnds, shell->_envp))
 		exec_builtin(shell, cmnds);
 	else
 	{

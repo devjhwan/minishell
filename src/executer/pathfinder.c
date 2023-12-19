@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:29:38 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/19 01:48:32 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:18:59 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*setpath(char **path, const char *argv, int *exit_code)
 	if (check_valid_cmd(argv, exit_code) == ERROR)
 		return (NULL);
 	i = 0;
-	if (access(argv, X_OK) == 0)
+	if (access(argv, X_OK) == 0 && !is_directory((char *)argv))
 		return (ft_strdup(argv));
 	tmp = (char *)malloc(sizeof(char) * 1000);
 	if (tmp == NULL || argv == NULL)

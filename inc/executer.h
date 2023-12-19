@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 19:05:41 by jmarinel          #+#    #+#             */
-/*   Updated: 2023/12/19 01:50:25 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 11:14:39 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_fdp
 }			t_fdp;
 
 /*### NEW PIPE ###*/
-int		check_builtin(t_cmnd *cmnd_list);
+int		check_builtin(t_cmnd *cmnd_list, char **env);
 void	close_fds(t_fdp *fdp);
 int		dup_and_close(int fd_to, int fd_from);
 int		executer(t_cmnd *cmnd_list, t_minishell *shell);
