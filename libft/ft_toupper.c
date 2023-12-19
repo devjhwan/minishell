@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/21 14:19:25 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/19 01:05:40 by junghwle         ###   ########.fr       */
+/*   Created: 2023/12/19 01:14:55 by junghwle          #+#    #+#             */
+/*   Updated: 2023/12/19 01:18:19 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <unistd.h>
-#include "minishell.h"
-
-void	pwd(void)
+int	ft_toupper(int ch)
 {
-	char	cwd[1024];
-
-	ft_printf("%s\n", getcwd(cwd, sizeof(cwd)));
+	if (ch >= 'a' || ch <= 'z')
+		return (ch + 'A' - 'a');
+	return (ch);
 }

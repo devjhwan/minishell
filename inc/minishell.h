@@ -6,7 +6,7 @@
 /*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 01:18:14 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/18 20:25:21 by junghwle         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:53:48 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void			env(t_minishell *shell);
 int				_export(t_minishell *shell, char **args);
 int				cd(t_minishell *shell, char *path);
 void			pwd(void);
-int				echo(t_minishell *shell, char **args);
+int				echo(char **args);
 int				exit_sh(char **args, int *exit_code);
 int				_unset(char **args, char **_envp, char **_export);
 

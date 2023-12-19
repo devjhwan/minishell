@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtin.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: junghwle <junghwle@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 18:34:04 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/14 13:24:29 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:53:59 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exec_builtin(t_minishell *shell, t_cmnd *cmnd_list)
 		if (ft_strcmp_case(cmnd_list->args[0], "env", 1) == 0)
 			env(shell);
 		else if (ft_strcmp_case(cmnd_list->args[0], "echo", 1) == 0)
-			exit_code = (echo(shell, cmnd_list->args));
+			exit_code = (echo(cmnd_list->args));
 		else if (ft_strcmp_case(cmnd_list->args[0], "unset", 0) == 0)
 			exit_code = (_unset(cmnd_list->args, shell->_envp, shell->_export));
 		else if (ft_strcmp_case(cmnd_list->args[0], "exit", 0) == 0)

@@ -6,7 +6,7 @@
 /*   By: jmarinel <jmarinel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 20:17:20 by junghwle          #+#    #+#             */
-/*   Updated: 2023/12/12 17:57:59 by jmarinel         ###   ########.fr       */
+/*   Updated: 2023/12/19 01:18:35 by junghwle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int			ft_isdigit(int c);
 int			is_num(char *arg);
 int			ft_strncmp(const char *s1, const char *s2, size_t n);
 int			ft_isspace(char ch);
+int			ft_toupper(int ch);
 size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s1);
 size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
